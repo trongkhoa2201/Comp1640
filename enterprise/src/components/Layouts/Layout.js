@@ -9,6 +9,7 @@ const Layout = () => {
     <div>
       <div style={{ display: "flex" }}>
         <Sidebar />
+
         <div style={{ width: "100%" }}>
           <Navbar />
           <Routers />

@@ -4,12 +4,23 @@ import "../../Styles/Navbar.css"
 
 const Navbar = () => {
   return (
-    <Row className="navbar ">
-      <Col className="right-nav">
-        <i class="ri-notification-2-line fs-5"></i>
-      </Col>
-      
-    </Row>
+    <Container>
+      <div className="navbar d-flex  ">
+        <div className="d-flex align-items-center gap-4">
+
+
+          <div className="right-nav ">
+            <i class="ri-notification-2-line fs-5"></i>
+          </div>
+
+
+          <div className="right-nav ">
+            <i class="ri-user-line fs-5"></i>
+          </div>
+          
+        </div>
+      </div>
+    </Container>
   );
 };
 

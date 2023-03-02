@@ -1,13 +1,5 @@
 .navbar{
- margin: 0;
- padding: 23px;
-  background: black;
-  color:white;
- 
-}
-.right-nav{
-  display: grid;
-  justify-items: flex-end;
-  margin-right: 20px;
- 
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px  20px;
 }

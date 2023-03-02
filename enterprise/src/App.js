@@ -6,7 +6,7 @@ import CRUD from "./Page/CRUD";
 
 function App() {
   return (
-    <div className="page">
+    <div className="App">
       <Layout />
       {/* <CRUD/> */}
       {/* <LoginForm /> */}

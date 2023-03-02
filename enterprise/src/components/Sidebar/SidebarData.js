@@ -3,15 +3,23 @@ import React from "react";
 export const SidebarData = [
   {
     title: "Home",
-    path: "/",
-    icon: <i class="ri-home-line"></i>,
-    Name: "nav-text",
+    link: "/",
+    icon: <i class="ri-home-2-line"></i>,
   },
   {
     title: "CRUD",
-    path: "/crud",
+    link: "/crud",
     icon: <i class="ri-home-line"></i>,
-    Name: "nav-text",
   },
-  
+  {
+    title: "CRUD",
+    link: "/crud",
+    icon: <i class="ri-home-line"></i>,
+  },
+  {
+    title: "CRUD",
+    link: "/crud",
+    icon: <i class="ri-home-line"></i>,
+  },
+
 ];
