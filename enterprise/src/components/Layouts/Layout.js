@@ -2,7 +2,7 @@ import React from "react";
 import Routers from "../../Router/Routers";
 import Navbar from "../Navbar/Navbar.jsx";
 import Sidebar from "../Sidebar/Sidebar";
-import"../../Styles/Layout.css"
+import"../Layouts/Layout.css"
 
 const Layout = () => {
   return (

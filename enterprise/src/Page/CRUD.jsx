@@ -12,7 +12,7 @@ function CRUD() {
       <div className="crud shadow-lg p-3 mb-5 mt-5 bg-body rounded">
         <div class="row ">
           <div class="col-sm-3 mt-5 mb-4 ">
-            <div className="search">
+            <div className="search_student">
               <form class="form-inline">
                 <input
                   class="form-control mr-sm-2"

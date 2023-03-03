@@ -1,0 +1,11 @@
+.btn_post {
+  border-radius: 20px;
+  background : rgb(0, 0, 0);
+  cursor: pointer;
+  color: white;
+
+}
+.btn_post:hover{
+  background : white;
+  color: black;
+}
