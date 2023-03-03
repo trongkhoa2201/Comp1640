@@ -1,19 +1,23 @@
 import React from "react";
-import Navbar from "../Navbar/Navbar.jsx"
 import Routers from "../../Router/Routers";
+import Navbar from "../Navbar/Navbar.jsx";
 import Sidebar from "../Sidebar/Sidebar";
-import { Container, Row } from "react-bootstrap";
+import"../../Styles/Layout.css"
 
 const Layout = () => {
   return (
-    <div>
-      <div style={{ display: "flex" }}>
+    <div
+      className="layout"
+      style={{ display: "flex", height: "100vh", background: "#e7e7e7" }}
+    >
+      {/* ===================MENU=================== */}
+      <div>
         <Sidebar />
-
-        <div style={{ width: "100%" }}>
-          <Navbar />
-          <Routers />
-        </div>
+      </div>
+      {/* ===================content=================== */}
+      <div className="center">
+        <Navbar />
+        <Routers />
       </div>
     </div>
   );

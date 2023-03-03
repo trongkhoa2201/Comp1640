@@ -1,0 +1,16 @@
+.navbar {
+  /* justify-content: space-between; */
+  padding: 30px 20px;
+}
+.search {
+  background: white;
+  border: 2px solid rgb(116, 116, 116);
+  border-radius: 23px;
+  
+}
+.searchInput {
+  outline: none;
+  border: none;
+  font-size: 18px;
+  width: 450px;
+}
