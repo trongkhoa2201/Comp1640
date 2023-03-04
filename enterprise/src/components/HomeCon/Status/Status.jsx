@@ -1,8 +1,9 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import Ava from "../../../img/Ava.jpg";
-import"../Status/Status.css"
-export const Post = () => {
+import "../Status/Status.css"
+
+export const Status = () => {
   return (
     <div className="post shadow-lg p-3 bg-body rounded">
       <div className="d-flex align-items-center justify-content-between ">
@@ -19,7 +20,7 @@ export const Post = () => {
           <Form>
             <Form.Control
               as="textarea"
-              rows={2}
+              rows={1}
               placeholder="What are you things ?"
             />
           </Form>
