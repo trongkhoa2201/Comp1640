@@ -14,5 +14,4 @@ const Tag = () => {
     </div>
   );
 }
-
 export default Tag

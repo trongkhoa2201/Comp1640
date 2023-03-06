@@ -9,12 +9,7 @@ const Home = () => {
       <Row className="status px-2">
         <Col lg="9" md="9">
           <Status />
-          <Status />
-          <Status />
-          <Status />
-          <Status />
-          <Status />
-          <Status />
+          
         </Col>
 
         {/* ================= Tag ================= */}

@@ -19,9 +19,9 @@ export const Status = () => {
         <div style={{ width: "80%" }}>
           <Form>
             <Form.Control
-              as="textarea"
+              as="Description"
               rows={1}
-              placeholder="What are you things ?"
+              placeholder="what do u think ?"
             />
           </Form>
         </div>
