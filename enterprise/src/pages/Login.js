@@ -1,35 +1,44 @@
 import React from 'react'
-import {Container, Row, Col, Form, FormGroup} from 'reactstrap'
-import {Link} from 'react-router-dom'
+import {Form, FormGroup, Label, Input}from 'reactstrap';
+
+import { motion } from 'framer-motion'
+
+import '../styles/login.css'
+
 
 const Login = () => {
-
-
   return (
-    <section>
-          <Container>
-            <Row>
-              {
-                <Col lg='6' className='m-auto text-center'>
-                <h3 className='fw-bold mb-4'>Login</h3>
+    <div>
+      <Form className="form" onSubmit={(e) => this.submitForm(e)}>
+        <h2 className='text-center'>Login</h2>
+        <FormGroup>
+          <Label>Email</Label>
+          <Input
+            type="email"
+            name="email"
+            id="exampleEmail"
+            placeholder="Enter your email"
 
-                <Form className='auth__form'>
-                  <FormGroup className='form__group'>
-                    <input type='email' placeholder='Enter your email'/>
-                  </FormGroup>
-
-                  <FormGroup className='form__group'>
-                    <input type='password' placeholder='Enter your password'/>
-                  </FormGroup>
-
-                  <button type='submit' className='buy__btn auth__btn'>Login</button>
-                  <p>Don't have an account? <Link to='/signup'>Create an account</Link></p>
-                </Form>
-              </Col>                
-              }
-            </Row>
-          </Container>
-        </section>
+            onChange={(e) => {
+              this.validateEmail(e);
+              this.handleChange(e);
+            }}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="examplePassword">Password</Label>
+          <Input
+            type="password"
+            name="password"
+            id="examplePassword"
+            placeholder="Enter your password"
+            onChange={(e) => this.handleChange(e)}
+          />
+        </FormGroup> <br/>
+        <motion.button whileTap={{scale:1.2}} className='login-btn'>Login</motion.button>
+        <p>Don't have an account? Login</p>
+      </Form>
+    </div>
   )
 }
 
