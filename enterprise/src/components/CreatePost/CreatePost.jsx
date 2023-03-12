@@ -37,12 +37,16 @@ const handleShow = () => setShow(true);
                 style={{ borderRadius: "15px" }}
               />
               <Form>
-                <label>Add image</label>
-                <input type="file" style={{ borderRadius: "15px" }} />
-                {/* ====== img End ====== */}
-                {/* ====== content Start ====== */}
+                <label>Add image:</label>
+                <input
+                  className='mx-3'
+                  type="file"
+                  // style={{ borderRadius: "15px" }}
+                />
+              
+            
               </Form>
-              {/* ====== content End ====== */}
+           
             </form>
           </Row>
         </Modal.Body>
