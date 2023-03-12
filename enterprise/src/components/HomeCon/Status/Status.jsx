@@ -1,9 +1,23 @@
-import React from "react";
-import { Form } from "react-bootstrap";
+
+import React, { useState } from "react";
+import { Button, Col, Form, InputGroup, Modal, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Ava from "../../../img/Ava.jpg";
+import CreatePost from "../../CreatePost/CreatePost";
 import "../Status/Status.css"
 
+
 export const Status = () => {
+
+
+const [show, setShow] = useState(false);
+
+const handleClose = () => setShow(false);
+const handleShow = () => setShow(true);
+
+
+
+
   return (
     <div className="post shadow-lg p-3 bg-body rounded">
       <div className="d-flex align-items-center justify-content-between ">
@@ -20,14 +34,23 @@ export const Status = () => {
           <Form>
             <Form.Control
               as="Description"
-              rows={1}
+              rows={3}
               placeholder="what do u think ?"
             />
           </Form>
         </div>
         {/* ================= button ================= */}
-        <button className="btn_post px-4 ">Post</button>
+        <Button className="btn_post px-4 " onClick={handleShow}>
+          Post
+        </Button>
+        <Modal size="lg" show={show} onHide={handleClose}>
+          <CreatePost/>
+        </Modal>
       </div>
+
+
+
+
       <div className="d-flex mt-3 gap-3 ">
         <i class="ri-image-line fs-2"></i>
         <i class="ri-links-line fs-2"></i>
