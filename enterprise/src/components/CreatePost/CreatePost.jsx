@@ -6,8 +6,11 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
 function CreatePost() {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+
+const [show, setShow] = useState(false);
+
+const handleClose = () => setShow(false);
+const handleShow = () => setShow(true);
 
   return (
     <>
@@ -46,9 +49,7 @@ function CreatePost() {
 
         {/* =======================Body End======================= */}
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
+         
           <Button type="Submit" variant="primary" onClick={handleClose}>
             Save
           </Button>
