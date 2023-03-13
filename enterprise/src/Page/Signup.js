@@ -3,6 +3,7 @@ import {Form, FormGroup, Label, Input}from 'reactstrap';
 
 import { motion } from 'framer-motion'
 import '../Styles/login.css'
+import {Link} from 'react-router-dom'
 
 const Signup = () => {
   return (
@@ -47,8 +48,8 @@ const Signup = () => {
             onChange={(e) => this.handleChange(e)}
           />
         </FormGroup> <br/>
-        <motion.button whileTap={{scale:1.2}} className='login-btn'>Login</motion.button>
-        <p>Already have an account? Create an account</p>
+        <motion.button whileTap={{scale:1.2}} className='login-btn'>Create</motion.button>
+        <p>Already have an account? <Link to='/login'>Login</Link></p>
       </Form>
     </div>
   )

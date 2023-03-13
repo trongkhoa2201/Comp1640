@@ -6,21 +6,28 @@
     margin-right: auto;
     margin-top: 100px;
     padding: 1em;
-    text-align: left;
     width: 600px;
 }
 .form {
     padding: 1em;
 }
-   
+.form p {
+    margin-top: 20px;
+    text-align: center;
+} 
 .label {
     font-weight: 600;
+    text-align: left;
 }
 .login-btn{
     width: 200px;
     height: 40px;
     border-radius: 5px;
-    display: inline-block;
+    display: flex;
     align-items: center;
     justify-content: center;
+    background: #000;
+    border: none;
+    margin-left: 180px;
+    color: white;
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { Form } from "react-bootstrap";
 import Ava from "../../../img/Ava.jpg";
 import "../Status/Status.css"
+import { motion } from "framer-motion";
 
 export const Status = () => {
   return (
@@ -26,7 +27,7 @@ export const Status = () => {
           </Form>
         </div>
         {/* ================= button ================= */}
-        <button className="btn_post px-4 ">Post</button>
+        <motion.button whileTap={{scale:1.2}} className="btn_post px-4 ">Post</motion.button>
       </div>
       <div className="d-flex mt-3 gap-3 ">
         <i class="ri-image-line fs-2"></i>

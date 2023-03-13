@@ -1,5 +1,6 @@
 import React from 'react'
 import {Form, FormGroup, Label, Input}from 'reactstrap';
+import {Link, useNavigate} from 'react-router-dom'
 
 import { motion } from 'framer-motion'
 import '../Styles/login.css'
@@ -34,7 +35,7 @@ const Login = () => {
           />
         </FormGroup> <br/>
         <motion.button whileTap={{scale:1.2}} className='login-btn'>Login</motion.button>
-        <p>Don't have an account? Login</p>
+        <p>Don't have an account? <Link to='/signup'>Create an account</Link></p>
       </Form>
     </div>
   )
