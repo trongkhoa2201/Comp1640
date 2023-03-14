@@ -49,7 +49,7 @@ function Question() {
                 </small>
                 
 
-                <TagsInput
+                <div
                   
                   name="tags"
                   placeHolder="press enter to add new tag"
