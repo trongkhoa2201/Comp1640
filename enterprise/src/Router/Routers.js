@@ -1,11 +1,11 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import CRUD from "../Page/CRUD.jsx";
-import Home from "../Page/Home.jsx";
-import Profile from "../Page/Profile.jsx";
-import Login from '../Page/Login'
-import Signup from '../Page/Signup'
+import CRUD from "../pages/CRUD";
+import Home from "../pages/Home.jsx";
+import Profile from "../pages/Profile.jsx";
+import Login from '../pages/Login'
+import Signup from '../pages/Signup'
 import Main from '../components/QandA/Main/Main';
 import Question from "../components/QandA/Add-Question/Question.js";
 

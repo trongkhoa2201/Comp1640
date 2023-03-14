@@ -2,27 +2,14 @@ import React from 'react'
 import {Form, FormGroup, Label, Input}from 'reactstrap';
 
 import { motion } from 'framer-motion'
-import '../Styles/login.css'
+import '../styles/login.css'
 
-const Signup = () => {
+
+const Login = () => {
   return (
     <div>
       <Form className="form" onSubmit={(e) => this.submitForm(e)}>
-        <h2 className='text-center'>Sign up</h2>
-        <FormGroup>
-          <Label>User Name</Label>
-          <Input
-            type="text"
-            name="userName"
-            id="userName"
-            placeholder="Enter your username"
-
-            onChange={(e) => {
-              this.validateEmail(e);
-              this.handleChange(e);
-            }}
-          />
-        </FormGroup>
+        <h2 className='text-center'>Login</h2>
         <FormGroup>
           <Label>Email</Label>
           <Input
@@ -48,10 +35,10 @@ const Signup = () => {
           />
         </FormGroup> <br/>
         <motion.button whileTap={{scale:1.2}} className='login-btn'>Login</motion.button>
-        <p>Already have an account? Create an account</p>
+        <p>Don't have an account? Login</p>
       </Form>
     </div>
   )
 }
 
-export default Signup
+export default Login
