@@ -1,6 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import "../Navbar/Navbar.css";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -24,7 +25,9 @@ const Navbar = () => {
           </div>
 
           <div className="right-nav ">
-            <i class="ri-user-line fs-4"></i>
+          <Link to='/profile'>
+              <i class='ri-user-line fs-4'></i>
+            </Link>
           </div>
         </div>
       </div>
