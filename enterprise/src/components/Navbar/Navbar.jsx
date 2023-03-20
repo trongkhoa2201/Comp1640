@@ -1,5 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "../Navbar/Navbar.css";
 
 const Navbar = () => {
@@ -22,10 +23,11 @@ const Navbar = () => {
           <div className="right-nav ">
             <i class="ri-notification-2-line fs-4"></i>
           </div>
-
-          <div className="right-nav ">
-            <i class="ri-user-line fs-4"></i>
-          </div>
+          <Link to="/login">
+            <div className="right-nav ">
+              <i class="ri-user-line fs-4"></i>
+            </div>
+          </Link>
         </div>
       </div>
     </Container>
