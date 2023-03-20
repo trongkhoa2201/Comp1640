@@ -1,7 +1,6 @@
 import {
   CDBSidebar,
   CDBSidebarContent,
-  CDBSidebarFooter,
   CDBSidebarHeader,
   CDBSidebarMenu,
   CDBSidebarMenuItem,
@@ -34,6 +33,11 @@ const Sidebar = () => {
             <Link exact to="/home" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="home">Home</CDBSidebarMenuItem>
             </Link>
+
+            <Link exact to="/home" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="lock">Home</CDBSidebarMenuItem>
+            </Link>
+
             <Link exact to="/crud" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="table">
                 Create Account

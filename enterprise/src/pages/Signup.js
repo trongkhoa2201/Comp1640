@@ -1,14 +1,14 @@
-import React from 'react'
-import {Form, FormGroup, Label, Input}from 'reactstrap';
+import React from "react";
+import { Form, FormGroup, Input, Label } from "reactstrap";
 
-import { motion } from 'framer-motion'
-import '../styles/login.css'
+import { motion } from "framer-motion";
+import "../Styles/login.css";
 
 const Signup = () => {
   return (
     <div>
       <Form className="form" onSubmit={(e) => this.submitForm(e)}>
-        <h2 className='text-center'>Sign up</h2>
+        <h2 className="text-center">Sign up</h2>
         <FormGroup>
           <Label>User Name</Label>
           <Input
@@ -16,7 +16,6 @@ const Signup = () => {
             name="userName"
             id="userName"
             placeholder="Enter your username"
-
             onChange={(e) => {
               this.validateEmail(e);
               this.handleChange(e);
@@ -30,7 +29,6 @@ const Signup = () => {
             name="email"
             id="exampleEmail"
             placeholder="Enter your email"
-
             onChange={(e) => {
               this.validateEmail(e);
               this.handleChange(e);
@@ -46,12 +44,15 @@ const Signup = () => {
             placeholder="Enter your password"
             onChange={(e) => this.handleChange(e)}
           />
-        </FormGroup> <br/>
-        <motion.button whileTap={{scale:1.2}} className='login-btn'>Login</motion.button>
+        </FormGroup>{" "}
+        <br />
+        <motion.button whileTap={{ scale: 1.2 }} className="login-btn">
+          Login
+        </motion.button>
         <p>Already have an account? Create an account</p>
       </Form>
     </div>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;
