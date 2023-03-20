@@ -16,6 +16,7 @@
     "firebase": "^9.17.2",
     "framer-motion": "^10.3.0",
     "react": "^18.2.0",
+    "react-admin": "^4.8.4",
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
     "react-html-parser": "^2.0.2",
