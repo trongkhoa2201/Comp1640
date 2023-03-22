@@ -1,11 +1,11 @@
 import { Admin, Resource } from 'react-admin'
-import { listCategory, editCategory, createCategory } from './enterprise/src/components/QandA/QAManager/Category.js'
-import { listUsers, editUsers, createUsers } from './enterprise/src/components/QandA/QAManager/Users'
+import { listCategory, editCategory, createCategory } from './enterprise/src/components/QAManager/Category.js'
+import { listUsers, editUsers, createUsers } from './enterprise/src/components/QAManager/Users'
 
 
 function indexQA() {
   return (
-    <div className='App'>
+    <div className='indexQA'>
       <Admin
 
 
@@ -17,7 +17,7 @@ function indexQA() {
           create={createCategory}
         />
         <Resource
-          name='users'
+          name='Users'
           list={listUsers}
           edit={editUsers}
           create={createUsers}
