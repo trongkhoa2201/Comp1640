@@ -8,15 +8,9 @@ import "../Status/Status.css"
 
 
 export const Status = () => {
-
-
 const [show, setShow] = useState(false);
-
 const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
-
-
-
 
   return (
     <div className="post shadow-lg p-3 bg-body rounded">
@@ -47,10 +41,6 @@ const handleShow = () => setShow(true);
           <CreatePost/>
         </Modal>
       </div>
-
-
-
-
       <div className="d-flex mt-3 gap-3 ">
         <i class="ri-image-line fs-2"></i>
         <i class="ri-links-line fs-2"></i>
