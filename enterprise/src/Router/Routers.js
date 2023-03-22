@@ -1,12 +1,13 @@
-import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import React from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
-import CRUD from "../pages/CRUD";
-import Home from "../pages/Home.jsx";
-import Profile from "../pages/Profile.jsx";
-import Login from '../pages/Login'
-import Signup from '../pages/Signup'
+import ManageAccount from '../pages/ManageAccount/ListAccount';
+import Home from '../pages/Home.jsx';
+import Profile from '../pages/Profile.jsx';
+import Login from '../pages/Login';
+import Signup from '../pages/Signup';
 import Main from '../components/QandA/Main/Main';
+<<<<<<< Updated upstream
 import Question from "../components/QandA/Add-Question/Question.js";
 
 
@@ -26,6 +27,32 @@ const Routers = () => {
       <Route path='/add-question' element={<Question/>}/>
     </Routes>
   );
+=======
+import Question from '../components/QandA/Add-Question/Question.js';
+/*import { Admin, Resource } from 'react-admin'
+import { listCategory, editCategory, createCategory } from './enterprise/src/components/QandA/QAManager/Category'
+import User from './enterprise/src/components/QandA/QAManager/Users'*/
+import { Category } from '@mui/icons-material';
+import CreateNewAccount from '../pages/ManageAccount/CreateNewAccount';
+import EditAccount from '../pages/ManageAccount/EditUser';
+
+const Routers = () => {
+    return (
+        <Routes>
+            <Route path="/" element={<Navigate to="/login" />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/crud" element={<ManageAccount />} />
+            <Route path="/createAccount" element={<CreateNewAccount />} />
+            <Route path="/user/:id" element={<EditAccount />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/question" element={<Main />} />
+            <Route path="/add-question" element={<Question />} />
+            <Route path="/category" element={<Category />} />
+        </Routes>
+    );
+>>>>>>> Stashed changes
 };
 
 export default Routers;
