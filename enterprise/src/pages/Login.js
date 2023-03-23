@@ -2,7 +2,7 @@ import React from 'react'
 import {Form, FormGroup, Label, Input}from 'reactstrap';
 
 import { motion } from 'framer-motion'
-import '../styles/login.css'
+import '../Styles/login.css'
 
 
 const Login = () => {
@@ -18,10 +18,10 @@ const Login = () => {
             id="exampleEmail"
             placeholder="Enter your email"
 
-            onChange={(e) => {
-              this.validateEmail(e);
-              this.handleChange(e);
-            }}
+            // onChange={(e) => {
+            //   this.validateEmail(e);
+            //   this.handleChange(e);
+            // }}
           />
         </FormGroup>
         <FormGroup>
@@ -31,7 +31,7 @@ const Login = () => {
             name="password"
             id="examplePassword"
             placeholder="Enter your password"
-            onChange={(e) => this.handleChange(e)}
+            // onChange={(e) => this.handleChange(e)}
           />
         </FormGroup> <br/>
         <motion.button whileTap={{scale:1.2}} className='login-btn'>Login</motion.button>

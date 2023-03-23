@@ -1,15 +1,11 @@
 import axios from 'axios';
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getError } from '../../getError';
 
 function ManageAccount() {
-    // const [{ loading, error, users, loadingDelete, successDelete }, dispatch] = useReducer(reducer, {
-    //     loading: true,
-    //     error: '',
-    // });
     const navigate = useNavigate();
     const navigateToCreate = () => {
         navigate('/createAccount');
@@ -29,6 +25,7 @@ function ManageAccount() {
             try {
                 await axios.delete(`/api/users/${user._id}`);
                 toast.success('user deleted successfully');
+                window.location.reload(true);
             } catch (error) {
                 toast.error(getError(error));
             }
@@ -36,35 +33,35 @@ function ManageAccount() {
     };
 
     return (
-        <div class="container ">
+        <div className="container ">
             <div className="crud shadow-lg p-3 mb-5 mt-5 bg-body rounded">
-                <div class="row ">
-                    <div class="col-sm-3 mt-5 mb-4 ">
+                <div className="row ">
+                    <div className="col-sm-3 mt-5 mb-4 ">
                         <div className="search_student">
-                            <form class="form-inline">
+                            <form className="form-inline">
                                 <input
-                                    class="form-control mr-sm-2"
+                                    className="form-control mr-sm-2"
                                     type="search"
-                                    placeholder="Search Student"
+                                    placeholder="Search person by name"
                                     aria-label="Search"
                                 />
                             </form>
                         </div>
                     </div>
-                    <div class="col-sm-3 offset-sm-2 mt-5 mb-4 ">
+                    <div className="col-sm-3 offset-sm-2 mt-5 mb-4 ">
                         <h2>
                             <b>Account Details</b>
                         </h2>
                     </div>
-                    <div class="col-sm-3 offset-sm-1  mt-5 mb-4 ">
+                    <div className="col-sm-3 offset-sm-1  mt-5 mb-4 ">
                         <Button variant="primary" onClick={navigateToCreate}>
                             Create Account
                         </Button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="table-responsive ">
-                        <table class="table table-striped table-hover table-bordered">
+                <div className="row">
+                    <div className="table-responsive ">
+                        <table className="table table-striped table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -91,7 +88,7 @@ function ManageAccount() {
                                             </Button>
                                             &nbsp;
                                             <Button variant="danger" onClick={() => deleteHandler(user)}>
-                                                {/* <Button variant="danger" onClick={console.log(user)}> */}
+                                                {' '}
                                                 Delete
                                             </Button>
                                         </td>

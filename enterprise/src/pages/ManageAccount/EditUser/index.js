@@ -1,54 +1,58 @@
-import { MenuItem } from '@mui/material';
-import React, { useState } from 'react';
-import { Button, Col, Container, Form, FormGroup, Row } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import './EditUser.css';
-import Axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getError } from '../../../getError';
+import axios from 'axios';
 
 export default function EditAccount() {
     const navigate = useNavigate();
-    const { search } = useLocation();
-    const redirectInUrl = new URLSearchParams(search).get('redirect');
-    const redirect = redirectInUrl ? redirectInUrl : '/crud';
+    const params = useParams();
+    const { id: userId } = params;
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
     const [role, setRole] = useState('');
     const [department, setDepartment] = useState('');
     const [avt, setAvt] = useState();
 
-    const roles = [{ value: 'Staff' }, { value: 'QA Manager' }, { value: 'QA Coordinator' }];
-    const departments = [
-        { value: 'Finance' },
-        { value: 'Marketing' },
-        { value: 'Human Resource' },
-        { value: 'Information Technology' },
+    const roles = [
+        { display: '-----Select a role------' },
+        { display: 'Staff', value: 'staff' },
+        { display: 'QA Manager', value: 'qam' },
+        { display: 'QA Coordinator', value: 'qac' },
     ];
+    const departments = [
+        { display: 'Select a dapartment' },
+        { display: 'Finance', value: 'Finance' },
+        { display: 'Marketing', value: 'Marketing' },
+        { display: 'Human Resource', value: 'Human Resource' },
+        { display: 'Information Technology', value: 'Information Technology' },
+    ];
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const { data } = await axios.get(`/api/users/${userId}`);
+                setName(data.name);
+                setEmail(data.email);
+                setRole(data.role);
+                setDepartment(data.department);
+            } catch (err) {
+                toast.error(getError(err));
+            }
+        };
+        fetchData();
+    }, [userId]);
 
-    const submitHandler = async (e) => {
+    const updateHandler = async (e) => {
         e.preventDefault();
-        if (password !== confirmPassword) {
-            toast.error('Passwords do not match');
-            return;
-        }
         try {
-            const { data } = await Axios.post('/api/users/createAccount', {
-                name,
-                email,
-                password,
-                role,
-                department,
-            });
-            // ctxDispatch({ type: 'USER_SIGNIN', payload: data });
-            // localStorage.setItem('userInfo', JSON.stringify(data));
-            console.log(data);
-            navigate(redirect || '/crud');
-        } catch (err) {
-            toast.error(getError(err));
+            await axios.put(`/api/users/${userId}`, { _id: userId, name, email, role, department });
+            toast.success('User updated successfully');
+            navigate('/manageAccount');
+        } catch (error) {
+            toast.error(getError(error));
         }
     };
 
@@ -58,7 +62,7 @@ export default function EditAccount() {
                 <Row className="accountContainer">
                     <Col className="col-8">
                         <h1 className="text-center">Edit account</h1>
-                        <Form onSubmit={submitHandler}>
+                        <Form onSubmit={updateHandler}>
                             <Form.Group className="mb-3" controlId="name">
                                 <Form.Label>Name</Form.Label>
                                 <Form.Control value={name} onChange={(e) => setName(e.target.value)} required />
@@ -67,25 +71,13 @@ export default function EditAccount() {
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} required />
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="password">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control value={password} onChange={(e) => setPassword(e.target.value)} required />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="confirmPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    required
-                                />
-                            </Form.Group>
                             <Form.Group className="mb-3" controlId="role">
                                 <Form.Label>Role</Form.Label>
                                 <Form.Select value={role} required onChange={(e) => setRole(e.target.value)}>
                                     {roles.map((option, index) => {
                                         return (
                                             <option key={index} value={option.value}>
-                                                {option.value}
+                                                {option.display}
                                             </option>
                                         );
                                     })}
@@ -101,7 +93,7 @@ export default function EditAccount() {
                                     {departments.map((option, index) => {
                                         return (
                                             <option key={index} value={option.value}>
-                                                {option.value}
+                                                {option.display}
                                             </option>
                                         );
                                     })}

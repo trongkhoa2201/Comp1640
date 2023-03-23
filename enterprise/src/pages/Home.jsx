@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { Status } from "../components/HomeCon/Status/Status";
 import Tag from "../components/HomeCon/Tag/Tag";
-import"../styles/home.css"
+import "../Styles/home.css"
 const Home = () => {
   return (
     <div className="px-4 pt-3 pb-5">

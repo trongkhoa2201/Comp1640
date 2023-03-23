@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Form, FormGroup, Row } from "react-bootstrap";
 
-import "../styles/profile.css";
+import "../Styles/profile.css"
 import Ava from "../img/Ava.jpg";
 
 export default function Profile() {

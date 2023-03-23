@@ -1,6 +1,5 @@
-import { MenuItem } from '@mui/material';
 import React, { useState } from 'react';
-import { Button, Col, Container, Form, FormGroup, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import './CreateNewAccount.css';
 import Axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -11,7 +10,7 @@ export default function CreateNewAccount() {
     const navigate = useNavigate();
     const { search } = useLocation();
     const redirectInUrl = new URLSearchParams(search).get('redirect');
-    const redirect = redirectInUrl ? redirectInUrl : '/crud';
+    const redirect = redirectInUrl ? redirectInUrl : '/manageAccount';
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -21,12 +20,18 @@ export default function CreateNewAccount() {
     const [department, setDepartment] = useState('');
     const [avt, setAvt] = useState();
 
-    const roles = [{ value: 'Staff' }, { value: 'QA Manager' }, { value: 'QA Coordinator' }];
+    const roles = [
+        { display: '-----Select a role------' },
+        { display: 'Staff', value: 'staff' },
+        { display: 'QA Manager', value: 'qam' },
+        { display: 'QA Coordinator', value: 'qac' },
+    ];
     const departments = [
-        { value: 'Finance' },
-        { value: 'Marketing' },
-        { value: 'Human Resource' },
-        { value: 'Information Technology' },
+        { display: 'Select a dapartment' },
+        { display: 'Finance', value: 'Finance' },
+        { display: 'Marketing', value: 'Marketing' },
+        { display: 'Human Resource', value: 'Human Resource' },
+        { display: 'Information Technology', value: 'Information Technology' },
     ];
 
     const submitHandler = async (e) => {
@@ -46,7 +51,7 @@ export default function CreateNewAccount() {
             // ctxDispatch({ type: 'USER_SIGNIN', payload: data });
             // localStorage.setItem('userInfo', JSON.stringify(data));
             console.log(data);
-            navigate(redirect || '/crud');
+            navigate(redirect || '/manageAccount');
         } catch (err) {
             toast.error(getError(err));
         }
@@ -85,7 +90,7 @@ export default function CreateNewAccount() {
                                     {roles.map((option, index) => {
                                         return (
                                             <option key={index} value={option.value}>
-                                                {option.value}
+                                                {option.display}
                                             </option>
                                         );
                                     })}
@@ -101,7 +106,7 @@ export default function CreateNewAccount() {
                                     {departments.map((option, index) => {
                                         return (
                                             <option key={index} value={option.value}>
-                                                {option.value}
+                                                {option.display}
                                             </option>
                                         );
                                     })}

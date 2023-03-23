@@ -34,9 +34,14 @@ const Sidebar = () => {
             <Link exact to="/home" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="home">Home</CDBSidebarMenuItem>
             </Link>
-            <Link exact to="/crud" activeClassName="activeClicked">
+            <Link exact to="/manageAccount" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="table">
                 Manage Account
+              </CDBSidebarMenuItem>
+            </Link>
+            <Link exact to="/manageCategoty" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="table">
+                Manage Category
               </CDBSidebarMenuItem>
             </Link>
             <Link exact to="/profile" activeClassName="activeClicked">
