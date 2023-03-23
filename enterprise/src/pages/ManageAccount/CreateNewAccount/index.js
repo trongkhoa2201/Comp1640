@@ -5,6 +5,7 @@ import Axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getError } from '../../../getError';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 export default function CreateNewAccount() {
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function CreateNewAccount() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [role, setRole] = useState('');
     const [department, setDepartment] = useState('');
-    const [avt, setAvt] = useState();
+    const [avatar, setAvatar] = useState();
 
     const roles = [
         { display: '-----Select a role------' },
@@ -47,11 +48,29 @@ export default function CreateNewAccount() {
                 password,
                 role,
                 department,
+                avatar,
             });
             // ctxDispatch({ type: 'USER_SIGNIN', payload: data });
             // localStorage.setItem('userInfo', JSON.stringify(data));
             console.log(data);
             navigate(redirect || '/manageAccount');
+        } catch (err) {
+            toast.error(getError(err));
+        }
+    };
+
+    const uploadFileHandler = async (e) => {
+        const file = e.target.files[0];
+        const bodyFormData = new FormData();
+        bodyFormData.append('file', file);
+        try {
+            const { data } = await Axios.post('/api/upload', bodyFormData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            toast.success('Image uploaded successfully');
+            setAvatar(data.secure_url);
         } catch (err) {
             toast.error(getError(err));
         }
@@ -112,9 +131,9 @@ export default function CreateNewAccount() {
                                     })}
                                 </Form.Select>
                             </Form.Group>
-                            <Form.Group controlId="pic" className="mb-3">
-                                <Form.Label>Avatar</Form.Label>
-                                <Form.Control type="file" enable />
+                            <Form.Group className="mb-3" controlId="imageFile">
+                                <Form.Label>Upload new Avatar</Form.Label>
+                                <Form.Control type="file" onChange={uploadFileHandler} />
                             </Form.Group>
                             <div className="text-center">
                                 <Button type="submit">Create new account</Button>
@@ -122,7 +141,25 @@ export default function CreateNewAccount() {
                         </Form>
                     </Col>
                     <Col>
-                        <div>Display pic</div>
+                        <ListGroup.Item>
+                            <Row className="avatar-display">
+                                <Col
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        borderRadius: '50%',
+                                        justifyContent: 'center',
+                                    }}
+                                >
+                                    <div></div>
+                                    <img
+                                        src={avatar}
+                                        alt={avatar}
+                                        className="img-fluid rounded mx-auto d-block img-thumbnails"
+                                    ></img>
+                                </Col>
+                            </Row>
+                        </ListGroup.Item>
                     </Col>
                 </Row>
             </Container>

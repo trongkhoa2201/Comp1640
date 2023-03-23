@@ -14,6 +14,7 @@ import User from './enterprise/src/components/QandA/QAManager/Users'*/
 import { Category } from '@mui/icons-material';
 import CreateNewAccount from '../pages/ManageAccount/CreateNewAccount';
 import EditAccount from '../pages/ManageAccount/EditUser';
+import ManageCategory from '../pages/ManageCategory/ListCategory';
 
 const Routers = () => {
     return (
@@ -21,6 +22,7 @@ const Routers = () => {
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/home" element={<Home />} />
             <Route path="/manageAccount" element={<ManageAccount />} />
+            <Route path="/manageCategory" element={<ManageCategory />} />
             <Route path="/createAccount" element={<CreateNewAccount />} />
             <Route path="/user/:id" element={<EditAccount />} />
             <Route path="/profile" element={<Profile />} />

@@ -23,7 +23,7 @@ adminRouter.post(
       password: bcrypt.hashSync(req.body.password),
       role: req.body.role,
       department: req.body.department,
-      avt: req.body.avt,
+      avatar: req.body.avatar,
     });
     const user = await newUser.save();
     res.send({
@@ -32,12 +32,11 @@ adminRouter.post(
       email: user.email,
       role: user.role,
       department: user.department,
-      avt: user.avt,
+      avatar: user.avatar,
       token: generateToken(user),
     });
   })
 );
-
 
 adminRouter.delete(
   "/:id",
@@ -75,8 +74,9 @@ adminRouter.put(
     if (user) {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
-      user.role =  req.body.role || user.role;
-      user.department =  req.body.department || user.department;
+      user.role = req.body.role || user.role;
+      user.department = req.body.department || user.department;
+      user.avatar = req.body.avatar || user.avatar;
       const updatedUser = await user.save();
       res.send({ message: "User Updated", user: updatedUser });
     } else {

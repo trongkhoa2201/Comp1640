@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import seedRouter from "./routes/seedRouter.js";
 import adminRouter from "./routes/adminRouter.js";
+import uploadRouter from "./routes/uploadRouter.js";
 
 dotenv.config();
 mongoose.set("strictQuery", false);
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/seed", seedRouter);
 app.use("/api/users", adminRouter);
+app.use('/api/upload', uploadRouter);
 
 app.get("/api/users", (req, res) => {
   res.send(data.users);

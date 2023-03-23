@@ -79,7 +79,13 @@ function ManageAccount() {
                                         <td>{user._id}</td>
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
-                                        <td>{user.avt}</td>
+                                        <td>
+                                            <img
+                                                src={user.avatar}
+                                                alt={user.avatar}
+                                                className="img-fluid rounded img-thumbnail"
+                                            ></img>
+                                        </td>
                                         <td>{user.role}</td>
                                         <td>{user.department}</td>
                                         <td>
