@@ -23,7 +23,7 @@ function AllQuestions() {
           </div>
         </div>
         <div className="question-answer">
-          <Link to ='/question'>This is question title</Link>
+          <Link to ='/view-question'>This is question title</Link>
 
           <div
             style={{

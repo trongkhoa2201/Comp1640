@@ -8,7 +8,11 @@ import Login from '../pages/Login'
 import Signup from '../pages/Signup'
 import Main from '../components/QandA/Main/Main';
 import Question from "../components/QandA/Add-Question/Question.js";
-
+/*import { Admin, Resource } from 'react-admin'
+import { listCategory, editCategory, createCategory } from './enterprise/src/components/QandA/QAManager/Category'
+import User from './enterprise/src/components/QandA/QAManager/Users'*/
+import { Category } from "@mui/icons-material";
+import MainQuestion from "../components/QandA/ViewQuestion/MainQuestion";
 
  
 
@@ -24,6 +28,8 @@ const Routers = () => {
       <Route path="/signup" element={<Signup />}/>     
       <Route path='/question' element={<Main/>}/>
       <Route path='/add-question' element={<Question/>}/>
+      <Route path='/view-question' element={<MainQuestion/>}/>
+      <Route path='/category' element={<Category/>}/>
     </Routes>
   );
 };
