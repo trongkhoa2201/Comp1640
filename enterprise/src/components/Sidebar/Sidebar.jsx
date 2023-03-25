@@ -42,6 +42,11 @@ const Sidebar = () => {
             <Link exact to="/profile" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="user">Profile page</CDBSidebarMenuItem>
             </Link>
+            <Link exact to="/question" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="question">
+                Question
+              </CDBSidebarMenuItem>
+            </Link>
             <Link exact to="/" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="power-off">Log Out</CDBSidebarMenuItem>
             </Link>
