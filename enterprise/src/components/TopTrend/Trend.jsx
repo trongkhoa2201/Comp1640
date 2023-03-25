@@ -1,12 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
 import "../TopTrend/Trend.css"
 import Ava from "../../img/Ava.jpg"
+import axios from "axios";
+
 
 const Trend = () => {
 
 
-const [trends, setTrends] = useState([]);
+
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("/api/posts?sort=-numberOfLikes&limit=4")
+      .then((response) => {
+        setPosts(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <Container className="trend-container mb-4">
