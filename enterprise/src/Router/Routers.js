@@ -7,14 +7,11 @@ import Profile from '../pages/Profile.jsx';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import Main from '../components/QandA/Main/Main';
-import Question from '../components/QandA/Add-Question/Question.js';
-/*import { Admin, Resource } from 'react-admin'
-import { listCategory, editCategory, createCategory } from './enterprise/src/components/QandA/QAManager/Category'
-import User from './enterprise/src/components/QandA/QAManager/Users'*/
-import { Category } from '@mui/icons-material';
-import CreateNewAccount from '../pages/ManageAccount/CreateNewAccount';
-import EditAccount from '../pages/ManageAccount/EditUser';
-import ManageCategory from '../pages/ManageCategory/ListCategory';
+import Question from "../components/QandA/Add-Question/Question.js";
+
+
+ 
+
 
 const Routers = () => {
     return (

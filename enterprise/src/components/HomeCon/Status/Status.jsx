@@ -7,10 +7,9 @@ import "../Status/Status.css";
 
 
 export const Status = () => {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+const [show, setShow] = useState(false);
+const handleClose = () => setShow(false);
+const handleShow = () => setShow(true);
 
   return (
     <div className='post shadow-lg p-3 bg-body rounded'>
