@@ -2,7 +2,6 @@ import React from 'react';
 import './css/index.css';
 import Main from './Main';
 import SideBar from '../'
-
 function index() {
   return (
     <div className=''>

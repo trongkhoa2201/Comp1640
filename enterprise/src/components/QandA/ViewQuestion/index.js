@@ -10,6 +10,7 @@ function index() {
         <MainQuestion />
       </div>
     </div>
+    <Card />
     </div>
   )
 }
