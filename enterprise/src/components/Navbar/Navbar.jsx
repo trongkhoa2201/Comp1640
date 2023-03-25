@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import "../Navbar/Navbar.css";
 
+
 const Navbar = () => {
   return (
     <Container>
@@ -28,6 +29,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
     </Container>
   );
 };
