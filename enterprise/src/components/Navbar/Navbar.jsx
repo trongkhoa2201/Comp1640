@@ -20,9 +20,11 @@ const Navbar = () => {
             ></input>
           </form>
         </div>
+        
         {/* ===========right=========== */}
         <div className="d-flex align-items-center gap-4">
           <div className="right-nav ">
+          <div className="counter">2</div>
             <i class="ri-notification-2-line fs-4"></i>
           </div>
           <Link to="/login">
