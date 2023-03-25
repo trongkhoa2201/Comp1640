@@ -4,6 +4,7 @@ import Navbar from "../Navbar/Navbar.jsx";
 import Sidebar from "../Sidebar/Sidebar";
 import"../Layouts/Layout.css"
 
+
 const Layout = () => {
   return (
     <div
@@ -17,6 +18,9 @@ const Layout = () => {
       {/* ===================content=================== */}
       <div className="center">
         <Navbar />
+        <div className="">
+         
+        </div>
         <Routers />
       </div>
     </div>

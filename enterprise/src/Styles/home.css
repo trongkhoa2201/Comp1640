@@ -1,5 +1,3 @@
-.Tag{
-  position: fixed;
-  right: 0;
- 
+.Tag {
+  position: relative;
 }

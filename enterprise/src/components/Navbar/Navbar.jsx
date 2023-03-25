@@ -1,7 +1,8 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import "../Navbar/Navbar.css";
 import { Link } from "react-router-dom";
+import "../Navbar/Navbar.css";
+
 
 const Navbar = () => {
   return (
@@ -23,12 +24,11 @@ const Navbar = () => {
           <div className="right-nav ">
             <i class="ri-notification-2-line fs-4"></i>
           </div>
-
-          <div className="right-nav ">
-          <Link to='/profile'>
-              <i class='ri-user-line fs-4'></i>
-            </Link>
-          </div>
+          <Link to="/login">
+            <div className="right-nav ">
+              <i class="ri-user-line fs-4"></i>
+            </div>
+          </Link>
         </div>
       </div>
     </Container>
