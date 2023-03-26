@@ -1,10 +1,12 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
-const UserSchema = new Schema({
-  avatar: { 
-    type: String, 
-    default: "" 
+const UserSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  avatar: {
+    type: String,
   },
   email: {
     type: String,
@@ -14,7 +16,7 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true,
-    minlength: [6, "Password must be greater than 6 characters"],
+    minlength: [5, "Password must be greater than 6 characters"],
   },
   role: {
     type: String,
@@ -27,16 +29,16 @@ const UserSchema = new Schema({
   },
   viewIdeas: [
     {
-      idea_id: { type: Schema.Types.ObjectId },
+      idea_id: { type: mongoose.Schema.Types.ObjectId },
       isLike: Boolean,
       isDislike: Boolean,
     },
   ],
-  createdAt: { 
-    type: Date, 
-    default: Date.now 
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 
-
-module.exports = mongoose.model("user", UserSchema);
+const User = mongoose.model("user", UserSchema);
+export default User;

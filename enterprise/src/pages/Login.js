@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Form, FormGroup, Label, Input}from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion'
-import '../styles/login.css'
+import '../Styles/login.css'
 
 
 const Login = () => {
