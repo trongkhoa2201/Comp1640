@@ -8,9 +8,10 @@ import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import Main from '../components/QandA/Main/Main';
 import Question from "../components/QandA/Add-Question/Question.js";
-
-
- 
+import ManageCategory from "../pages/ManageCategory/ListCategory";
+import CreateNewAccount from '../pages/CreateNewAccount/CreateNewAccount.js'
+import EditAccount from '../pages/EditAccount/EditAccount.js'
+import Category from "../pages/Category/ListCategory";
 
 
 const Routers = () => {
