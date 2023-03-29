@@ -4,6 +4,9 @@ import dotenv from "dotenv";
 import seedRouter from "./routes/seedRouter.js";
 import adminRouter from "./routes/adminRouter.js";
 import uploadRouter from "./routes/uploadRouter.js";
+import categoryRouter from "./routes/categoryRouter.js";
+import departmentRouter from "./routes/departmentRouter.js";
+import topicRouter from "./routes/topicRouter.js";
 
 dotenv.config();
 mongoose.set("strictQuery", false);
@@ -22,7 +25,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/seed", seedRouter);
 app.use("/api/users", adminRouter);
-app.use('/api/upload', uploadRouter);
+app.use("/api/categories", categoryRouter);
+app.use("/api/departments", departmentRouter);
+app.use("/api/topics", topicRouter);
+app.use("/api/upload", uploadRouter);
 
 app.get("/api/users", (req, res) => {
   res.send(data.users);
