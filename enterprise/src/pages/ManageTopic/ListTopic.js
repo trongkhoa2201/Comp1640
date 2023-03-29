@@ -1,28 +1,29 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { Badge, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import Moment from 'react-moment';
 import { toast } from 'react-toastify';
 import { getError } from '../../getError';
 
-export default function ManageCategory() {
+export default function ListTopic() {
     const navigate = useNavigate();
     const navigateToCreate = () => {
-        navigate('/createCategory');
+        navigate('/createTopic');
     };
-    const [categories, setCategories] = useState([]);
+    const [topics, setTopics] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios.get('/api/categories');
-            setCategories(result.data);
+            const result = await axios.get('/api/topics');
+            setTopics(result.data);
         };
         fetchData();
     }, []);
-    const deleteHandler = async (category) => {
+    const deleteHandler = async (topic) => {
         if (window.confirm('Are you sure to delete?')) {
             try {
-                await axios.delete(`/api/categories/${category._id}`);
-                toast.success('Category deleted successfully');
+                await axios.delete(`/api/topics/${topic._id}`);
+                toast.success('Topic deleted successfully');
                 window.location.reload(true);
             } catch (error) {
                 toast.error(getError(error));
@@ -36,12 +37,12 @@ export default function ManageCategory() {
                 <div className="row ">
                     <div className="col-sm-3 offset-sm-2 mt-5 mb-4 ">
                         <h2>
-                            <b>Account Details</b>
+                            <b>Topic Details</b>
                         </h2>
                     </div>
                     <div className="col-sm-3 offset-sm-1  mt-5 mb-4 ">
                         <Button variant="primary" onClick={navigateToCreate}>
-                            Create new Category
+                            Create new Topic
                         </Button>
                     </div>
                 </div>
@@ -50,25 +51,32 @@ export default function ManageCategory() {
                         <table className="table table-striped table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <th>Title</th>
                                     <th>Description</th>
+                                    <th>First Closure</th>
+                                    <th>Final Closure</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {categories.map((category) => (
-                                    <tr key={category._id}>
-                                        <td>{category.name}</td>
-                                        <td>{category.description}</td>
+                                {topics.map((topic) => (
+                                    <tr key={topic._id}>
+                                        <td>{topic.title}</td>
+                                        <td>{topic.description}</td>
                                         <td>
-                                            <Button
-                                                variant="success"
-                                                onClick={() => navigate(`/categories/${category._id}`)}
-                                            >
+                                            <Moment format="YYYY/MM/DD">{topic.firstClosure}</Moment>
+                                        </td>
+                                        <td>
+                                            <Badge bg="danger">
+                                                <Moment format="YYYY/MM/DD">{topic.finalClosure}</Moment>
+                                            </Badge>
+                                        </td>
+                                        <td>
+                                            <Button variant="success" onClick={() => navigate(`/topics/${topic._id}`)}>
                                                 Edit
                                             </Button>
                                             &nbsp;
-                                            <Button variant="danger" onClick={() => deleteHandler(category)}>
+                                            <Button variant="danger" onClick={() => deleteHandler(topic)}>
                                                 {' '}
                                                 Delete
                                             </Button>
