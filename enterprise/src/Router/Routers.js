@@ -21,6 +21,7 @@ import EditDepartment from '../pages/ManageDepartment/UpdateDepartment';
 import CreateTopic from '../pages/ManageTopic/CreateTopic';
 import EditTopic from '../pages/ManageTopic/EditTopic';
 
+
 const Routers = () => {
     return (
         <Routes>
@@ -43,7 +44,10 @@ const Routers = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/question" element={<Main />} />
             <Route path="/add-question" element={<Question />} />
-            {/* <Route path="/category" element={<Category />} /> */}
+
+            {/* ======================= */}
+
+           
         </Routes>
     );
 };
