@@ -37,14 +37,14 @@ export default function Profile() {
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                   required
                 />
               </Form.Group>
               <Form.Group className='mb-3' controlId='confirmPassword'>
                 <Form.Label>Confirm Password</Form.Label>
                 <Form.Control
-                  value={confirmPassword}
+                  value={name}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                 />

@@ -9,20 +9,20 @@ const Navbar = () => {
     <Container>
       <div className="navbar d-flex mx-4 ">
         {/* ===========search=========== */}
-        <div className="search d-flex align-item-center justify-center px-3 gap-2">
-          <i class="ri-search-line fs-4"></i>
-          <form className="pt-1">
+        <div className='search d-flex align-item-center justify-center px-3 gap-2'>
+          <i class='ri-search-line fs-4'></i>
+          <form className='pt-1'>
             <input
-              className="searchInput"
-              type="text"
-              placeholder="Search"
+              className='searchInput'
+              type='text'
+              placeholder='Search'
             ></input>
           </form>
         </div>
         {/* ===========right=========== */}
-        <div className="d-flex align-items-center gap-4">
-          <div className="right-nav ">
-            <i class="ri-notification-2-line fs-4"></i>
+        <div className='d-flex align-items-center gap-4'>
+          <div className='right-nav '>
+            <i class='ri-notification-2-line fs-4'></i>
           </div>
           <Link to="/login">
             <div className="right-nav ">

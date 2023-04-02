@@ -1,0 +1,19 @@
+.small-container {
+    width: 800px;
+}
+.img-thumbnail {
+    height: 80px;
+    width: 115px;
+}
+.img-thumbnails {
+    display: block;
+    justify-content: center;
+    height: 300px;
+    width: 600px;
+    border: 1px solid black;
+}
+.avatar-display {
+    align-items: center;
+    justify-content: center;
+    transform: translateY(10%);
+}

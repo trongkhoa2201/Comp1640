@@ -1,8 +1,8 @@
-const mongoose = require('mongoose')
+import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
-const DepartmentSchema = new Schema({
-    department_name: String
-})
+const DepartmentSchema = new mongoose.Schema({
+  name: String,
+});
 
-module.exports = mongoose.model('department', DepartmentSchema);
+const Department = mongoose.model("department", DepartmentSchema);
+export default Department;
