@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Ava from '../../../img/Ava.jpg';
 import '../Status/Status.css';
-import { Button, Card, Col, Form } from 'react-bootstrap';
+import { Button, Card, Col, Form, FormLabel } from 'react-bootstrap';
+import Switch from '@mui/material/Switch';
 
 export const Status = () => {
 
@@ -10,6 +11,15 @@ export const Status = () => {
    function handleLike() {
        setCount(count + 1);
   }
+
+  // ẩn danh
+   
+  const [isAnonymous, setIsAnonymous] = useState(false);
+
+  function toggleAnonymousMode() {
+    setIsAnonymous(!isAnonymous);
+  }
+
   // phân trang 
 
 
@@ -57,7 +67,7 @@ export const Status = () => {
             </div>
 
             {/* ====================== Comment show ====================== */}
-            <h5>Comment</h5>
+            <h5 style={{ borderTop: '2px solid #ccc', paddingTop: '10px' }}>Comment</h5>
             <div className="mt-3">
                 <div className="mt-3 m-3 p-3 gap-4 " style={{ display: 'flex', alignItems: 'center' }}>
                     <img src={Ava} alt="Ava" style={{ height: 60, width: 60, borderRadius: '50%' }} />
@@ -73,6 +83,13 @@ export const Status = () => {
                 <div className="mt-3 m-3 p-3 gap-4 " style={{ display: 'flex', alignItems: 'center' }}>
                     <img src={Ava} alt="Ava" style={{ height: 60, width: 60, borderRadius: '50%' }} />
                     <Form.Control as="textarea" rows="auto" placeholder="Enter your comment" />
+                    {/* <button style={{ marginLeft: '10px' }} onClick={toggleAnonymousMode}>
+                        Ẩn danh
+                    </button> */}
+                    <div >
+                        <h6>Anonymous</h6>
+                        <Switch onChange={toggleAnonymousMode} checked={isAnonymous} />
+                    </div>
                 </div>
             </div>
         </div>
