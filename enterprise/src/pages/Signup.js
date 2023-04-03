@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, FormGroup, Input, Label } from 'reactstrap';
 
-import { motion } from 'framer-motion';
-import '../Styles/login.css';
+import { motion } from 'framer-motion'
+import '../styles/login.css'
 
 const Signup = () => {
     return (

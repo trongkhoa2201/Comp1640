@@ -23,6 +23,7 @@ import Post from '../pages/PostManage/Post/Post';
 import PostDetail from '../pages/PostManage/PostDetail/PostDetail';
 import PostCreate from '../pages/PostManage/PostCreate/PostCreate';
 
+
 const Routers = () => {
     return (
         <Routes>
@@ -45,12 +46,10 @@ const Routers = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/question" element={<Main />} />
             <Route path="/add-question" element={<Question />} />
-            {/* <Route path="/category" element={<Category />} /> */}
 
-            {/* ======================== */}
-            <Route path="/post" element={<Post />} />
-            <Route path="/postDetail" element={<PostDetail />} />
-            <Route path="/postCreate" element={<PostCreate />} />
+            {/* ======================= */}
+
+           
         </Routes>
     );
 };
