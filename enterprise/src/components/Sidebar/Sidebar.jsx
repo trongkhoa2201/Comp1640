@@ -1,14 +1,14 @@
 import {
-  CDBSidebar,
-  CDBSidebarContent,
-  CDBSidebarFooter,
-  CDBSidebarHeader,
-  CDBSidebarMenu,
-  CDBSidebarMenuItem,
-} from "cdbreact";
-import React from "react";
-import { Link } from "react-router-dom";
-import SidebarData from "./SidebarData";
+    CDBSidebar,
+    CDBSidebarContent,
+    CDBSidebarFooter,
+    CDBSidebarHeader,
+    CDBSidebarMenu,
+    CDBSidebarMenuItem,
+} from 'cdbreact';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import SidebarData from './SidebarData';
 
 const Sidebar = () => {
     return (
@@ -24,18 +24,18 @@ const Sidebar = () => {
 
                 {/* ===================== Content ===================== */}
 
-        <CDBSidebarContent className="sidebar-content">
-          <CDBSidebarMenu>
-            {SidebarData.map(({ to, label, icon }) => (
-              <Link key={to} exact to={to} activeClassName="activeClicked">
-                <CDBSidebarMenuItem icon={icon}>{label}</CDBSidebarMenuItem>
-              </Link>
-            ))}
-          </CDBSidebarMenu>
-        </CDBSidebarContent>
-      </CDBSidebar>
-    </div>
-  );
+                <CDBSidebarContent className="sidebar-content">
+                    <CDBSidebarMenu>
+                        {SidebarData.map(({ to, label, icon }) => (
+                            <Link key={to} exact to={to} activeClassName="activeClicked">
+                                <CDBSidebarMenuItem icon={icon}>{label}</CDBSidebarMenuItem>
+                            </Link>
+                        ))}
+                    </CDBSidebarMenu>
+                </CDBSidebarContent>
+            </CDBSidebar>
+        </div>
+    );
 };
 
 export default Sidebar;
