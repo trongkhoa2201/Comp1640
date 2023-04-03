@@ -19,6 +19,9 @@ import EditTopic from '../pages/ManageTopic/EditTopic';
 import ManageTopic from '../pages/ManageTopic/ListTopic';
 import Profile from '../pages/Profile.jsx';
 import Signup from '../pages/Signup';
+import Post from '../pages/PostManage/Post/Post';
+import PostDetail from '../pages/PostManage/PostDetail/PostDetail';
+import PostCreate from '../pages/PostManage/PostCreate/PostCreate';
 
 const Routers = () => {
     return (
@@ -43,6 +46,11 @@ const Routers = () => {
             <Route path="/question" element={<Main />} />
             <Route path="/add-question" element={<Question />} />
             {/* <Route path="/category" element={<Category />} /> */}
+
+            {/* ======================== */}
+            <Route path="/post" element={<Post />} />
+            <Route path="/postDetail" element={<PostDetail />} />
+            <Route path="/postCreate" element={<PostCreate />} />
         </Routes>
     );
 };
