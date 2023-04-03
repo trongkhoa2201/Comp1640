@@ -1,59 +1,34 @@
-import {
-  CDBSidebar,
-  CDBSidebarContent,
-  CDBSidebarHeader,
-  CDBSidebarMenu,
-  CDBSidebarMenuItem,
-} from "cdbreact";
-import React from "react";
-import { Link } from "react-router-dom";
+import { CDBSidebar, CDBSidebarContent, CDBSidebarHeader, CDBSidebarMenu, CDBSidebarMenuItem } from 'cdbreact';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import SidebarData from './SidebarData';
 
 const Sidebar = () => {
-  return (
-    <div
-      style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}
-    >
-      <CDBSidebar textColor="#fff" backgroundColor="#000">
-        {/* ===================== Header ===================== */}
+    return (
+        <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
+            <CDBSidebar textColor="#fff" backgroundColor="#000">
+                {/* ===================== Header ===================== */}
 
-        <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-          <a
-            href="/home"
-            className="text-decoration-none"
-            style={{ color: "inherit" }}
-          >
-            LOGO
-          </a>
-        </CDBSidebarHeader>
+                <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
+                    <a href="/home" className="text-decoration-none" style={{ color: 'inherit' }}>
+                        LOGO
+                    </a>
+                </CDBSidebarHeader>
 
-        {/* ===================== Content ===================== */}
+                {/* ===================== Content ===================== */}
 
-        <CDBSidebarContent className="sidebar-content">
-          <CDBSidebarMenu>
-            <Link exact to="/home" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="home">Home</CDBSidebarMenuItem>
-            </Link>
-
-            <Link exact to="/home" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="lock">Home</CDBSidebarMenuItem>
-            </Link>
-
-            <Link exact to="/crud" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="table">
-                Create Account
-              </CDBSidebarMenuItem>
-            </Link>
-            <Link exact to="/profile" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="user">Profile page</CDBSidebarMenuItem>
-            </Link>
-            <Link exact to="/" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="power-off">Log Out</CDBSidebarMenuItem>
-            </Link>
-          </CDBSidebarMenu>
-        </CDBSidebarContent>
-      </CDBSidebar>
-    </div>
-  );
+                <CDBSidebarContent className="sidebar-content">
+                    <CDBSidebarMenu>
+                        {SidebarData.map(({ to, label, icon }) => (
+                            <Link key={to} exact to={to} activeClassName="activeClicked">
+                                <CDBSidebarMenuItem icon={icon}>{label}</CDBSidebarMenuItem>
+                            </Link>
+                        ))}
+                    </CDBSidebarMenu>
+                </CDBSidebarContent>
+            </CDBSidebar>
+        </div>
+    );
 };
 
 export default Sidebar;
