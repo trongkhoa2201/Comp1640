@@ -2,9 +2,10 @@
   border-radius: 20px;
 }
 
-.like-button {
+.number {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row-reverse;
 }
+
