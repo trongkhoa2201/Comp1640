@@ -1,10 +1,6 @@
-.status{
-  border-radius: 20px;
-}
-
-.like-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row-reverse;
+.number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
 }

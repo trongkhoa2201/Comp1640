@@ -1,36 +1,33 @@
+import Switch from '@mui/material/Switch';
 import React, { useState } from 'react';
+import { Button, Card, Form } from 'react-bootstrap';
 import Ava from '../../../img/Ava.jpg';
 import '../Status/Status.css';
-import { Button, Card, Col, Form, FormLabel } from 'react-bootstrap';
-import Switch from '@mui/material/Switch';
 
 export const Status = () => {
+    // Like
+    const [count, setCount] = useState(0);
+    function handleLike() {
+        setCount(count + 1);
+    }
 
-  // Like
-   const [count, setCount] = useState(0);
-   function handleLike() {
-       setCount(count + 1);
-  }
+    // ẩn danh
 
-  // ẩn danh
-   
-  const [isAnonymous, setIsAnonymous] = useState(false);
+    const [isAnonymous, setIsAnonymous] = useState(false);
 
-  function toggleAnonymousMode() {
-    setIsAnonymous(!isAnonymous);
-  }
+    function toggleAnonymousMode() {
+        setIsAnonymous(!isAnonymous);
+    }
 
-  // phân trang 
-
-
+    // phân trang
 
     return (
         <div className="status shadow-lg p-3 bg-body mb-4">
             <div className=" d-flex align-items-center justify-content-between ">
                 {/* ================= avatar ================= */}
-                <div className="ava">
+                {/* <div className="ava">
                     <img src={Ava} alt="Ava" style={{ height: 60, width: 60, borderRadius: '50%' }} />
-                </div>
+                </div> */}
                 {/* ================= input post ================= */}
                 <div
                     style={{
@@ -52,22 +49,30 @@ export const Status = () => {
                                 suscipit culpa maiores voluptas repudiandae eos perspiciatis aut doloremque dolorem fuga
                                 voluptatibus
                             </Card.Text>
+                            <Card.Text>
+                                <small>Author: shiba</small>
+                            </Card.Text>
                             <Button style={{ background: 'black' }} variant="primary">
-                                Go to post
+                                View post
                             </Button>
                         </Card.Body>
                     </Card>
                 </div>
-                <div className="p-3">
-                    <button style={{ border: 'none', background: 'black' }} onClick={handleLike}>
-                        Like
-                    </button>
-                    <h5 className="like-button mt-2">{count}</h5>
+                {/* ====================== Like,  ====================== */}
+                <div>
+                    <div className="p-3 justify-content-center ">
+                        <p>Date</p>
+                        <p className="number mt-2">27/10/2001</p>
+                    </div>
+                    <div className="p-3 d-flex gap-2 align-items-center">
+                        <i className="fa fa-eye" ></i>
+                        <p className="mt-2">23</p>
+                    </div>
                 </div>
             </div>
 
             {/* ====================== Comment show ====================== */}
-            <h5 style={{ borderTop: '2px solid #ccc', paddingTop: '10px' }}>Comment</h5>
+            {/* <h5 style={{ borderTop: '2px solid #ccc', paddingTop: '10px' }}>Comment</h5>
             <div className="mt-3">
                 <div className="mt-3 m-3 p-3 gap-4 " style={{ display: 'flex', alignItems: 'center' }}>
                     <img src={Ava} alt="Ava" style={{ height: 60, width: 60, borderRadius: '50%' }} />
@@ -76,22 +81,20 @@ export const Status = () => {
                         <p>lorem ipsum dolor sit amet, consectetur your comment</p>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             {/* ====================== Comment input ====================== */}
-            <div className="mt-3">
+            {/* <div className="mt-3">
                 <div className="mt-3 m-3 p-3 gap-4 " style={{ display: 'flex', alignItems: 'center' }}>
                     <img src={Ava} alt="Ava" style={{ height: 60, width: 60, borderRadius: '50%' }} />
-                    <Form.Control as="textarea" rows="auto" placeholder="Enter your comment" />
-                    {/* <button style={{ marginLeft: '10px' }} onClick={toggleAnonymousMode}>
-                        Ẩn danh
-                    </button> */}
-                    <div >
+                    <Form.Control as="textarea" rows={1} placeholder="Enter your comment" />
+                    <Button style={{ marginLeft: '10px', background: 'black' }}>Summit</Button>
+                    <div>
                         <h6>Anonymous</h6>
                         <Switch onChange={toggleAnonymousMode} checked={isAnonymous} />
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

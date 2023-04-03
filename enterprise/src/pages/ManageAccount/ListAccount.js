@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getError } from '../../getError';
 
+
 function ManageAccount() {
     const navigate = useNavigate();
     const navigateToCreate = () => {
         navigate('/createAccount');
     };
-
     const [users, setUsers] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
