@@ -19,6 +19,7 @@ const Login = () => {
                 email,
                 password,
             });
+            localStorage.setItem('userInfo', JSON.stringify(data));
             navigate('/home');
         } catch (err) {
             toast.error(getError(err));
