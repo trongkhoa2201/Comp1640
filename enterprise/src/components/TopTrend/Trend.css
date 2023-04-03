@@ -1,0 +1,57 @@
+.trend-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  
+}
+
+.trend-box {
+  border-radius: 12px;
+  width: calc(25% - 10px);
+  height: 200px; 
+  background-color: #ccc; 
+  margin-bottom: 10px;
+cursor: pointer;  
+}
+
+@media (max-width: 964px) {
+   
+  .trend-box {
+    width: calc(33% - 2px);
+  }
+    .trend-box:nth-child(n+4) {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .trend-box {
+    width: calc(50% - 10px);
+  }
+    .trend-box:nth-child(n+3) {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .trend-box {
+    width: 100%;
+  }
+    .trend-box:nth-child(n+2) {
+    display: none;
+  }
+}
+
+/* ===============================================*/
+
+.layer{
+  background-color: rgba(0, 0, 0, 0.452);
+  padding: 10px;
+  border-radius:12px;
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  z-index: 10;
+}
