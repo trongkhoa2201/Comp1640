@@ -36,18 +36,6 @@ function ManageAccount() {
         <div className="container ">
             <div className="crud shadow-lg p-3 mb-5 mt-5 bg-body rounded">
                 <div className="row ">
-                    <div className="col-sm-3 mt-5 mb-4 ">
-                        <div className="search_student">
-                            <form className="form-inline">
-                                <input
-                                    className="form-control mr-sm-2"
-                                    type="search"
-                                    placeholder="Search person by name"
-                                    aria-label="Search"
-                                />
-                            </form>
-                        </div>
-                    </div>
                     <div className="col-sm-3 offset-sm-2 mt-5 mb-4 ">
                         <h2>
                             <b>Account Details</b>

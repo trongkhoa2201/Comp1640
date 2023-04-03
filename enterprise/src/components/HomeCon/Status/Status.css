@@ -1,11 +1,6 @@
-.status{
-  border-radius: 20px;
-}
-
 .number {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row-reverse;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
 }
-
