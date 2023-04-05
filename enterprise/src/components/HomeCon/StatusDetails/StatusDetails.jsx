@@ -5,16 +5,24 @@ import Ava from '../../../img/Ava.jpg';
 import '../StatusDetails/StatusDetails.css';
 
 const StatusDetails = () => {
-  const [isAnonymous, setIsAnonymous] = useState(false);
-   const [showModal, setShowModal] = useState(false);
+    const [isAnonymous, setIsAnonymous] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [likes, setLikes] = useState(0);
+    const [clicked, setClicked] = useState(false);
 
-   const openModal = () => {
-       setShowModal(true);
-   };
+    const openModal = () => {
+        setShowModal(true);
+    };
 
-   const closeModal = () => {
-       setShowModal(false);
-   };
+    const closeModal = () => {
+        setShowModal(false);
+    };
+    const handleLike = () => {
+        if (!clicked) {
+            setLikes(likes + 1);
+            setClicked(true);
+        }
+    };
 
     function toggleAnonymousMode() {
         setIsAnonymous(!isAnonymous);
@@ -56,7 +64,11 @@ const StatusDetails = () => {
                 {/* ==================== Img (if any) ==================== */}
                 <section>
                     <div onClick={openModal}>
-                        <img src={Ava} style={{ width: '100%', height: '300px', objectFit: 'cover' }} alt=""></img>
+                        <img
+                            src={Ava}
+                            style={{ width: '100%', height: '300px', objectFit: 'cover', borderRadius: '15px' }}
+                            alt=""
+                        ></img>
                     </div>
 
                     <Modal show={showModal} onHide={closeModal}>
@@ -64,6 +76,21 @@ const StatusDetails = () => {
                             <img src={Ava} style={{ width: '100%', height: 'auto' }} alt=""></img>
                         </Modal.Body>
                     </Modal>
+                </section>
+                {/* ==================== Like Icon ==================== */}
+                <section>
+                    <p style={{ borderTop: '3px solid #ccc', marginTop: '20px' }}></p>
+                    <div className="d-flex">
+                        <Button
+                            variant="outline-danger"
+                            style={{ border: 'none', marginRight: '10px' }}
+                            onClick={handleLike}
+                        >
+                            {clicked ? <i class="ri-thumb-up-fill fs-3"></i> : <i class="ri-thumb-up-line fs-3"></i>}
+                            {/* {''} {likes} Likes */}
+                        </Button>
+                        <h5 style={{ paddingTop: '15px' }}>{likes} Likes</h5>
+                    </div>
                 </section>
                 {/* ==================== Comment-Show ==================== */}
                 <section>
