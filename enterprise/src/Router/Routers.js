@@ -19,6 +19,7 @@ import CreateDepartment from '../pages/ManageDepartment/CreateDepartment';
 import EditDepartment from '../pages/ManageDepartment/UpdateDepartment';
 import CreateTopic from '../pages/ManageTopic/CreateTopic';
 import EditTopic from '../pages/ManageTopic/EditTopic';
+import StatusDetails from '../components/HomeCon/StatusDetails/StatusDetails';
 
 
 const Routers = () => {
@@ -43,6 +44,7 @@ const Routers = () => {
             <Route path="/signup" element={<Signup />} />
 
             {/* ======================= */}
+            <Route path="/statusDetails" element={<StatusDetails />} />
         </Routes>
     );
 };
