@@ -6,21 +6,12 @@ function Post(props) {
     const { post } = props;
 
     return (
-        // <Card>
-        //     <Link to={`/posts/${post._id}`}>
-        //         <img src={post.fileUpload} className="card-img-top" alt={post.title} />
-        //     </Link>
-        //     <Card.Body>
-        //         <Link to={`/posts/${post._id}`}>
-        //             <Card.Title>{post.title}</Card.Title>
-        //         </Link>
-        //         <Card.Text>
-        //             <strong>{post.postBy}</strong>
-        //         </Card.Text>
-        //     </Card.Body>
-        // </Card>
         <MDBCard className="mb-3">
-            <MDBCardImage position="top" src="https://mdbootstrap.com/img/new/slides/041.webp" alt="..." />
+            {post.fileUpload === null ? (
+                <MDBCardImage position="top" src="https://mdbootstrap.com/img/new/slides/041.webp" alt="..." />
+            ) : (
+                <MDBCardImage position="top" src={post.fileUpload} alt="..." />
+            )}
             <MDBCardBody>
                 <Link to={`/posts/${post._id}`}>
                     <MDBCardTitle>{post.title}</MDBCardTitle>

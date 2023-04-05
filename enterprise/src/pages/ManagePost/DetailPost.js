@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useContext, useEffect, useReducer, useRef, useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Moment from 'react-moment';
@@ -28,13 +27,23 @@ function DetailPost() {
         <div>
             <Row>
                 <Col md={6}>
-                    <img
-                        className="img-large"
-                        src="https://mdbootstrap.com/img/new/slides/041.webp"
-                        alt={post.title}
-                        width="650"
-                        height="600"
-                    ></img>
+                    {post.fileUpload === null ? (
+                        <img
+                            className="img-large"
+                            src="https://mdbootstrap.com/img/new/slides/041.webp"
+                            alt={post.title}
+                            width="650"
+                            height="600"
+                        ></img>
+                    ) : (
+                        <img
+                            className="img-large"
+                            src={post.fileUpload}
+                            alt={post.title}
+                            width="650"
+                            height="600"
+                        ></img>
+                    )}
                 </Col>
                 <Col md={6}>
                     <ListGroup variant="flush">

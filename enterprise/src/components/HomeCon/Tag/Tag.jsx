@@ -1,17 +1,31 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import '../Tag/Tag.css';
+
 const Tag = () => {
+    const [topics, setTopics] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get('/api/topics')
+            .then((response) => {
+                setTopics(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
     return (
-        <div className="tag-category  shadow-lg p-3 bg-body rounded">
-            <h4>Topics</h4>
-            <ul>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-                <li>hello</li>
-            </ul>
+        <div className="tag-category shadow-lg p-3 bg-body rounded">
+            <h4>Topic</h4>
+            {topics.map((topic) => (
+                <ul>
+                    <li key={topic.id}>{topic.title}</li>
+                </ul>
+            ))}
         </div>
     );
 };
+
 export default Tag;

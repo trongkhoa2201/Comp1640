@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import Axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import ListGroup from 'react-bootstrap/ListGroup';
 import axios from 'axios';
 import { getError } from '../../../getError';
+import { Store } from '../../../Store';
 
 export default function CreateNewPost() {
     const navigate = useNavigate();
@@ -25,6 +26,9 @@ export default function CreateNewPost() {
     const [cate, setCate] = useState([]);
     const [topics, setTopics] = useState([]);
 
+    const { state, dispatch: ctxDispatch } = useContext(Store);
+    const { userInfo } = state;
+
     useEffect(() => {
         axios
             .get('/api/topics')
@@ -40,6 +44,7 @@ export default function CreateNewPost() {
             .get('/api/categories')
             .then((response) => {
                 setCate(response.data);
+                setPostBy(userInfo.name);
             })
             .catch((error) => {
                 console.log(error);
@@ -58,9 +63,6 @@ export default function CreateNewPost() {
                 isAnonymous,
                 fileUpload,
             });
-            // ctxDispatch({ type: 'USER_SIGNIN', payload: data });
-            // localStorage.setItem('userInfo', JSON.stringify(data));
-            console.log(data);
             navigate(redirect || '/managePost');
         } catch (err) {
             toast.error(getError(err));
@@ -106,10 +108,6 @@ export default function CreateNewPost() {
                             <Form.Group className="mb-3" controlId="content">
                                 <Form.Label>Content</Form.Label>
                                 <Form.Control value={content} onChange={(e) => setContent(e.target.value)} required />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="author">
-                                <Form.Label>Author</Form.Label>
-                                <Form.Control value={postBy} onChange={(e) => setPostBy(e.target.value)} required />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="topic">
                                 <Form.Label>Topic</Form.Label>
