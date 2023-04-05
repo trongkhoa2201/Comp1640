@@ -35,6 +35,7 @@ const reducer = (state, action) => {
     }
 };
 
+
 function ManageAccount() {
 
     const [{ loading, error, users, loadingDelete, successDelete }, dispatch] = useReducer(reducer, {
@@ -47,7 +48,11 @@ function ManageAccount() {
     const navigateToCreate = () => {
         navigate('/createAccount');
     };
+<<<<<<< HEAD
 
+=======
+    const [users, setUsers] = useState([]);
+>>>>>>> e888bcd30f75b73bdfd5d10c83557a594b4ffa1b
     useEffect(() => {
         const fetchData = async () => {
             try {

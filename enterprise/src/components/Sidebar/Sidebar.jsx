@@ -6,10 +6,16 @@ import {
     CDBSidebarMenu,
     CDBSidebarMenuItem,
 } from 'cdbreact';
+<<<<<<< HEAD
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import SidebarData from './SidebarData';
 import { Store } from '../../Store';
+=======
+import React from 'react';
+import { Link } from 'react-router-dom';
+import SidebarData from './SidebarData';
+>>>>>>> e888bcd30f75b73bdfd5d10c83557a594b4ffa1b
 
 const Sidebar = () => {
     const { state, dispatch: ctxDispatch } = useContext(Store);

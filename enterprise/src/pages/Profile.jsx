@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -5,6 +6,13 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { getError } from '../getError';
+=======
+import React, { useState } from "react";
+import { Button, Col, Container, Form, FormGroup, Row } from "react-bootstrap";
+
+import "../styles/profile.css"
+import Ava from "../img/Ava.jpg";
+>>>>>>> e888bcd30f75b73bdfd5d10c83557a594b4ffa1b
 
 export default function Profile() {
     const navigate = useNavigate();
