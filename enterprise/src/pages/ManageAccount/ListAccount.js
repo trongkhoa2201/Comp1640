@@ -1,24 +1,79 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useReducer, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getError } from '../../getError';
+import { Store } from '../../Store';
+
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'FETCH_REQUEST':
+            return { ...state, loading: true };
+        case 'FETCH_SUCCESS':
+            return {
+                ...state,
+                users: action.payload,
+                loading: false,
+            };
+        case 'FETCH_FAIL':
+            return { ...state, loading: false, error: action.payload };
+        case 'DELETE_REQUEST':
+            return { ...state, loadingDelete: true, successDelete: false };
+        case 'DELETE_SUCCESS':
+            return {
+                ...state,
+                loadingDelete: false,
+                successDelete: true,
+            };
+        case 'DELETE_FAIL':
+            return { ...state, loadingDelete: false };
+        case 'DELETE_RESET':
+            return { ...state, loadingDelete: false, successDelete: false };
+        default:
+            return state;
+    }
+};
 
 
 function ManageAccount() {
+
+    const [{ loading, error, users, loadingDelete, successDelete }, dispatch] = useReducer(reducer, {
+        loading: true,
+        error: '',
+    });
+    const { state } = useContext(Store);
+    const { userInfo } = state;
     const navigate = useNavigate();
     const navigateToCreate = () => {
         navigate('/createAccount');
     };
+<<<<<<< HEAD
+
+=======
     const [users, setUsers] = useState([]);
+>>>>>>> e888bcd30f75b73bdfd5d10c83557a594b4ffa1b
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios.get('/api/users');
-            setUsers(result.data);
+            try {
+                dispatch({ type: 'FETCH_REQUEST' });
+                const { data } = await axios.get(`/api/users`, {
+                    headers: { Authorization: `Bearer ${userInfo.token}` },
+                });
+                dispatch({ type: 'FETCH_SUCCESS', payload: data });
+            } catch (err) {
+                dispatch({
+                    type: 'FETCH_FAIL',
+                    payload: getError(err),
+                });
+            }
         };
-        fetchData();
-    }, []);
+        if (successDelete) {
+            dispatch({ type: 'DELETE_RESET' });
+        } else {
+            fetchData();
+        }
+    }, [successDelete]);
 
     const deleteHandler = async (user) => {
         if (window.confirm('Are you sure to delete?')) {
@@ -34,6 +89,11 @@ function ManageAccount() {
 
     return (
         <div className="container ">
+        {loading ? (
+          <div>Loading...</div>
+        ) : error ? (
+          <div>{error}</div>
+        ) : (
             <div className="crud shadow-lg p-3 mb-5 mt-5 bg-body rounded">
                 <div className="row ">
                     <div className="col-sm-3 offset-sm-2 mt-5 mb-4 ">
@@ -93,6 +153,7 @@ function ManageAccount() {
                     </div>
                 </div>
             </div>
+        )}
         </div>
     );
 }
