@@ -3,7 +3,7 @@ import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Axios from 'axios';
-import '../styles/login.css';
+import '../Styles/login.css';
 import { getError } from '../getError';
 import { toast } from 'react-toastify';
 import { Store } from '../Store';

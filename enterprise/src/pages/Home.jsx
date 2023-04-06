@@ -3,10 +3,8 @@ import { Col, Row } from 'react-bootstrap';
 import { Status } from '../components/HomeCon/Status/Status';
 import Tag from '../components/HomeCon/Tag/Tag';
 import Trend from '../components/TopTrend/Trend';
-import '../styles/home.css';
+import '../Styles/home.css';
 const Home = () => {
-    
-    
     return (
         <div className="px-4 pt-3 pb-5">
             <div>
@@ -15,9 +13,6 @@ const Home = () => {
             <Row className="status px-4">
                 {/* ================= Status ================= */}
                 <Col lg="9" md="9">
-                    <Status />
-                    <Status />
-                    <Status />
                     <Status />
                 </Col>
                 {/* ================= Tag ================= */}
