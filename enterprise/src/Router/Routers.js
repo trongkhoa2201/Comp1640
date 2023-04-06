@@ -19,11 +19,15 @@ import CreateDepartment from '../pages/ManageDepartment/CreateDepartment';
 import EditDepartment from '../pages/ManageDepartment/UpdateDepartment';
 import CreateTopic from '../pages/ManageTopic/CreateTopic';
 import EditTopic from '../pages/ManageTopic/EditTopic';
+<<<<<<< HEAD
+import StatusDetails from '../components/HomeCon/StatusDetails/StatusDetails';
+=======
 import NewPost from '../components/Post/NewPost';
 import ManagePost from '../pages/ManagePost/ListPost';
 import CreateNewPost from '../pages/ManagePost/CreateNewPost';
 import EditPost from '../pages/ManagePost/EditPost';
 import DetailPost from '../pages/ManagePost/DetailPost';
+>>>>>>> 85b9da8147c98620d7598dd5b95ec8ce156519d7
 
 
 const Routers = () => {
@@ -52,6 +56,7 @@ const Routers = () => {
             <Route path="/signup" element={<Signup />} />
 
             {/* ======================= */}
+            <Route path="/statusDetails" element={<StatusDetails />} />
         </Routes>
     );
 };
