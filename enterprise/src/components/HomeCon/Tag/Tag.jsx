@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import '../Tag/Tag.css';
+import { Container } from 'react-bootstrap';
 
 const Tag = () => {
     const [topics, setTopics] = useState([]);
@@ -17,14 +18,14 @@ const Tag = () => {
     }, []);
 
     return (
-        <div className="tag-category shadow-lg p-3 bg-body rounded">
+        <Container className="tag-category shadow-lg p-3 bg-body rounded">
             <h4>Topic</h4>
             {topics.map((topic) => (
                 <ul>
                     <li key={topic.id}>{topic.title}</li>
                 </ul>
             ))}
-        </div>
+        </Container>
     );
 };
 

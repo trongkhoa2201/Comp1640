@@ -6,31 +6,53 @@ import { Button } from 'react-bootstrap';
 function Post(props) {
     const { post } = props;
     return (
-        <MDBCard className="mb-3">
+        <MDBCard className="mb-3 p-3 shadow-lg" style={{ borderRadius: '15px', border: '1px solid black' }}>
             {post.fileUpload === null ? (
-                <MDBCardImage position="top" src="https://mdbootstrap.com/img/new/slides/041.webp" alt="..." />
+                <MDBCardImage
+                    // position="top"
+                    style={{ width: '800px', height: '400px', borderRadius: '15px', objectFit: 'cover' }}
+                    src="https://mdbootstrap.com/img/new/slides/041.webp"
+                    alt="..."
+                />
             ) : (
-                <MDBCardImage position="top" src={post.fileUpload} alt="..." />
+                <MDBCardImage
+                    position="top"
+                    style={{ width: '800px', height: '300px', borderRadius: '15px', objectFit: 'cover' }}
+                    src={post.fileUpload}
+                    alt="..."
+                />
             )}
-            <MDBCardBody>
+            <MDBCardBody className="">
                 <Link to={`/posts/${post._id}`}>
                     <MDBCardTitle>{post.title}</MDBCardTitle>
                 </Link>
                 <MDBCardText>{post.content}</MDBCardText>
-                <MDBCardText>
-                    <small className="text-muted">Post by: {post.postBy}</small>
-                    <br />
-                    <small className="text-muted">
-                        <Moment format="YYYY/MM/DD">{post.createAt}</Moment>
-                    </small>
-                </MDBCardText>
-                <div className="d-flex gap-2 align-items-center">
-                    <i className="fa fa-eye"></i>
-                    <p className="mt-2">{post.views}</p>
-                </div>
-                <div className="d-flex gap-2 align-items-center">
-                    <i className="fa fa-heart"></i>
-                    <p className="mt-2">{post.likes.quantity}</p>
+                <div className="d-flex  justify-content-between">
+                    <MDBCardText>
+                        <small className="text-muted">Post by: {post.postBy}</small>
+                        <br />
+                        <small className="text-muted">
+                            <Moment format="YYYY/MM/DD">{post.createAt}</Moment>
+                        </small>
+                    </MDBCardText>
+                    {/* =================== Like & DisLike =================== */}
+                    <div className="d-flex gap-3">
+                        <div className="d-flex gap-2 align-items-center">
+                            <i class="ri-thumb-up-fill fs-4"></i>
+                            <p className="mt-2">{post.likes.quantity}</p>
+                        </div>
+                        <div className="d-flex gap-2 align-items-center">
+                            <i class="ri-thumb-down-fill fs-4"></i>
+                            <p className="mt-2"></p>
+                        </div>
+                    </div>
+                    {/* =================== View =================== */}
+                    <div className="d-flex gap-2 align-items-center">
+                        <i className="fa fa-eye fs-4"></i>
+                        <p className="mt-2 pt-2">{post.views}</p>
+                        <i class="ri-message-3-fill fs-2"></i>
+                        <p className="mt-2 pt-2">{post.views}</p>
+                    </div>
                 </div>
             </MDBCardBody>
         </MDBCard>

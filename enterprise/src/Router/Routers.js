@@ -19,21 +19,14 @@ import CreateDepartment from '../pages/ManageDepartment/CreateDepartment';
 import EditDepartment from '../pages/ManageDepartment/UpdateDepartment';
 import CreateTopic from '../pages/ManageTopic/CreateTopic';
 import EditTopic from '../pages/ManageTopic/EditTopic';
-<<<<<<< HEAD
-import StatusDetails from '../components/HomeCon/StatusDetails/StatusDetails';
-=======
+
 import NewPost from '../components/Post/NewPost';
 import ManagePost from '../pages/ManagePost/ListPost';
 import CreateNewPost from '../pages/ManagePost/CreateNewPost';
-<<<<<<< HEAD
-import EditPost from '../pages/ManagePost/EditPost';
-import DetailPost from '../pages/ManagePost/DetailPost';
->>>>>>> 85b9da8147c98620d7598dd5b95ec8ce156519d7
-=======
+
 // import EditPost from '../pages/ManagePost/EditPost';
 // import DetailPost from '../pages/ManagePost/DetailPost';
 import StatusDetails from '../pages/ManagePost/PostDetail';
->>>>>>> de958b60f64da00c41ecf904f98ddc9e51b4b099
 
 
 const Routers = () => {
@@ -63,11 +56,7 @@ const Routers = () => {
             <Route path="/signup" element={<Signup />} />
 
             {/* ======================= */}
-<<<<<<< HEAD
-            <Route path="/statusDetails" element={<StatusDetails />} />
-=======
-            {/* <Route path="/statusDetails" element={<StatusDetails />} /> */}
->>>>>>> de958b60f64da00c41ecf904f98ddc9e51b4b099
+
         </Routes>
     );
 };

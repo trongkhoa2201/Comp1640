@@ -16,9 +16,11 @@ const Home = () => {
                     <Status />
                 </Col>
                 {/* ================= Tag ================= */}
-                <Col className="Tag " lg="3" md="3">
-                    <Tag />
-                </Col>
+                
+                    <Col className="Tag " lg="3" md="3">
+                        <Tag />
+                    </Col>
+                
             </Row>
         </div>
     );
