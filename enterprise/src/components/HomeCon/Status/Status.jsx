@@ -1,6 +1,9 @@
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 54e43bff388715f102fd539aa7160d8b7d25366f
 import React, { useEffect, useState } from 'react';
 import { Row } from 'react-bootstrap';
 import '../Status/Status.css';
@@ -23,7 +26,7 @@ export const Status = () => {
     const firstPostIndex = lastPostIndex - postPerPages;
     const currenPosts = posts.slice(firstPostIndex, lastPostIndex);
     return (
-        <div className="post shadow-lg p-3 bg-body rounded">
+        <div className="status shadow-lg p-3 bg-body mb-4">
             <div className="d-flex align-items-center justify-content-between ">
                 <div className="products">
                     {currenPosts.map((post) => (
@@ -41,6 +44,8 @@ export const Status = () => {
                     currentPages={currentPages}
                 />
             </div>
+<<<<<<< HEAD
+=======
 =======
 >>>>>>> 85b9da8147c98620d7598dd5b95ec8ce156519d7
 import Switch from '@mui/material/Switch';
@@ -168,6 +173,7 @@ export const Status = () => {
 =======
 >>>>>>> e888bcd30f75b73bdfd5d10c83557a594b4ffa1b
 >>>>>>> 85b9da8147c98620d7598dd5b95ec8ce156519d7
+>>>>>>> 54e43bff388715f102fd539aa7160d8b7d25366f
         </div>
     );
 };

@@ -27,7 +27,11 @@ import ManagePost from '../pages/ManagePost/ListPost';
 import CreateNewPost from '../pages/ManagePost/CreateNewPost';
 import EditPost from '../pages/ManagePost/EditPost';
 import DetailPost from '../pages/ManagePost/DetailPost';
+<<<<<<< HEAD
+import StatusDetails from '../pages/ManagePost/PostDetail';
+=======
 >>>>>>> 85b9da8147c98620d7598dd5b95ec8ce156519d7
+>>>>>>> 54e43bff388715f102fd539aa7160d8b7d25366f
 
 
 const Routers = () => {
@@ -49,7 +53,8 @@ const Routers = () => {
             <Route path="/categories/:id" element={<EditCategory />} />
             <Route path="/departments/:id" element={<EditDepartment />} />
             <Route path="/topics/:id" element={<EditTopic />} />
-            <Route path="/posts/:id" element={<DetailPost />} />
+            {/* <Route path="/posts/:id" element={<DetailPost />} /> */}
+            <Route path="/posts/:id" element={<StatusDetails />} />
             <Route path="/newpost" element={<NewPost />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
