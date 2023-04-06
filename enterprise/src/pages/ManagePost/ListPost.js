@@ -4,25 +4,26 @@ import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getError } from '../../getError';
+import Moment from 'react-moment';
 
-export default function ManageCategory() {
+export default function ManagePost() {
     const navigate = useNavigate();
     const navigateToCreate = () => {
-        navigate('/createCategory');
+        navigate('/createPost');
     };
-    const [categories, setCategories] = useState([]);
+    const [posts, setPosts] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios.get('/api/categories');
-            setCategories(result.data);
+            const result = await axios.get('/api/posts');
+            setPosts(result.data);
         };
         fetchData();
     }, []);
-    const deleteHandler = async (category) => {
+    const deleteHandler = async (post) => {
         if (window.confirm('Are you sure to delete?')) {
             try {
-                await axios.delete(`/api/categories/${category._id}`);
-                toast.success('Category deleted successfully');
+                await axios.delete(`/api/posts/${post._id}`);
+                toast.success('Post deleted successfully');
                 window.location.reload(true);
             } catch (error) {
                 toast.error(getError(error));
@@ -36,12 +37,12 @@ export default function ManageCategory() {
                 <div className="row ">
                     <div className="col-sm-3 offset-sm-2 mt-5 mb-4 ">
                         <h2>
-                            <b>Category Details</b>
+                            <b>Posts Details</b>
                         </h2>
                     </div>
                     <div className="col-sm-3 offset-sm-1  mt-5 mb-4 ">
                         <Button variant="primary" onClick={navigateToCreate}>
-                            Create new Category
+                            Create new post
                         </Button>
                     </div>
                 </div>
@@ -50,25 +51,34 @@ export default function ManageCategory() {
                         <table className="table table-striped table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Description</th>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Category</th>
+                                    <th>Topic</th>
+                                    <th>isAnonymous</th>
+                                    <th>Create At</th>
+                                    <th>Views</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {categories.map((category) => (
-                                    <tr key={category._id}>
-                                        <td>{category.name}</td>
-                                        <td>{category.description}</td>
+                                {posts.map((post) => (
+                                    <tr key={post._id}>
+                                        <td>{post.title}</td>
+                                        <td>{post.postBy}</td>
+                                        <td>{post.category}</td>
+                                        <td>{post.topic}</td>
+                                        <td>{post.isAnonymous ? 'Yes' : 'No'}</td>
                                         <td>
-                                            <Button
-                                                variant="success"
-                                                onClick={() => navigate(`/categories/${category._id}`)}
-                                            >
+                                            <Moment format="YYYY/MM/DD">{post.createAt}</Moment>
+                                        </td>
+                                        <td>0</td>
+                                        <td>
+                                            <Button variant="success" onClick={() => navigate(`/posts/${post._id}`)}>
                                                 Edit
                                             </Button>
                                             &nbsp;
-                                            <Button variant="danger" onClick={() => deleteHandler(category)}>
+                                            <Button variant="danger" onClick={() => deleteHandler(post)}>
                                                 {' '}
                                                 Delete
                                             </Button>

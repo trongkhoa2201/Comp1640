@@ -7,6 +7,7 @@ import uploadRouter from "./routes/uploadRouter.js";
 import categoryRouter from "./routes/categoryRouter.js";
 import departmentRouter from "./routes/departmentRouter.js";
 import topicRouter from "./routes/topicRouter.js";
+import postRouter from "./routes/postRouter.js";
 
 dotenv.config();
 mongoose.set("strictQuery", false);
@@ -28,6 +29,7 @@ app.use("/api/users", adminRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/departments", departmentRouter);
 app.use("/api/topics", topicRouter);
+app.use("/api/posts", postRouter);
 app.use("/api/upload", uploadRouter);
 
 app.get("/api/users", (req, res) => {

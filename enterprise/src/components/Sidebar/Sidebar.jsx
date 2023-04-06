@@ -6,11 +6,20 @@ import {
     CDBSidebarMenu,
     CDBSidebarMenuItem,
 } from 'cdbreact';
+<<<<<<< HEAD
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import SidebarData from './SidebarData';
+import { Store } from '../../Store';
+=======
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SidebarData from './SidebarData';
+>>>>>>> e888bcd30f75b73bdfd5d10c83557a594b4ffa1b
 
 const Sidebar = () => {
+    const { state, dispatch: ctxDispatch } = useContext(Store);
+    const { userInfo } = state;
     return (
         <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
             <CDBSidebar textColor="#fff" backgroundColor="#000">
@@ -18,7 +27,9 @@ const Sidebar = () => {
 
                 <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
                     <a href="/home" className="text-decoration-none" style={{ color: 'inherit' }}>
-                        LOGO
+                        {userInfo.name}
+                        <br />
+                        Role: {userInfo.role}
                     </a>
                 </CDBSidebarHeader>
 

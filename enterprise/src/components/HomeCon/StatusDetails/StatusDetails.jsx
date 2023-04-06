@@ -8,6 +8,7 @@ const StatusDetails = () => {
     const [isAnonymous, setIsAnonymous] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [likes, setLikes] = useState(0);
+    const [dislikes, setDisLikes] = useState(0);
     const [clicked, setClicked] = useState(false);
 
     const openModal = () => {
@@ -17,12 +18,19 @@ const StatusDetails = () => {
     const closeModal = () => {
         setShowModal(false);
     };
-    const handleLike = () => {
+    const handleDisLike = () => {
         if (!clicked) {
             setLikes(likes + 1);
             setClicked(true);
         }
     };
+
+     const handleLike = () => {
+         if (!clicked) {
+             setDisLikes(dislikes + 1);
+             setClicked(true);
+         }
+     };
 
     function toggleAnonymousMode() {
         setIsAnonymous(!isAnonymous);
@@ -80,16 +88,35 @@ const StatusDetails = () => {
                 {/* ==================== Like Icon ==================== */}
                 <section>
                     <p style={{ borderTop: '3px solid #ccc', marginTop: '20px' }}></p>
-                    <div className="d-flex">
-                        <Button
-                            variant="outline-danger"
-                            style={{ border: 'none', marginRight: '10px' }}
-                            onClick={handleLike}
-                        >
-                            {clicked ? <i class="ri-thumb-up-fill fs-3"></i> : <i class="ri-thumb-up-line fs-3"></i>}
-                            {/* {''} {likes} Likes */}
-                        </Button>
-                        <h5 style={{ paddingTop: '15px' }}>{likes} Likes</h5>
+                    <div className=" d-flex justify-content-between">
+                        <div className="d-flex">
+                            <Button
+                                variant="outline-danger"
+                                style={{ border: 'none', marginRight: '10px' }}
+                                onClick={handleLike}
+                            >
+                                {clicked ? (
+                                    <i class="ri-thumb-up-fill fs-3"></i>
+                                ) : (
+                                    <i class="ri-thumb-up-line fs-3"></i>
+                                )}
+                            </Button>
+                            <h5 style={{ paddingTop: '15px' }}>{likes} Likes</h5>
+                        </div>
+                        <div className="d-flex">
+                            <Button
+                                variant="outline-danger"
+                                style={{ border: 'none', marginRight: '10px' }}
+                                onClick={handleDisLike}
+                            >
+                                {clicked ? (
+                                    <i class="ri-thumb-up-fill fs-3"></i>
+                                ) : (
+                                    <i class="ri-thumb-up-line fs-3"></i>
+                                )}
+                            </Button>
+                            <h5 style={{ paddingTop: '15px' }}>{dislikes} Likes</h5>
+                        </div>
                     </div>
                 </section>
                 {/* ==================== Comment-Show ==================== */}
