@@ -75,31 +75,55 @@ postRouter.get(
 //   })
 // );
 
-// departmentRouter.delete(
-//   "/:id",
-//   expressAsyncHandler(async (req, res) => {
-//     const department = await Department.findById(req.params.id);
-//     if (department) {
-//       await department.deleteOne();
-//       res.send({ message: "Department Deleted" });
-//     } else {
-//       res.status(404).send({ message: "Department Not Found" });
-//     }
-//   })
-// );
+postRouter.delete(
+  "/:id",
+  expressAsyncHandler(async (req, res) => {
+    const post = await Post.findById(req.params.id);
+    if (post) {
+      await post.deleteOne();
+      res.send({ message: "Post Deleted" });
+    } else {
+      res.status(404).send({ message: "Post Not Found" });
+    }
+  })
+);
+postRouter.put(
+  "/:id/view",
+  expressAsyncHandler(async (req, res) => {
+    const post = await Post.findById(req.params.id);
+    if (post) {
+      post.views = post.views + 1;
+      const updatedPost = await post.save();
+      res.send({ message: "Post Updated", post: updatedPost });
+    } else {
+      res.status(404).send({ message: "Post Not Found" });
+    }
+  })
+);
 
-// departmentRouter.put(
-//   "/:id",
-//   expressAsyncHandler(async (req, res) => {
-//     const department = await Department.findById(req.params.id);
-//     if (department) {
-//         department.name = req.body.name || department.name;
-//       const updatedDepartment = await department.save();
-//       res.send({ message: "Department Updated", department: updatedDepartment });
-//     } else {
-//       res.status(404).send({ message: "Department Not Found" });
-//     }
-//   })
-// );
+postRouter.post(
+  "/:id/comments",
+  expressAsyncHandler(async (req, res) => {
+    const postId = req.params.id;
+    const post = await Post.findById(postId);
+    if (post) {
+      const comment = {
+        commentBy: req.body.commentBy,
+        content: req.body.content,
+        isAnonymous: Boolean(req.body.isAnonymous),
+      };
+      post.comments.push(comment);
+      post.views = post.views + 1;
+      const updatedPost = await post.save();
+      res.status(201).send({
+        message: "Review Created",
+        // comment: updatedPost.comments[updatedPost.comment.length - 1],
+        views: post.views,
+      });
+    } else {
+      res.status(404).send({ message: "Post Not Found" });
+    }
+  })
+);
 
 export default postRouter;

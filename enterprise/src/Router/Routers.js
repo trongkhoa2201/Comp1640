@@ -24,6 +24,7 @@ import ManagePost from '../pages/ManagePost/ListPost';
 import CreateNewPost from '../pages/ManagePost/CreateNewPost';
 import EditPost from '../pages/ManagePost/EditPost';
 import DetailPost from '../pages/ManagePost/DetailPost';
+import StatusDetails from '../pages/ManagePost/PostDetail';
 
 
 const Routers = () => {
@@ -45,7 +46,8 @@ const Routers = () => {
             <Route path="/categories/:id" element={<EditCategory />} />
             <Route path="/departments/:id" element={<EditDepartment />} />
             <Route path="/topics/:id" element={<EditTopic />} />
-            <Route path="/posts/:id" element={<DetailPost />} />
+            {/* <Route path="/posts/:id" element={<DetailPost />} /> */}
+            <Route path="/posts/:id" element={<StatusDetails />} />
             <Route path="/newpost" element={<NewPost />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
