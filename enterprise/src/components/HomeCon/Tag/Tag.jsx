@@ -21,8 +21,8 @@ const Tag = () => {
         <Container className="tag-category shadow-lg p-3 bg-body rounded">
             <h4>Topic</h4>
             {topics.map((topic) => (
-                <ul>
-                    <li key={topic.id}>{topic.title}</li>
+                <ul key={topic.id}>
+                    <li>{topic.title}</li>
                 </ul>
             ))}
         </Container>

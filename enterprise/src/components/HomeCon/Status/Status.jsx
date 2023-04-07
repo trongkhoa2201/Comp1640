@@ -26,20 +26,18 @@ export const Status = () => {
 
     let currentPosts = posts.slice(firstPostIndex, lastPostIndex);
 
-
     if (filter === 'highView') {
-        currentPosts = currentPosts.sort((a, b) => b.views - a.views);
+        currentPosts = posts.sort((a, b) => b.views - a.views);
     }
     if (filter === 'lowView') {
-        currentPosts = currentPosts.sort((a, b) => a.views - b.views);
-    }if (filter === 'highLike') {
-        currentPosts = currentPosts.sort((a, b) => b.likes - a.likes);
+        currentPosts = posts.sort((a, b) => a.views - b.views);
+    }
+    if (filter === 'highLike') {
+        currentPosts = posts.sort((a, b) => b.likes - a.likes);
     }
     const handleFilterClick = (filterType) => {
         setFilter(filterType);
     };
- 
-    
     return (
         <div>
             <div
@@ -50,7 +48,7 @@ export const Status = () => {
                     <Dropdown.Item onClick={() => handleFilterClick('all')}> All</Dropdown.Item>
                     <Dropdown.Item onClick={() => handleFilterClick('highView')}> High View</Dropdown.Item>
                     <Dropdown.Item onClick={() => handleFilterClick('lowView')}>Low View</Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleFilterClick('highLike')}>High like</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleFilterClick('highLike')}>High Like</Dropdown.Item>
                 </DropdownButton>
             </div>
             {currentPosts.map((post) => (

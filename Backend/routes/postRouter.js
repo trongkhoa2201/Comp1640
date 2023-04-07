@@ -100,6 +100,19 @@ postRouter.put(
     }
   })
 );
+postRouter.put(
+  "/:id/like",
+  expressAsyncHandler(async (req, res) => {
+    const post = await Post.findById(req.params.id);
+    if (post) {
+      post.likes = post.likes + 1;
+      const updatedPost = await post.save();
+      res.send({ message: "Post Updated", post: updatedPost });
+    } else {
+      res.status(404).send({ message: "Post Not Found" });
+    }
+  })
+);
 
 postRouter.post(
   "/:id/comments",

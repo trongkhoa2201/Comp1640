@@ -6,11 +6,8 @@ import CreateNewAccount from '../pages/ManageAccount/CreateNewAccount';
 import Home from '../pages/Home.jsx';
 import Profile from '../pages/Profile.jsx';
 import Login from '../pages/Login';
-import Signup from '../pages/Signup';
-
 import EditAccount from '../pages/ManageAccount/EditUser';
 import ManageCategory from '../pages/ManageCategory/ListCategory';
-
 import CreateCategory from '../pages/ManageCategory/CreateCategory';
 import ManageDepartment from '../pages/ManageDepartment/ListDepartment';
 import ManageTopic from '../pages/ManageTopic/ListTopic';
@@ -53,8 +50,6 @@ const Routers = () => {
             <Route path="/newpost" element={<NewPost />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-
             {/* ======================= */}
 
         </Routes>

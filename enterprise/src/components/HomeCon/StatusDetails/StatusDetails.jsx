@@ -25,12 +25,12 @@ const StatusDetails = () => {
         }
     };
 
-     const handleLike = () => {
-         if (!clicked) {
-             setDisLikes(dislikes + 1);
-             setClicked(true);
-         }
-     };
+    const handleLike = () => {
+        if (!clicked) {
+            setDisLikes(dislikes + 1);
+            setClicked(true);
+        }
+    };
 
     function toggleAnonymousMode() {
         setIsAnonymous(!isAnonymous);
@@ -45,8 +45,8 @@ const StatusDetails = () => {
                         <div>
                             <h4>Chó Shiba</h4>
                             <p>
-                                <i class="ri-price-tag-3-line"> Xương </i>
-                                <i class="ri-price-tag-3-line"> Ngầu </i>
+                                <i className="ri-price-tag-3-line"> Xương </i>
+                                <i className="ri-price-tag-3-line"> Ngầu </i>
                             </p>
                         </div>
                     </div>
@@ -96,9 +96,9 @@ const StatusDetails = () => {
                                 onClick={handleLike}
                             >
                                 {clicked ? (
-                                    <i class="ri-thumb-up-fill fs-3"></i>
+                                    <i className="ri-thumb-up-fill fs-3"></i>
                                 ) : (
-                                    <i class="ri-thumb-up-line fs-3"></i>
+                                    <i className="ri-thumb-up-line fs-3"></i>
                                 )}
                             </Button>
                             <h5 style={{ paddingTop: '15px' }}>{likes} Likes</h5>
@@ -110,9 +110,9 @@ const StatusDetails = () => {
                                 onClick={handleDisLike}
                             >
                                 {clicked ? (
-                                    <i class="ri-thumb-up-fill fs-3"></i>
+                                    <i className="ri-thumb-up-fill fs-3"></i>
                                 ) : (
-                                    <i class="ri-thumb-up-line fs-3"></i>
+                                    <i className="ri-thumb-up-line fs-3"></i>
                                 )}
                             </Button>
                             <h5 style={{ paddingTop: '15px' }}>{dislikes} Likes</h5>

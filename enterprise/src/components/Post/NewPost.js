@@ -32,7 +32,7 @@ function Post(props) {
                         <small className="text-muted">Post by: {post.postBy}</small>
                         <br />
                         <small className="text-muted">
-                            <Moment format="YYYY/MM/DD">{post.createAt}</Moment>
+                            <Moment format="YYYY/MM/DD">{post.createdAt}</Moment>
                         </small>
                     </MDBCardText>
                     {/* =================== Like & DisLike =================== */}

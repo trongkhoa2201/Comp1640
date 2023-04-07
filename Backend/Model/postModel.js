@@ -35,9 +35,9 @@ const PostSchema = new mongoose.Schema({
   isAnonymous: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   comments: [commentSchema],
-  views: { type: Number, default: 0 },
-  likes: { type: Number, default: 0 },
-  dislikes: { type: Number, default: 0 },
+  views:{type : Number, default: 0},
+  likes: {type : Number, default: 0},
+  dislikes: {type : Number, default: 0},
 });
 
 const Post = mongoose.model("post", PostSchema);
