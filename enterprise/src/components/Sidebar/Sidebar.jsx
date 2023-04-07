@@ -20,11 +20,16 @@ const Sidebar = () => {
                 {/* ===================== Header ===================== */}
 
                 <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-                    <a href="/home" className="text-decoration-none" style={{ color: 'inherit' }}>
+                {userInfo ? (<a href="/home" className="text-decoration-none" style={{ color: 'inherit' }}>
                         {userInfo.name}
                         <br />
                         Role: {userInfo.role}
-                    </a>
+                    </a>):(<a href="/home" className="text-decoration-none" style={{ color: 'inherit' }}>
+                        Logo
+                        <br />
+                        Role: None
+                    </a>)}
+                    
                 </CDBSidebarHeader>
 
                 {/* ===================== Content ===================== */}
@@ -32,7 +37,7 @@ const Sidebar = () => {
                 <CDBSidebarContent className="sidebar-content">
                     <CDBSidebarMenu>
                         {SidebarData.map(({ to, label, icon }) => (
-                            <Link key={to} exact to={to} activeClassName="activeClicked">
+                            <Link key={to} to={to}>
                                 <CDBSidebarMenuItem icon={icon}>{label}</CDBSidebarMenuItem>
                             </Link>
                         ))}

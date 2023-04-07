@@ -12,14 +12,6 @@ const commentSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-const likeSchema = new mongoose.Schema({
-  likeBy: { type: String },
-  quantity: { type: Number },
-});
-const disLikeSchema = new mongoose.Schema({
-  disLikeBy: { type: String },
-  quantity: { type: Number },
-});
 
 const PostSchema = new mongoose.Schema({
   title: {
@@ -44,8 +36,8 @@ const PostSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   comments: [commentSchema],
   views:{type : Number, default: 0},
-  likes: [likeSchema],
-  dislikes: [disLikeSchema],
+  likes: {type : Number, default: 0},
+  dislikes: {type : Number, default: 0},
 });
 
 const Post = mongoose.model("post", PostSchema);

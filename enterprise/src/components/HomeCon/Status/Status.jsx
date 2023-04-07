@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row } from 'react-bootstrap';
+import { Button, Dropdown, DropdownButton, Row } from 'react-bootstrap';
 import '../Status/Status.css';
 import axios from 'axios';
 import Post from '../../Post/NewPost';
@@ -9,6 +9,8 @@ export const Status = () => {
     const [posts, setPosts] = useState([]);
     const [currentPages, setCurrentPages] = useState(1);
     const [postPerPages, setPostPerPages] = useState(5);
+
+    const [filter, setFilter] = useState('all');
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios.get('/api/posts');
@@ -16,20 +18,47 @@ export const Status = () => {
         };
         fetchData();
     }, []);
+
     const lastPostIndex = currentPages * postPerPages;
     const firstPostIndex = lastPostIndex - postPerPages;
-    const currenPosts = posts.slice(firstPostIndex, lastPostIndex);
+    // const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
+
+    let currentPosts = posts.slice(firstPostIndex, lastPostIndex);
+
+    if (filter === 'highView') {
+        currentPosts = posts.sort((a, b) => b.views - a.views);
+    }
+    if (filter === 'lowView') {
+        currentPosts = posts.sort((a, b) => a.views - b.views);
+    }
+    if (filter === 'highLike') {
+        currentPosts = posts.sort((a, b) => b.likes - a.likes);
+    }
+    const handleFilterClick = (filterType) => {
+        setFilter(filterType);
+    };
+
     return (
-        <div className="status shadow-lg p-3 bg-body mb-4">
-            <div className="d-flex align-items-center justify-content-between ">
-                <div className="products">
-                    {currenPosts.map((post) => (
-                        <Row key={post._id}>
-                            <Post post={post}></Post>
-                        </Row>
-                    ))}
-                </div>
+        <div>
+            <div
+                className="filter my-3 p-2"
+                style={{ borderTop: '3px solid black', borderBottom: '3px solid black', background: 'white' }}
+            >
+                <DropdownButton id="dropdown-basic-button" title={`Filter: ${filter}`}>
+                    <Dropdown.Item onClick={() => handleFilterClick('all')}> All</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleFilterClick('highView')}> High View</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleFilterClick('lowView')}>Low View</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleFilterClick('highLike')}>High Like</Dropdown.Item>
+                </DropdownButton>
             </div>
+            {currentPosts.map((post) => (
+                <div className="products">
+                    <Row key={post._id}>
+                        <Post post={post}></Post>
+                    </Row>
+                </div>
+            ))}
+            {/* =============================================  */}
             <div>
                 <Pagination
                     totalPosts={posts.length}

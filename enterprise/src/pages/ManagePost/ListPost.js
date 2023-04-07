@@ -70,9 +70,9 @@ export default function ManagePost() {
                                         <td>{post.topic}</td>
                                         <td>{post.isAnonymous ? 'Yes' : 'No'}</td>
                                         <td>
-                                            <Moment format="YYYY/MM/DD">{post.createAt}</Moment>
+                                            <Moment format="YYYY/MM/DD">{post.createdAt}</Moment>
                                         </td>
-                                        <td>0</td>
+                                        <td>{post.views}</td>
                                         <td>
                                             <Button variant="success" onClick={() => navigate(`/posts/${post._id}`)}>
                                                 Edit
