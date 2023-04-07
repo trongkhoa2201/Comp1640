@@ -1,23 +1,28 @@
 import { Switch } from '@mui/material';
-import React, { useContext, useEffect, useReducer, useState } from 'react';
-import { Button, Container, Form, Modal } from 'react-bootstrap';
+import React, { useContext, useEffect, useReducer, useRef, useState } from 'react';
+import { Button, Container, Form, ListGroup, Modal } from 'react-bootstrap';
 import './PostDetail.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Store } from '../../Store';
 import axios from 'axios';
 import { getError } from '../../getError';
 import Ava from '../../img/Ava.jpg';
+import annonymous from '../../img/annonymous.jpg';
+import logger from 'use-reducer-logger';
+import { toast } from 'react-toastify';
+import LoadingBox from '../../components/LoadingBox/LoadingBox';
+import MessageBox from '../../components/MessageBox/MessageBox';
 
 const reducer = (state, action) => {
     switch (action.type) {
         case 'REFRESH_POST':
             return { ...state, post: action.payload };
         case 'CREATE_REQUEST':
-            return { ...state, loadingCreateReview: true };
+            return { ...state, loadingCreateComment: true };
         case 'CREATE_SUCCESS':
-            return { ...state, loadingCreateReview: false };
+            return { ...state, loadingCreateComment: false };
         case 'CREATE_FAIL':
-            return { ...state, loadingCreateReview: false };
+            return { ...state, loadingCreateComment: false };
         case 'FETCH_REQUEST':
             return { ...state, loading: true };
         case 'FETCH_SUCCESS':
@@ -29,20 +34,24 @@ const reducer = (state, action) => {
     }
 };
 
-const StatusDetails = () => {
-    const [isAnonymous, setIsAnonymous] = useState(false);
+function StatusDetails() {
+    let commentsRef = useRef();
+    const [content, setContent] = useState('');
+    const [commentBy, setCommentBy] = useState('');
+    const [isAnonymous, setIsAnonymous] = useState('');
+    // const [isAnonymous, setIsAnonymous] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [likes, setLikes] = useState(0);
     const [dislikes, setDisLikes] = useState(0);
     const [clicked, setClicked] = useState(false);
-
+    const [onclicked, setOnClicked] = useState(false);
     const params = useParams();
     const navigate = useNavigate();
     const { id: postId } = params;
     const { state, dispatch: ctxDispatch } = useContext(Store);
     const { userInfo } = state;
 
-    const [{ loading, error, post, loadingCreateReview }, dispatch] = useReducer(reducer, {
+    const [{ loading, error, post, loadingCreateComment }, dispatch] = useReducer(logger(reducer), {
         post: [],
         loading: true,
         error: '',
@@ -53,13 +62,43 @@ const StatusDetails = () => {
             try {
                 const result = await axios.get(`/api/posts/${postId}`);
                 dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
-                console.log(userInfo);
+                setCommentBy(userInfo.name);
             } catch (err) {
                 dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
             }
         };
         fetchData();
     }, [postId]);
+    const submitHandler = async (e) => {
+        e.preventDefault();
+        if (!content) {
+            toast.error('Please enter comment');
+            return;
+        }
+        try {
+            const { data } = await axios.post(
+                `/api/posts/${postId}/comments`,
+                { content, commentBy, isAnonymous },
+                {
+                    headers: { Authorization: `Bearer ${userInfo.token}` },
+                },
+            );
+            dispatch({
+                type: 'CREATE_SUCCESS',
+            });
+            toast.success('Comment submitted successfully');
+            post.comment.unshift(data.comment);
+            post.views = data.views + 1;
+            dispatch({ type: 'REFRESH_POST', payload: post });
+            window.scrollTo({
+                behavior: 'smooth',
+                top: commentsRef.current.offsetTop,
+            });
+        } catch (error) {
+            toast.error(getError(error));
+            dispatch({ type: 'CREATE_FAIL' });
+        }
+    };
 
     const openModal = () => {
         setShowModal(true);
@@ -68,50 +107,56 @@ const StatusDetails = () => {
     const closeModal = () => {
         setShowModal(false);
     };
-    const handleDisLike = () => {
+
+    const likeHandler = async (e) => {
+        e.preventDefault();
         if (!clicked) {
-            setLikes(likes + 1);
+            setLikes(post.likes + 1);
             setClicked(true);
+            try {
+                const { data } = await axios.put(`/api/posts/${postId}/like`, { likes });
+            } catch (error) {
+                toast.error(getError(error));
+            }
         }
     };
 
-    const handleLike = () => {
-        if (!clicked) {
+    const handleDislike = () => {
+        if (!onclicked) {
             setDisLikes(dislikes + 1);
-            setClicked(true);
+            setOnClicked(true);
         }
     };
 
-    function toggleAnonymousMode() {
-        setIsAnonymous(!isAnonymous);
-    }
     return loading ? (
-        <div>Loading...</div>
+        <LoadingBox />
     ) : error ? (
-        <div>{error}</div>
+        <MessageBox variant="danger">{error}</MessageBox>
     ) : (
         <Container>
             <div className="detailStatus">
                 {/* ==================== fileUpload & date ==================== */}
                 <section className="avaInfo gap-3 ">
                     <div className="d-flex gap-3">
-                        {post.fileUpload === null ? (
-                            <img src={Ava} alt="" style={{ height: 70, width: 70, borderRadius: '50%' }} />
+                        {post.isAnonymous ? (
+                            <img src={annonymous} alt="" style={{ height: 70, width: 70, borderRadius: '50%' }} />
                         ) : (
-                            <img src={post.fileUpload} alt="" style={{ height: 70, width: 70, borderRadius: '50%' }} />
+                            <img src={userInfo.avatar} alt="" style={{ height: 70, width: 70, borderRadius: '50%' }} />
                         )}
-
                         <div>
                             <h4>{post.postBy}</h4>
                             <p>
-                                <i class="ri-price-tag-3-line"> {post.category} </i>
-                                <i class="ri-price-tag-3-line"> {post.topic} </i>
+                                <i className="ri-price-tag-3-line"> {post.category} </i>
+                                <i className="ri-price-tag-3-line"> {post.topic} </i>
                             </p>
                         </div>
                     </div>
                     {/* ==================== Date update ==================== */}
                     <div>
-                        <p>Date :</p>
+                        <div className="d-flex gap-2 align-items-center">
+                            <i className="fa fa-eye"></i>
+                            <p className="mt-2">{post.views}</p>
+                        </div>
                         <p>{post.createdAt.substring(0, 10)}</p>
                     </div>
                 </section>
@@ -143,7 +188,15 @@ const StatusDetails = () => {
 
                     <Modal show={showModal} onHide={closeModal}>
                         <Modal.Body>
-                            <img src={post.fileUpload} style={{ width: '100%', height: 'auto' }} alt=""></img>
+                            {post.fileUpload === null ? (
+                                <img
+                                    src="https://mdbootstrap.com/img/new/slides/041.webp"
+                                    style={{ width: '100%', height: 'auto' }}
+                                    alt=""
+                                ></img>
+                            ) : (
+                                <img src={post.fileUpload} style={{ width: '100%', height: 'auto' }} alt=""></img>
+                            )}
                         </Modal.Body>
                     </Modal>
                 </section>
@@ -155,66 +208,124 @@ const StatusDetails = () => {
                             <Button
                                 variant="outline-danger"
                                 style={{ border: 'none', marginRight: '10px' }}
-                                onClick={handleLike}
+                                onClick={likeHandler}
                             >
                                 {clicked ? (
-                                    <i class="ri-thumb-up-fill fs-3"></i>
+                                    <i className="ri-thumb-up-fill fs-3"></i>
                                 ) : (
-                                    <i class="ri-thumb-up-line fs-3"></i>
+                                    <i className="ri-thumb-up-line fs-3"></i>
                                 )}
                             </Button>
-                            <h5 style={{ paddingTop: '15px' }}>{likes} Likes</h5>
+                            <h5 style={{ paddingTop: '15px' }}>{post.likes} Likes</h5>
                         </div>
                         <div className="d-flex">
                             <Button
                                 variant="outline-danger"
                                 style={{ border: 'none', marginRight: '10px' }}
-                                onClick={handleDisLike}
+                                onClick={handleDislike}
                             >
-                                {clicked ? (
-                                    <i class="ri-thumb-up-fill fs-3"></i>
+                                {onclicked ? (
+                                    <i className="ri-thumb-down-fill fs-3"></i>
                                 ) : (
-                                    <i class="ri-thumb-up-line fs-3"></i>
+                                    <i className="ri-thumb-down-line fs-3"></i>
                                 )}
                             </Button>
-                            <h5 style={{ paddingTop: '15px' }}>{dislikes} Likes</h5>
+                            <h5 style={{ paddingTop: '15px' }}>{dislikes} Dislikes</h5>
                         </div>
                     </div>
                 </section>
                 {/* ==================== Comment-Show ==================== */}
                 <section>
-                    <h5 style={{ borderTop: '3px solid #ccc', paddingTop: '10px', marginTop: '20px' }}>Comment</h5>
-                    <div className="mt-3 gap-3 " style={{ display: 'flex', alignItems: 'center' }}>
-                        <img
-                            src={post.fileUpload}
-                            alt="fileUpload"
-                            style={{ height: 60, width: 60, borderRadius: '50%' }}
-                        />
-                        <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '10px' }}>
-                            <h5>Tên chó</h5>
-                            <p>lorem ipsum dolor sit amet, consectetur your comment</p>
-                        </div>
+                    <h5
+                        style={{ borderTop: '3px solid #ccc', paddingTop: '10px', marginTop: '20px' }}
+                        ref={commentsRef}
+                    >
+                        Comment
+                    </h5>
+                    <div className="mb-3">
+                        {post.comments.length === 0 && <MessageBox>There is no comment</MessageBox>}
+                    </div>
+
+                    <div className="mt-3 gap-3 " style={{ display: 'flex', flexDirection: 'column' }}>
+                        {post.comments.map((comment) => (
+                            <ListGroup.Item key={comment._id}>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        marginLeft: '10px',
+                                        borderBottom: '1px solid black',
+                                    }}
+                                >
+                                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                                        {comment.isAnonymous ? (
+                                            <img
+                                                src={annonymous}
+                                                alt="fileUpload"
+                                                style={{ height: 60, width: 60, borderRadius: '50%' }}
+                                            />
+                                        ) : (
+                                            <img
+                                                src={Ava}
+                                                alt="fileUpload"
+                                                style={{ height: 60, width: 60, borderRadius: '50%' }}
+                                            />
+                                        )}
+                                        {comment.isAnonymous ? (
+                                            <strong>Unknow People</strong>
+                                        ) : (
+                                            <strong>{comment.commentBy}</strong>
+                                        )}
+                                    </div>
+                                    <p>{comment.content}</p>
+                                    <p>{comment.createdAt.substring(0, 10)}</p>
+                                </div>
+                            </ListGroup.Item>
+                        ))}
                     </div>
                 </section>
                 {/* ==================== Comment-Input ==================== */}
-                <section>
-                    <div className="mt-3  gap-3 " style={{ display: 'flex', alignItems: 'center' }}>
-                        <img
-                            src={userInfo.avatar}
-                            alt="fileUpload"
-                            style={{ height: 60, width: 60, borderRadius: '50%' }}
-                        />
-                        <Form.Control as="textarea" rows={1} placeholder="Enter your comment" />
-                        <Button style={{ marginLeft: '10px', background: 'black' }}>Summit</Button>
-                        <div>
-                            <h6>Anonymous</h6>
-                            <Switch onChange={toggleAnonymousMode} checked={isAnonymous} />
+                {userInfo ? (
+                    <form onSubmit={submitHandler}>
+                        <div className="mt-3  gap-3 " style={{ display: 'flex', alignItems: 'center' }}>
+                            <img
+                                src={userInfo.avatar}
+                                alt="fileUpload"
+                                style={{ height: 60, width: 60, borderRadius: '50%' }}
+                            />
+                            <Form.Control
+                                as="textarea"
+                                rows={1}
+                                placeholder="Enter your comment"
+                                value={content}
+                                onChange={(e) => setContent(e.target.value)}
+                            />
+                            <Button
+                                type="submit"
+                                style={{ marginLeft: '10px', background: 'black' }}
+                                disabled={loadingCreateComment}
+                            >
+                                Summit
+                            </Button>
+                            {loadingCreateComment && <LoadingBox></LoadingBox>}
+                            <div>
+                                <Form.Check
+                                    className="mb-3"
+                                    type="checkbox"
+                                    id="isAnonymous"
+                                    label="isAnonymous"
+                                    checked={isAnonymous}
+                                    onChange={(e) => setIsAnonymous(e.target.checked)}
+                                />
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </form>
+                ) : (
+                    <MessageBox>Please Login to write comment</MessageBox>
+                )}
             </div>
         </Container>
     );
-};
+}
 
 export default StatusDetails;
