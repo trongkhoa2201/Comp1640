@@ -10,14 +10,14 @@ function Post(props) {
             {post.fileUpload === null ? (
                 <MDBCardImage
                     // position="top"
-                    style={{ width: '800px', height: '400px', borderRadius: '15px', objectFit: 'cover' }}
+                    style={{ width: '900px', height: '400px', borderRadius: '15px', objectFit: 'cover' }}
                     src="https://mdbootstrap.com/img/new/slides/041.webp"
                     alt="..."
                 />
             ) : (
                 <MDBCardImage
                     position="top"
-                    style={{ width: '800px', height: '300px', borderRadius: '15px', objectFit: 'cover' }}
+                    style={{ width: '900px', height: '300px', borderRadius: '15px', objectFit: 'cover' }}
                     src={post.fileUpload}
                     alt="..."
                 />
@@ -38,20 +38,20 @@ function Post(props) {
                     {/* =================== Like & DisLike =================== */}
                     <div className="d-flex gap-3">
                         <div className="d-flex gap-2 align-items-center">
-                            <i class="ri-thumb-up-fill fs-4"></i>
-                            <p className="mt-2">{post.likes.quantity}</p>
+                            <i className="ri-thumb-up-fill fs-4"></i>
+                            <p className="mt-2">{post.likes}</p>
                         </div>
                         <div className="d-flex gap-2 align-items-center">
-                            <i class="ri-thumb-down-fill fs-4"></i>
-                            <p className="mt-2"></p>
+                            <i className="ri-thumb-down-fill fs-4"></i>
+                            <p className="mt-2">{post.dislikes}</p>
                         </div>
                     </div>
                     {/* =================== View =================== */}
                     <div className="d-flex gap-2 align-items-center">
                         <i className="fa fa-eye fs-4"></i>
                         <p className="mt-2 pt-2">{post.views}</p>
-                        <i class="ri-message-3-fill fs-2"></i>
-                        <p className="mt-2 pt-2">{post.views}</p>
+                        <i className="ri-message-3-fill fs-2"></i>
+                        <p className="mt-2 pt-2">{post.comments.length}</p>
                     </div>
                 </div>
             </MDBCardBody>
