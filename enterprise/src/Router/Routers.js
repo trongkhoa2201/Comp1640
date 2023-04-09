@@ -23,7 +23,6 @@ import CreateNewPost from '../pages/ManagePost/CreateNewPost';
 // import DetailPost from '../pages/ManagePost/DetailPost';
 import StatusDetails from '../pages/ManagePost/PostDetail';
 
-
 const Routers = () => {
     return (
         <Routes>

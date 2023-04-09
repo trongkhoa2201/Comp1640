@@ -8,6 +8,7 @@ import axios from 'axios';
 import { getError } from '../../../getError';
 import { Store } from '../../../Store';
 
+
 export default function CreateNewPost() {
     const navigate = useNavigate();
     const { search } = useLocation();

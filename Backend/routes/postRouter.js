@@ -101,11 +101,39 @@ postRouter.put(
   })
 );
 postRouter.put(
+  "/:id/view",
+  expressAsyncHandler(async (req, res) => {
+    const post = await Post.findById(req.params.id);
+    if (post) {
+      post.views = post.views + 1;
+      const updatedPost = await post.save();
+      res.send({ message: "Post Updated", post: updatedPost });
+    } else {
+      res.status(404).send({ message: "Post Not Found" });
+    }
+  })
+);
+postRouter.put(
   "/:id/like",
   expressAsyncHandler(async (req, res) => {
     const post = await Post.findById(req.params.id);
     if (post) {
       post.likes = post.likes + 1;
+      post.views = post.views + 1;
+      const updatedPost = await post.save();
+      res.send({ message: "Post Updated", post: updatedPost });
+    } else {
+      res.status(404).send({ message: "Post Not Found" });
+    }
+  })
+);
+postRouter.put(
+  "/:id/dislike",
+  expressAsyncHandler(async (req, res) => {
+    const post = await Post.findById(req.params.id);
+    if (post) {
+      post.dislikes = post.dislikes + 1;
+      post.views = post.views + 1;
       const updatedPost = await post.save();
       res.send({ message: "Post Updated", post: updatedPost });
     } else {
@@ -130,7 +158,7 @@ postRouter.post(
       const updatedPost = await post.save();
       res.status(201).send({
         message: "Review Created",
-        // comment: updatedPost.comments[updatedPost.comment.length - 1],
+        comment: updatedPost.comments[updatedPost.comments.length - 1],
         views: post.views,
       });
     } else {

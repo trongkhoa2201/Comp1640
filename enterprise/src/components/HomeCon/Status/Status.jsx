@@ -41,8 +41,7 @@ export const Status = () => {
     return (
         <div>
             <div
-                className="filter my-3 p-2"
-                style={{ borderTop: '3px solid black', borderBottom: '3px solid black', background: 'white' }}
+                className="filter mb-2"
             >
                 <DropdownButton id="dropdown-basic-button" title={`Filter: ${filter}`}>
                     <Dropdown.Item onClick={() => handleFilterClick('all')}> All</Dropdown.Item>
