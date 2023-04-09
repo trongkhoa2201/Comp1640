@@ -6,12 +6,8 @@ import CreateNewAccount from '../pages/ManageAccount/CreateNewAccount';
 import Home from '../pages/Home.jsx';
 import Profile from '../pages/Profile.jsx';
 import Login from '../pages/Login';
-import Signup from '../pages/Signup';
-import Main from '../components/QandA/Main/Main';
-import Question from '../components/QandA/Add-Question/Question.js';
 import EditAccount from '../pages/ManageAccount/EditUser';
 import ManageCategory from '../pages/ManageCategory/ListCategory';
-import Category from '../components/QandA/QAManager/Category';
 import CreateCategory from '../pages/ManageCategory/CreateCategory';
 import ManageDepartment from '../pages/ManageDepartment/ListDepartment';
 import ManageTopic from '../pages/ManageTopic/ListTopic';
@@ -20,6 +16,12 @@ import CreateDepartment from '../pages/ManageDepartment/CreateDepartment';
 import EditDepartment from '../pages/ManageDepartment/UpdateDepartment';
 import CreateTopic from '../pages/ManageTopic/CreateTopic';
 import EditTopic from '../pages/ManageTopic/EditTopic';
+import NewPost from '../components/Post/NewPost';
+import ManagePost from '../pages/ManagePost/ListPost';
+import CreateNewPost from '../pages/ManagePost/CreateNewPost';
+// import EditPost from '../pages/ManagePost/EditPost';
+// import DetailPost from '../pages/ManagePost/DetailPost';
+import StatusDetails from '../pages/ManagePost/PostDetail';
 
 const Routers = () => {
     return (
