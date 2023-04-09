@@ -1,52 +1,47 @@
-import React, { useEffect, useState } from 'react'
-import { Container } from 'react-bootstrap'
-import "../TopTrend/Trend.css"
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Container } from 'react-bootstrap';
+import '../TopTrend/Trend.css';
 import Ava from "../../img/Ava.jpg"
-import axios from "axios";
-
+import { Link } from 'react-router-dom';
 
 const Trend = () => {
 
+   const [posts, setPosts] = useState([]);
 
+   useEffect(() => {
+       const fetchData = async () => {
+           const result = await axios.get('/api/posts');
+           setPosts(result.data);
+       };
+       fetchData();
+   }, []);
 
-  const [posts, setPosts] = useState([]);
+   // down
+   const trendingPosts = posts.sort((a, b) => b.views - a.views).slice(0, 4);
 
-  useEffect(() => {
-    axios
-      .get("/api/posts?sort=-numberOfLikes&limit=4")
-      .then((response) => {
-        setPosts(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    return (
+      
 
-  return (
-    <Container className="trend-container mb-4">
-      <div className="trend-box" style={{ position: "relative" }}>
-        <img
-          className=" w-100 h-100"
-          src={Ava}
-          alt=""
-          style={{ borderRadius: "12px" }}
-        />
-        <div className="layer">
-          <div className="mb-3 mt-5">
-            <h2 style={{ color: "white", fontSize: "20px" }}>lorem ipsum</h2>
-          </div>
-          <div style={{ color: "white", overflow: "hidden", height: "100px" }}>
-            <p>
-              text
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="trend-box"></div>
-      <div className="trend-box"></div>
-      <div className="trend-box"></div>
-    </Container>
-  );
-}
+        // </Container>
+        <Container className="trend-container mb-4 gap-2">
+            {trendingPosts.map((post) => (
+                <div className="trend-box" key={post._id} style={{ position: 'relative' }}>
+                    <img className="w-100 h-100" src={post.fileUpload} alt="" style={{ borderRadius: '12px' }} />
+                    <div className="layer">
+                        <div className="mb-3 mt-5">
+                            <Link to={`/posts/${post._id}`}>
+                                <h2 style={{ color: 'white', fontSize: '20px' }}>{post.title}</h2>
+                            </Link>
+                        </div>
+                        <div style={{ color: 'white', overflow: 'hidden', height: '100px' }}>
+                            <p>{post.content}</p>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </Container>
+    );
+};
 
-export default Trend
+export default Trend;
