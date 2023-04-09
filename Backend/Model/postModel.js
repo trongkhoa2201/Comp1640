@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const CommentSchema = new mongoose.Schema({
     content: String,
     author: String,
+    default: null,
 });
 
 const PostSchema = new mongoose.Schema({
