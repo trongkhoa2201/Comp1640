@@ -154,7 +154,7 @@ export default function CreateNewAccount() {
                             </div>
                         </Form>
                     </Col>
-                    <Col>
+                    <Col className="col-4">
                         <ListGroup.Item>
                             <Row className="avatar-display">
                                 <Col
@@ -163,6 +163,7 @@ export default function CreateNewAccount() {
                                         alignItems: 'center',
                                         borderRadius: '50%',
                                         justifyContent: 'center',
+                                        marginTop: '50%',
                                     }}
                                 >
                                     <div></div>

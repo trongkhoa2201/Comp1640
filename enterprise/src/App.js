@@ -3,11 +3,14 @@ import "./App.css";
 import Layout from '../src/components/Layouts/Layout'
 import "bootstrap/dist/css/bootstrap.min.css"
 import 'remixicon/fonts/remixicon.css'
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
   return (
     <div className='App'>
+       <ToastContainer position="bottom-center" limit={1} />
       <Layout />
     </div>
   );

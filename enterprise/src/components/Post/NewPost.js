@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 function Post(props) {
     const { post } = props;
     return (
-        <MDBCard className="mb-3 p-3 shadow-lg" style={{ borderRadius: '15px', border: '1px solid black' }}>
+        <MDBCard className="mb-3 p-3 shadow-lg" style={{ borderRadius: '15px' }}>
             {post.fileUpload === null ? (
                 <MDBCardImage
                     // position="top"
