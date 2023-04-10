@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useContext, useEffect, useReducer, useState } from 'react';
+import { useContext, useEffect, useReducer } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -8,6 +8,10 @@ import { Store } from '../../Store';
 import logger from 'use-reducer-logger';
 import LoadingBox from '../../components/LoadingBox/LoadingBox';
 import MessageBox from '../../components/MessageBox/MessageBox';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -98,13 +102,22 @@ function ManageAccount() {
                 <MessageBox variant="danger">{error}</MessageBox>
             ) : (
                 <div className="crud shadow-lg p-3 mb-5 mt-5 bg-body rounded">
+<<<<<<< HEAD
                     <div className="row ">
                         <div className="col-sm-3 offset-sm-2 mt-5 mb-4 ">
+=======
+                    <div className="row">
+                        <div className="col-sm-3 offset-sm-2 mt-5 mb-4">
+>>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
                             <h2>
                                 <b>Account Details</b>
                             </h2>
                         </div>
+<<<<<<< HEAD
                         <div className="col-sm-3 offset-sm-1  mt-5 mb-4 ">
+=======
+                        <div className="col-sm-3 offset-sm-1  mt-5 mb-4 ml-10">
+>>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
                             <Button variant="primary" onClick={navigateToCreate}>
                                 Create Account
                             </Button>

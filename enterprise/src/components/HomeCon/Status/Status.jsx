@@ -34,9 +34,12 @@ export const Status = () => {
     if (filter === 'highLike') {
         currentPosts = posts.sort((a, b) => b.likes - a.likes);
     }
+<<<<<<< HEAD
     if (filter === 'latest') {
         currentPosts = posts.sort((a, b) => b.createdAt - a.createdAt);
     }
+=======
+>>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
     const handleFilterClick = (filterType) => {
         setFilter(filterType);
     };
@@ -44,15 +47,22 @@ export const Status = () => {
     return (
         <div>
             <div
+<<<<<<< HEAD
                 className="filter my-3 p-2"
                 style={{ borderTop: '3px solid black', borderBottom: '3px solid black', background: 'white' }}
+=======
+                className="filter mb-2"
+>>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
             >
                 <DropdownButton id="dropdown-basic-button" title={`Filter: ${filter}`}>
                     <Dropdown.Item onClick={() => handleFilterClick('all')}> All</Dropdown.Item>
                     <Dropdown.Item onClick={() => handleFilterClick('highView')}> High View</Dropdown.Item>
                     <Dropdown.Item onClick={() => handleFilterClick('lowView')}>Low View</Dropdown.Item>
                     <Dropdown.Item onClick={() => handleFilterClick('highLike')}>High Like</Dropdown.Item>
+<<<<<<< HEAD
                     <Dropdown.Item onClick={() => handleFilterClick('latest')}>Latest</Dropdown.Item>
+=======
+>>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
                 </DropdownButton>
             </div>
             {currentPosts.map((post) => (
