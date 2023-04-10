@@ -58,9 +58,11 @@ const Login = () => {
                     />
                 </FormGroup>{' '}
                 <br />
+                <div className='login'>
                 <motion.button type="submit" whileTap={{ scale: 1.2 }} className="login-btn">
                     Login
                 </motion.button>
+                </div>
             </Form>
         </div>
     );

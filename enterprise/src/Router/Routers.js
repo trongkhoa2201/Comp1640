@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import ManageAccount from '../pages/ManageAccount/ListAccount';
 import CreateNewAccount from '../pages/ManageAccount/CreateNewAccount';
 import Home from '../pages/Home.jsx';
-import Profile from '../pages/Profile.jsx';
+import Profile from '../pages/Profile.js';
 import Login from '../pages/Login';
 import EditAccount from '../pages/ManageAccount/EditUser';
 import ManageCategory from '../pages/ManageCategory/ListCategory';
@@ -22,6 +22,13 @@ import CreateNewPost from '../pages/ManagePost/CreateNewPost';
 // import EditPost from '../pages/ManagePost/EditPost';
 // import DetailPost from '../pages/ManagePost/DetailPost';
 import StatusDetails from '../pages/ManagePost/PostDetail';
+<<<<<<< HEAD
+
+//   <ToastContainer position="bottom-center" limit={1} />
+
+
+=======
+>>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
 
 const Routers = () => {
     return (
@@ -42,13 +49,15 @@ const Routers = () => {
             <Route path="/categories/:id" element={<EditCategory />} />
             <Route path="/departments/:id" element={<EditDepartment />} />
             <Route path="/topics/:id" element={<EditTopic />} />
-            {/* <Route path="/posts/:id" element={<DetailPost />} /> */}
             <Route path="/posts/:id" element={<StatusDetails />} />
             <Route path="/newpost" element={<NewPost />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
+<<<<<<< HEAD
+=======
             {/* ======================= */}
             {/* <Route path="/statusDetails" element={<StatusDetails />} /> */}
+>>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
         </Routes>
     );
 };

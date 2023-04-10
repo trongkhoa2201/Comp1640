@@ -1,61 +1,58 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useReducer, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { getError } from '../getError';
+import { Store } from '../Store';
+
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'UPDATE_REQUEST':
+            return { ...state, loadingUpdate: true };
+        case 'UPDATE_SUCCESS':
+            return { ...state, loadingUpdate: false };
+        case 'UPDATE_FAIL':
+            return { ...state, loadingUpdate: false };
+
+        default:
+            return state;
+    }
+};
 
 export default function Profile() {
-    const navigate = useNavigate();
-    const params = useParams();
-    const { id: userId } = params;
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+    const { state, dispatch: ctxDispatch } = useContext(Store);
+    const { userInfo } = state;
+    const [name, setName] = useState(userInfo.name);
+    const [email, setEmail] = useState(userInfo.email);
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState('');
-    const [department, setDepartment] = useState('');
-    const [avatar, setAvatar] = useState();
+    const [avatar, setAvatar] = useState(userInfo.avatar);
 
-    const roles = [
-        { display: '-----Select a role------' },
-        { display: 'Staff', value: 'staff' },
-        { display: 'QA Manager', value: 'qam' },
-        { display: 'QA Coordinator', value: 'qac' },
-    ];
-    const departments = [
-        { display: 'Select a dapartment' },
-        { display: 'Finance', value: 'Finance' },
-        { display: 'Marketing', value: 'Marketing' },
-        { display: 'Human Resource', value: 'Human Resource' },
-        { display: 'Information Technology', value: 'Information Technology' },
-    ];
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const { data } = await axios.get(`/api/users/${userId}`);
-                setName(data.name);
-                setEmail(data.email);
-                setRole(data.role);
-                setDepartment(data.department);
-                setAvatar(data.avatar);
-            } catch (err) {
-                toast.error(getError(err));
-            }
-        };
-        fetchData();
-    }, [userId]);
+    const [{ loadingUpdate }, dispatch] = useReducer(reducer, {
+        loadingUpdate: false,
+    });
 
     const updateHandler = async (e) => {
         e.preventDefault();
         try {
-            console.log(setAvatar);
-            // console.log(avatar);
-            await axios.put(`/api/users/profile`, { name, email, password, avatar });
+            const { data } = await axios.put(
+                '/api/users/profile',
+                { name, email, password, avatar },
+                {
+                    headers: { Authorization: `Bearer ${userInfo.token}` },
+                },
+            );
+            dispatch({
+                type: 'UPDATE_SUCCESS',
+            });
+            ctxDispatch({ type: 'USER_SIGNIN', payload: data });
+            localStorage.setItem('userInfo', JSON.stringify(data));
             toast.success('User updated successfully');
-            navigate('/manageAccount');
-        } catch (error) {
-            toast.error(getError(error));
+        } catch (err) {
+            dispatch({
+                type: 'FETCH_FAIL',
+            });
+            toast.error(getError(err));
         }
     };
 
@@ -91,17 +88,9 @@ export default function Profile() {
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} required />
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="email">
+                            <Form.Group className="mb-3" controlId="password">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control value={email} onChange={(e) => setPassword(e.target.value)} required />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="role">
-                                <Form.Label>Role</Form.Label>
-                                <Form.Control value={role} onChange={(e) => setRole(e.target.value)} disable />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="role">
-                                <Form.Label>Department</Form.Label>
-                                <Form.Control value={department} onChange={(e) => setDepartment(e.target.value)} disable />
+                                <Form.Control value={password} onChange={(e) => setPassword(e.target.value)} required />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="avatar">
                                 <Form.Label>Avatar</Form.Label>
