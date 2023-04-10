@@ -48,8 +48,9 @@ const Routers = () => {
             <Route path="/add-question" element={<Question />} />
 
             {/* ======================= */}
-
-           
+            <Route path="/post" element={<Post />} />
+            <Route path="/postCreate" element={<PostCreate />} />
+            <Route path="/postDetail" element={<PostDetail />} />
         </Routes>
     );
 };
