@@ -75,7 +75,7 @@ export default function ManagePost() {
                                         <td>{post.views}</td>
                                         <td>
                                             <Button variant="success" onClick={() => navigate(`/posts/${post._id}`)}>
-                                                Edit
+                                                View
                                             </Button>
                                             &nbsp;
                                             <Button variant="danger" onClick={() => deleteHandler(post)}>

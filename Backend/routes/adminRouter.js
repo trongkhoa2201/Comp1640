@@ -2,7 +2,7 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import expressAsyncHandler from "express-async-handler";
 import User from "../Model/userModel.js";
-import { generateToken } from "../utils.js";
+import { generateToken, isAuth } from "../utils.js";
 
 const adminRouter = express.Router();
 
@@ -107,14 +107,13 @@ adminRouter.post(
 );
 adminRouter.put(
   "/profile",
+  isAuth,
   expressAsyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.params.id);
     if (user) {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
       user.avatar = req.body.avatar || user.avatar;
-      user.role = req.body.role || user.role;
-      user.department = req.body.department || user.department;
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 8);
       }

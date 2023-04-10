@@ -118,6 +118,23 @@ function StatusDetails() {
             } catch (error) {
                 toast.error(getError(error));
             }
+<<<<<<< HEAD
+        }
+    };
+    const dislikeHandler = async (e) => {
+        e.preventDefault();
+        if (!onclicked) {
+            setDisLikes(post.dislikes + 1);
+            setOnClicked(true);
+            try {
+                const { data2 } = await axios.put(`/api/posts/${postId}/dislike`, { dislikes });
+            } catch (error) {
+                toast.error(getError(error));
+            }
+        }
+    };
+
+=======
         }
     };
 
@@ -128,6 +145,7 @@ function StatusDetails() {
         }
     };
 
+>>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
     return loading ? (
         <LoadingBox />
     ) : error ? (
@@ -221,7 +239,11 @@ function StatusDetails() {
                             <Button
                                 variant="outline-danger"
                                 style={{ border: 'none', marginRight: '10px' }}
+<<<<<<< HEAD
+                                onClick={dislikeHandler}
+=======
                                 onClick={handleDislike}
+>>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
                             >
                                 {onclicked ? (
                                     <i className="ri-thumb-down-fill fs-3"></i>
@@ -229,13 +251,22 @@ function StatusDetails() {
                                     <i className="ri-thumb-down-line fs-3"></i>
                                 )}
                             </Button>
+<<<<<<< HEAD
+                            <h5 style={{ paddingTop: '15px' }}>{post.dislikes} Dislikes</h5>
+=======
                             <h5 style={{ paddingTop: '15px' }}>{dislikes} Dislikes</h5>
+>>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
                         </div>
                     </div>
                 </section>
                 {/* ==================== Comment-Show ==================== */}
                 <section>
+<<<<<<< HEAD
+                    <h5
+                        style={{ borderTop: '3px solid #ccc', paddingTop: '10px', marginTop: '20px' }}
+=======
                     <h5 style={{marginLeft: 10}}
+>>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
                         ref={commentsRef}
                     >
                         Comment
@@ -260,13 +291,21 @@ function StatusDetails() {
                                             <img
                                                 src={annonymous}
                                                 alt="fileUpload"
+<<<<<<< HEAD
+                                                style={{ height: 60, width: 60, borderRadius: '50%' }}
+=======
                                                 style={{ height: 30, width: 30, borderRadius: '50%', marginRight: '5px' }}
+>>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
                                             />
                                         ) : (
                                             <img
                                                 src={Ava}
                                                 alt="fileUpload"
+<<<<<<< HEAD
+                                                style={{ height: 60, width: 60, borderRadius: '50%' }}
+=======
                                                 style={{ height: 30, width: 30, borderRadius: '50%', marginRight: '5px' }}
+>>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
                                             />
                                         )}
                                         {comment.isAnonymous ? (
@@ -285,7 +324,31 @@ function StatusDetails() {
                 {/* ==================== Comment-Input ==================== */}
                 {userInfo ? (
                     <form onSubmit={submitHandler}>
+<<<<<<< HEAD
+                        <div className="mt-3  gap-3 " style={{ display: 'flex', alignItems: 'center' }}>
+                            <img
+                                src={userInfo.avatar}
+                                alt="fileUpload"
+                                style={{ height: 60, width: 60, borderRadius: '50%' }}
+                            />
+                            <Form.Control
+                                as="textarea"
+                                rows={1}
+                                placeholder="Enter your comment"
+                                value={content}
+                                onChange={(e) => setContent(e.target.value)}
+                            />
+                            <Button
+                                type="submit"
+                                style={{ marginLeft: '10px', background: 'black' }}
+                                disabled={loadingCreateComment}
+                            >
+                                Summit
+                            </Button>
+                            {loadingCreateComment && <LoadingBox></LoadingBox>}
+=======
                         <div className="mt-3" style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
+>>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
                             <div>
                                 <Form.Check
                                     className="mb-3"
@@ -296,6 +359,8 @@ function StatusDetails() {
                                     onChange={(e) => setIsAnonymous(e.target.checked)}
                                 />
                             </div>
+<<<<<<< HEAD
+=======
                             <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'row' }}>
                             <img
                                 src={userInfo.avatar}
@@ -320,6 +385,7 @@ function StatusDetails() {
                             {loadingCreateComment && <LoadingBox></LoadingBox>}
                             </div>                           
                             
+>>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
                         </div>
                     </form>
                 ) : (
