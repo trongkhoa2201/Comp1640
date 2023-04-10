@@ -1,4 +1,3 @@
-import { Switch } from '@mui/material';
 import React, { useContext, useEffect, useReducer, useRef, useState } from 'react';
 import { Button, Container, Form, ListGroup, Modal } from 'react-bootstrap';
 import './PostDetail.css';
@@ -236,8 +235,7 @@ function StatusDetails() {
                 </section>
                 {/* ==================== Comment-Show ==================== */}
                 <section>
-                    <h5
-                        style={{ borderTop: '3px solid #ccc', paddingTop: '10px', marginTop: '20px' }}
+                    <h5 style={{marginLeft: 10}}
                         ref={commentsRef}
                     >
                         Comment
@@ -262,13 +260,13 @@ function StatusDetails() {
                                             <img
                                                 src={annonymous}
                                                 alt="fileUpload"
-                                                style={{ height: 60, width: 60, borderRadius: '50%' }}
+                                                style={{ height: 30, width: 30, borderRadius: '50%', marginRight: '5px' }}
                                             />
                                         ) : (
                                             <img
                                                 src={Ava}
                                                 alt="fileUpload"
-                                                style={{ height: 60, width: 60, borderRadius: '50%' }}
+                                                style={{ height: 30, width: 30, borderRadius: '50%', marginRight: '5px' }}
                                             />
                                         )}
                                         {comment.isAnonymous ? (
@@ -287,27 +285,7 @@ function StatusDetails() {
                 {/* ==================== Comment-Input ==================== */}
                 {userInfo ? (
                     <form onSubmit={submitHandler}>
-                        <div className="mt-3  gap-3 " style={{ display: 'flex', alignItems: 'center' }}>
-                            <img
-                                src={userInfo.avatar}
-                                alt="fileUpload"
-                                style={{ height: 60, width: 60, borderRadius: '50%' }}
-                            />
-                            <Form.Control
-                                as="textarea"
-                                rows={1}
-                                placeholder="Enter your comment"
-                                value={content}
-                                onChange={(e) => setContent(e.target.value)}
-                            />
-                            <Button
-                                type="submit"
-                                style={{ marginLeft: '10px', background: 'black' }}
-                                disabled={loadingCreateComment}
-                            >
-                                Summit
-                            </Button>
-                            {loadingCreateComment && <LoadingBox></LoadingBox>}
+                        <div className="mt-3" style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
                             <div>
                                 <Form.Check
                                     className="mb-3"
@@ -318,6 +296,30 @@ function StatusDetails() {
                                     onChange={(e) => setIsAnonymous(e.target.checked)}
                                 />
                             </div>
+                            <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'row' }}>
+                            <img
+                                src={userInfo.avatar}
+                                alt="fileUpload"
+                                style={{ height: 50, width: 50, borderRadius: '100%', marginRight: '10px' }}
+                            />
+                            <Form.Control
+                                as="textarea"
+                                rows={1}
+                                placeholder="Enter your comment"
+                                value={content}
+                                onChange={(e) => setContent(e.target.value)}
+                                style={{ height: 50, width: 650, marginRight: '10px' }}
+                            />
+                            <Button
+                                type="submit"
+                                style={{ marginLeft: '10px', marginTop: '10px', background: 'btn-btn-primary' }}
+                                disabled={loadingCreateComment}
+                            >
+                                Summit
+                            </Button>
+                            {loadingCreateComment && <LoadingBox></LoadingBox>}
+                            </div>                           
+                            
                         </div>
                     </form>
                 ) : (

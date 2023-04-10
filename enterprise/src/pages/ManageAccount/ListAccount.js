@@ -98,13 +98,13 @@ function ManageAccount() {
                 <MessageBox variant="danger">{error}</MessageBox>
             ) : (
                 <div className="crud shadow-lg p-3 mb-5 mt-5 bg-body rounded">
-                    <div className="row ">
-                        <div className="col-sm-3 offset-sm-2 mt-5 mb-4 ">
+                    <div className="row">
+                        <div className="col-sm-3 offset-sm-2 mt-5 mb-4">
                             <h2>
                                 <b>Account Details</b>
                             </h2>
                         </div>
-                        <div className="col-sm-3 offset-sm-1  mt-5 mb-4 ">
+                        <div className="col-sm-3 offset-sm-1  mt-5 mb-4 ml-10">
                             <Button variant="primary" onClick={navigateToCreate}>
                                 Create Account
                             </Button>
