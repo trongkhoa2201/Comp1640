@@ -87,7 +87,7 @@ function StatusDetails() {
                 type: 'CREATE_SUCCESS',
             });
             toast.success('Comment submitted successfully');
-            post.comment.unshift(data.comment);
+            post.comments.unshift(data.comment);
             post.views = data.views + 1;
             dispatch({ type: 'REFRESH_POST', payload: post });
             window.scrollTo({
@@ -120,11 +120,16 @@ function StatusDetails() {
             }
         }
     };
-
-    const handleDislike = () => {
+    const dislikeHandler = async (e) => {
+        e.preventDefault();
         if (!onclicked) {
-            setDisLikes(dislikes + 1);
+            setDisLikes(post.dislikes + 1);
             setOnClicked(true);
+            try {
+                const { data2 } = await axios.put(`/api/posts/${postId}/dislike`, { dislikes });
+            } catch (error) {
+                toast.error(getError(error));
+            }
         }
     };
 
@@ -222,7 +227,7 @@ function StatusDetails() {
                             <Button
                                 variant="outline-danger"
                                 style={{ border: 'none', marginRight: '10px' }}
-                                onClick={handleDislike}
+                                onClick={dislikeHandler}
                             >
                                 {onclicked ? (
                                     <i className="ri-thumb-down-fill fs-3"></i>
@@ -230,7 +235,7 @@ function StatusDetails() {
                                     <i className="ri-thumb-down-line fs-3"></i>
                                 )}
                             </Button>
-                            <h5 style={{ paddingTop: '15px' }}>{dislikes} Dislikes</h5>
+                            <h5 style={{ paddingTop: '15px' }}>{post.dislikes} Dislikes</h5>
                         </div>
                     </div>
                 </section>
