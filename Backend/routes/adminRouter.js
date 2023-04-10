@@ -54,6 +54,22 @@ adminRouter.delete(
     }
   })
 );
+// =====================================================================
+adminRouter.get(
+  "/departmentCount",
+  expressAsyncHandler(async (req, res) => {
+    const departmentCounts = await User.aggregate([
+      {
+        $group: {
+          _id: "$department",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+    res.send(departmentCounts);
+  })
+);
+// =====================================================================
 
 adminRouter.get(
   "/:id",
