@@ -11,7 +11,7 @@
   height: 200px; 
   background-color: #ccc; 
   margin-bottom: 10px;
-cursor: pointer;  
+  cursor: pointer;  
 }
 
 @media (max-width: 964px) {

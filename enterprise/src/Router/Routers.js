@@ -24,6 +24,7 @@ import CreateNewPost from '../pages/ManagePost/CreateNewPost';
 // import EditPost from '../pages/ManagePost/EditPost';
 // import DetailPost from '../pages/ManagePost/DetailPost';
 import StatusDetails from '../pages/ManagePost/PostDetail';
+import Dashboard from '../pages/Dashboard/Dashboard';
 
 
 const Routers = () => {
@@ -51,7 +52,7 @@ const Routers = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
             {/* ======================= */}
-
+            <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
     );
 };

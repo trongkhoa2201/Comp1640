@@ -36,6 +36,7 @@
         "react-toastify": "^9.1.2",
         "reactstrap": "^9.1.6",
         "realm-web": "^2.0.0",
+        "recharts": "^2.5.0",
         "remixicon": "^2.5.0",
         "source-map-loader": "^4.0.1",
         "toastify": "^2.0.1",

@@ -7,6 +7,7 @@ const SidebarData = [
     { to: '/managePost', label: 'Manage Post', icon: 'file' },
     { to: '/profile', label: 'Profile page', icon: 'user' },
     { to: '/login', label: 'Log Out', icon: 'power-off' },
+    { to: '/dashboard', label: 'Dashboard', icon: 'table' },
 ];
 export default SidebarData;
  

@@ -10,14 +10,14 @@ function Post(props) {
             {post.fileUpload === null ? (
                 <MDBCardImage
                     // position="top"
-                    style={{ width: '900px', height: '400px', borderRadius: '15px', objectFit: 'cover' }}
+                    style={{ width: '800px', height: '400px', borderRadius: '15px', objectFit: 'cover' }}
                     src="https://mdbootstrap.com/img/new/slides/041.webp"
                     alt="..."
                 />
             ) : (
                 <MDBCardImage
                     position="top"
-                    style={{ width: '900px', height: '300px', borderRadius: '15px', objectFit: 'cover' }}
+                    style={{ width: '800px', height: '300px', borderRadius: '15px', objectFit: 'cover' }}
                     src={post.fileUpload}
                     alt="..."
                 />
