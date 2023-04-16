@@ -1,4 +1,3 @@
-import { Switch } from '@mui/material';
 import React, { useContext, useEffect, useReducer, useRef, useState } from 'react';
 import { Button, Container, Form, ListGroup, Modal } from 'react-bootstrap';
 import './PostDetail.css';

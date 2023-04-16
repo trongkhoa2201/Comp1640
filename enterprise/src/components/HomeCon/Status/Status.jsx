@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Dropdown, DropdownButton, Row } from 'react-bootstrap';
+import { Dropdown, DropdownButton, Row } from 'react-bootstrap';
 import '../Status/Status.css';
 import axios from 'axios';
 import Post from '../../Post/NewPost';
@@ -10,7 +10,7 @@ export const Status = () => {
     const [currentPages, setCurrentPages] = useState(1);
     const [postPerPages, setPostPerPages] = useState(5);
 
-    const [filter, setFilter] = useState('all');
+    const [filter, setFilter] = useState('All');
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios.get('/api/posts');
@@ -25,17 +25,14 @@ export const Status = () => {
 
     let currentPosts = posts.slice(firstPostIndex, lastPostIndex);
 
-    if (filter === 'highView') {
+    if (filter === 'Most Views') {
         currentPosts = posts.sort((a, b) => b.views - a.views);
     }
-    if (filter === 'lowView') {
+    if (filter === 'Low Views') {
         currentPosts = posts.sort((a, b) => a.views - b.views);
     }
-    if (filter === 'highLike') {
+    if (filter === 'Most Likes') {
         currentPosts = posts.sort((a, b) => b.likes - a.likes);
-    }
-    if (filter === 'latest') {
-        currentPosts = posts.sort((a, b) => b.createdAt - a.createdAt);
     }
     const handleFilterClick = (filterType) => {
         setFilter(filterType);
@@ -44,15 +41,14 @@ export const Status = () => {
     return (
         <div>
             <div
-                className="filter my-3 p-2"
-                style={{ borderTop: '3px solid black', borderBottom: '3px solid black', background: 'white' }}
+                className="filter mb-2"
             >
-                <DropdownButton id="dropdown-basic-button" title={`Filter: ${filter}`}>
+                <DropdownButton className='drop-down' id="dropdown-basic-button" title={`${filter}`}>
                     <Dropdown.Item onClick={() => handleFilterClick('all')}> All</Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleFilterClick('highView')}> High View</Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleFilterClick('lowView')}>Low View</Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleFilterClick('highLike')}>High Like</Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleFilterClick('latest')}>Latest</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleFilterClick('Most Views')}> Most View Posts</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleFilterClick('Low Views')}>Low View Posts</Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleFilterClick('Most Likes')}>Most Like Posts</Dropdown.Item>
+
                 </DropdownButton>
             </div>
             {currentPosts.map((post) => (
