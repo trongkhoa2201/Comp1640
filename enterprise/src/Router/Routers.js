@@ -5,6 +5,7 @@ import ManageAccount from '../pages/ManageAccount/ListAccount';
 import CreateNewAccount from '../pages/ManageAccount/CreateNewAccount';
 import Home from '../pages/Home.jsx';
 import Profile from '../pages/Profile.js';
+import Profile from '../pages/Profile.js';
 import Login from '../pages/Login';
 import EditAccount from '../pages/ManageAccount/EditUser';
 import ManageCategory from '../pages/ManageCategory/ListCategory';
