@@ -1,9 +1,10 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getError } from '../../getError';
+import { Store } from '../../Store';
 import Moment from 'react-moment';
 
 export default function ManagePost() {
@@ -11,6 +12,8 @@ export default function ManagePost() {
     const navigateToCreate = () => {
         navigate('/createPost');
     };
+    const { state } = useContext(Store);
+    const { userInfo } = state;
     const [posts, setPosts] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
@@ -23,6 +26,17 @@ export default function ManagePost() {
         if (window.confirm('Are you sure to delete?')) {
             try {
                 await axios.delete(`/api/posts/${post._id}`);
+                toast.success('Post deleted successfully');
+                window.location.reload(true);
+            } catch (error) {
+                toast.error(getError(error));
+            }
+        }
+    };
+    const deleteAll = async () => {
+        if (window.confirm('Are you sure to delete all Post?')) {
+            try {
+                await axios.delete(`/api/posts`);
                 toast.success('Post deleted successfully');
                 window.location.reload(true);
             } catch (error) {
@@ -43,6 +57,11 @@ export default function ManagePost() {
                     <div className="col-sm-3 offset-sm-1  mt-5 mb-4 ">
                         <Button variant="primary" onClick={navigateToCreate}>
                             Create new post
+                        </Button>
+                    </div>
+                    <div className="col-sm-3 mt-5 mb-4 ">
+                        <Button variant="danger" onClick={deleteAll}>
+                            Delete All Post
                         </Button>
                     </div>
                 </div>
@@ -66,23 +85,37 @@ export default function ManagePost() {
                                     <tr key={post._id}>
                                         <td>{post.title}</td>
                                         <td>{post.postBy}</td>
-                                        <td>{post.category}</td>
-                                        <td>{post.topic}</td>
+                                        <td>{post.category.name}</td>
+                                        <td>{post.topic.title}</td>
                                         <td>{post.isAnonymous ? 'Yes' : 'No'}</td>
                                         <td>
                                             <Moment format="YYYY/MM/DD">{post.createdAt}</Moment>
                                         </td>
                                         <td>{post.views}</td>
-                                        <td>
-                                            <Button variant="success" onClick={() => navigate(`/posts/${post._id}`)}>
-                                                View
-                                            </Button>
-                                            &nbsp;
-                                            <Button variant="danger" onClick={() => deleteHandler(post)}>
-                                                {' '}
-                                                Delete
-                                            </Button>
-                                        </td>
+                                        {userInfo.role === 'user' ? (
+                                            <td>
+                                                <Button
+                                                    variant="success"
+                                                    onClick={() => navigate(`/posts/${post._id}`)}
+                                                >
+                                                    View
+                                                </Button>{' '}
+                                            </td>
+                                        ) : (
+                                            <td>
+                                                <Button
+                                                    variant="success"
+                                                    onClick={() => navigate(`/posts/${post._id}`)}
+                                                >
+                                                    View
+                                                </Button>
+
+                                                <Button variant="danger" onClick={() => deleteHandler(post)}>
+                                                    {' '}
+                                                    Delete
+                                                </Button>
+                                            </td>
+                                        )}
                                     </tr>
                                 ))}
                             </tbody>

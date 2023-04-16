@@ -2,14 +2,29 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import expressAsyncHandler from "express-async-handler";
 import User from "../Model/userModel.js";
-import { generateToken, isAuth } from "../utils.js";
+import Department from "../Model/departmentModel.js";
+import { generateToken, isAuth, isQAC } from "../utils.js";
 
 const adminRouter = express.Router();
 
 adminRouter.get(
   "/",
   expressAsyncHandler(async (req, res) => {
-    const users = await User.find({});
+    const users = await User.find({}).populate({
+      path: "department",
+      model: Department,
+    });
+    res.send(users);
+  })
+);
+adminRouter.get(
+  "/department",
+  isAuth,
+  isQAC,
+  expressAsyncHandler(async (req, res) => {
+    const users = await User.find({ department: req.user.department }).populate(
+      { path: "department", model: Department }
+    );
     res.send(users);
   })
 );
@@ -31,7 +46,7 @@ adminRouter.post(
       name: user.name,
       email: user.email,
       role: user.role,
-      department: user.department,
+      department: user.department.name,
       avatar: user.avatar,
       token: generateToken(user),
     });
@@ -88,7 +103,10 @@ adminRouter.put(
 adminRouter.post(
   "/login",
   expressAsyncHandler(async (req, res) => {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email }).populate({
+      path: "department",
+      model: Department,
+    });
     if (user) {
       if (bcrypt.compareSync(req.body.password, user.password)) {
         res.send({
@@ -96,6 +114,7 @@ adminRouter.post(
           name: user.name,
           email: user.email,
           role: user.role,
+          department: user.department.name,
           avatar: user.avatar,
           token: generateToken(user),
         });

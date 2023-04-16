@@ -14,6 +14,7 @@ import { Store } from '../../Store';
 const Sidebar = () => {
     const ForAdmin = [
         { to: '/home', label: 'Home', icon: 'home' },
+        { to: '/myPost', label: 'My Post', icon: 'file' },
         { to: '/manageAccount', label: 'Manage Account', icon: 'table' },
         { to: '/manageCategory', label: 'Manage Category', icon: 'list' },
         { to: '/manageDepartment', label: 'Manage Department', icon: 'building' },
@@ -25,19 +26,19 @@ const Sidebar = () => {
         { to: '/home', label: 'Home', icon: 'home' },
         { to: '/manageCategory', label: 'Manage Category', icon: 'list' },
         { to: '/manageTopic', label: 'Manage Topic', icon: 'lightbulb' },
-        { to: '/managePost', label: 'Manage Post', icon: 'file' },
+        { to: '/myPost', label: 'My Post', icon: 'file' },
         { to: '/profile', label: 'Profile page', icon: 'user' },
     ];
     const ForQAC = [
         { to: '/home', label: 'Home', icon: 'home' },
-        { to: '/manageDepartment', label: 'Manage Department', icon: 'building' },
-        { to: '/managePost', label: 'Manage Post', icon: 'file' },
+        { to: '/qac/myDepartment', label: 'My Department', icon: 'table' },
+        { to: '/myPost', label: 'My Post', icon: 'file' },
         { to: '/profile', label: 'Profile page', icon: 'user' },
     ];
     const ForStaff = [
         { to: '/home', label: 'Home', icon: 'home' },
-        { to: '/managePost', label: 'Manage Post', icon: 'file' },
-        { to: '/profile', label: 'Profile page', icon: 'user' },
+        { to: '/myPost', label: 'My Post', icon: 'file' },
+        { to: '/profile', label: 'Profile Page', icon: 'user' },
     ];
     const { state, dispatch: ctxDispatch } = useContext(Store);
     const { userInfo } = state;
@@ -58,12 +59,16 @@ const Sidebar = () => {
                             {userInfo.name}
                             <br />
                             Role: {userInfo.role}
+                            <br />
+                            {userInfo.department}
                         </a>
                     ) : (
                         <a href="/home" className="text-decoration-none" style={{ color: 'inherit' }}>
                             Logo
                             <br />
                             Role: None
+                            <br />
+                            Department: None
                         </a>
                     )}
                 </CDBSidebarHeader>
@@ -72,7 +77,7 @@ const Sidebar = () => {
 
                 <CDBSidebarContent className="sidebar-content">
                     <CDBSidebarMenu>
-                        { userInfo  && userInfo.role === 'admin' ? (
+                        {userInfo && userInfo.role === 'admin' ? (
                             <>
                                 {ForAdmin.map(({ to, label, icon }) => (
                                     <Link key={to} to={to}>
@@ -82,7 +87,7 @@ const Sidebar = () => {
                             </>
                         ) : (
                             <>
-                                { userInfo  && userInfo.role === 'qam' ? (
+                                {userInfo && userInfo.role === 'qam' ? (
                                     <>
                                         {ForQAM.map(({ to, label, icon }) => (
                                             <Link key={to} to={to}>
@@ -91,28 +96,28 @@ const Sidebar = () => {
                                         ))}
                                     </>
                                 ) : (
-                                    <>{ userInfo  && userInfo.role === 'qac' ? (
-                            <>
-                                {ForQAC.map(({ to, label, icon }) => (
-                                    <Link key={to} to={to}>
-                                        <CDBSidebarMenuItem icon={icon}>{label}</CDBSidebarMenuItem>
-                                    </Link>
-                                ))}
-                            </>
-                        ) : (
-                            <>
-                                {ForStaff.map(({ to, label, icon }) => (
-                                    <Link key={to} to={to}>
-                                        <CDBSidebarMenuItem icon={icon}>{label}</CDBSidebarMenuItem>
-                                    </Link>
-                                ))}
-                            </>
-                        )}</>
+                                    <>
+                                        {userInfo && userInfo.role === 'qac' ? (
+                                            <>
+                                                {ForQAC.map(({ to, label, icon }) => (
+                                                    <Link key={to} to={to}>
+                                                        <CDBSidebarMenuItem icon={icon}>{label}</CDBSidebarMenuItem>
+                                                    </Link>
+                                                ))}
+                                            </>
+                                        ) : (
+                                            <>
+                                                {ForStaff.map(({ to, label, icon }) => (
+                                                    <Link key={to} to={to}>
+                                                        <CDBSidebarMenuItem icon={icon}>{label}</CDBSidebarMenuItem>
+                                                    </Link>
+                                                ))}
+                                            </>
+                                        )}
+                                    </>
                                 )}
                             </>
                         )}
-
-                        
 
                         {userInfo ? (
                             <NavLink onClick={signoutHandler}>

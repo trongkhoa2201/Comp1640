@@ -28,10 +28,9 @@ const PostSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
-  category: {
-    type: String,
-  },
-  topic: { type: String },
+  topic: { type: mongoose.Schema.Types.ObjectId, ref: "Topic", required: true },
+  category: { type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   isAnonymous: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   comments: [commentSchema],

@@ -1,10 +1,9 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-
 import ManageAccount from '../pages/ManageAccount/ListAccount';
+import AccountInDepartment from '../pages/ManageAccount/AccountInDepartment';
 import CreateNewAccount from '../pages/ManageAccount/CreateNewAccount';
 import Home from '../pages/Home.jsx';
-import Profile from '../pages/Profile.js';
 import Profile from '../pages/Profile.js';
 import Login from '../pages/Login';
 import EditAccount from '../pages/ManageAccount/EditUser';
@@ -20,12 +19,9 @@ import EditTopic from '../pages/ManageTopic/EditTopic';
 import NewPost from '../components/Post/NewPost';
 import ManagePost from '../pages/ManagePost/ListPost';
 import CreateNewPost from '../pages/ManagePost/CreateNewPost';
-// import EditPost from '../pages/ManagePost/EditPost';
-// import DetailPost from '../pages/ManagePost/DetailPost';
 import StatusDetails from '../pages/ManagePost/PostDetail';
-
-//   <ToastContainer position="bottom-center" limit={1} />
-
+import MyPost from '../pages/ManagePost/MyPost';
+import PostOfUser from '../pages/ManagePost/PostOfUser';
 
 
 const Routers = () => {
@@ -38,6 +34,9 @@ const Routers = () => {
             <Route path="/manageDepartment" element={<ManageDepartment />} />
             <Route path="/manageTopic" element={<ManageTopic />} />
             <Route path="/managePost" element={<ManagePost />} />
+            <Route path="/myPost" element={<MyPost />} />
+            <Route path="/posts/list/:id" element={<PostOfUser />} />
+            <Route path="/qac/myDepartment" element={<AccountInDepartment />} />
             <Route path="/createAccount" element={<CreateNewAccount />} />
             <Route path="/createCategory" element={<CreateCategory />} />
             <Route path="/createDepartment" element={<CreateDepartment />} />

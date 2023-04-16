@@ -26,6 +26,7 @@ export default function CreateTopic() {
                 firstClosure,
                 finalClosure,
             });
+            // localStorage.setItem('categories', JSON.stringify(data));
             console.log(data);
             navigate(redirect || '/manageTopic');
         } catch (err) {

@@ -8,7 +8,6 @@ import axios from 'axios';
 import { getError } from '../../../getError';
 import { Store } from '../../../Store';
 
-
 export default function CreateNewPost() {
     const navigate = useNavigate();
     const { search } = useLocation();
@@ -55,15 +54,23 @@ export default function CreateNewPost() {
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await Axios.post('/api/posts/createPost', {
-                title,
-                content,
-                postBy,
-                topic,
-                category,
-                isAnonymous,
-                fileUpload,
-            });
+            const { data } = await Axios.post(
+                '/api/posts/createPost',
+                {
+                    title,
+                    content,
+                    postBy,
+                    topic,
+                    category,
+                    isAnonymous,
+                    fileUpload,
+                },
+                {
+                    headers: {
+                        authorization: `Bearer ${userInfo.token}`,
+                    },
+                },
+            );
             navigate(redirect || '/managePost');
         } catch (err) {
             toast.error(getError(err));
@@ -113,10 +120,10 @@ export default function CreateNewPost() {
                             <Form.Group className="mb-3" controlId="topic">
                                 <Form.Label>Topic</Form.Label>
                                 <Form.Select value={topic} required onChange={(e) => setTopic(e.target.value)}>
-                                    {topics.map((topics, index) => {
+                                    {topics.map((topic, index) => {
                                         return (
-                                            <option key={index} value={topics.title}>
-                                                {topics.title}
+                                            <option key={index} value={topic._id}>
+                                                {topic.title}
                                             </option>
                                         );
                                     })}
@@ -127,7 +134,7 @@ export default function CreateNewPost() {
                                 <Form.Select value={category} required onChange={(e) => setCategory(e.target.value)}>
                                     {cate.map((cate, index) => {
                                         return (
-                                            <option key={index} value={cate.name}>
+                                            <option key={index} value={cate._id}>
                                                 {cate.name}
                                             </option>
                                         );

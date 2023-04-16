@@ -20,13 +20,10 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["admin", "qam", "qac", "staff"],
-    default: "staff",
+    enum: ["admin", "qam", "qac", "user"],
+    default: "user",
   },
-  department: {
-    type: String,
-    default: null,
-  },
+  department: { type: mongoose.Schema.Types.ObjectId, ref: "Department", required: true },
   viewIdeas: [
     {
       idea_id: { type: mongoose.Schema.Types.ObjectId },

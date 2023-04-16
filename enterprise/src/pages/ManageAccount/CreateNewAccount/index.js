@@ -24,7 +24,7 @@ export default function CreateNewAccount() {
 
     const roles = [
         { display: '-----Select a role------' },
-        { display: 'Staff', value: 'staff' },
+        { display: 'User', value: 'user' },
         { display: 'QA Manager', value: 'qam' },
         { display: 'QA Coordinator', value: 'qac' },
     ];
@@ -138,7 +138,7 @@ export default function CreateNewAccount() {
                                 >
                                     {departs.map((departs, index) => {
                                         return (
-                                            <option key={index} value={departs.name}>
+                                            <option key={index} value={departs._id}>
                                                 {departs.name}
                                             </option>
                                         );

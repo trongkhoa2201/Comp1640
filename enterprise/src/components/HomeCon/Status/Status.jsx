@@ -37,12 +37,6 @@ export const Status = () => {
     if (filter === 'latest') {
         currentPosts = posts.sort((a, b) => b.createdAt - a.createdAt);
     }
-<<<<<<< HEAD
-    if (filter === 'latest') {
-        currentPosts = posts.sort((a, b) => b.createdAt - a.createdAt);
-    }
-=======
->>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
     const handleFilterClick = (filterType) => {
         setFilter(filterType);
     };
@@ -50,12 +44,6 @@ export const Status = () => {
     return (
         <div>
             <div
-<<<<<<< HEAD
-                className="filter my-3 p-2"
-                style={{ borderTop: '3px solid black', borderBottom: '3px solid black', background: 'white' }}
-=======
-                className="filter mb-2"
->>>>>>> 6e665b5dcc06d298ba2f92f5b8809bc76b3b2099
                 className="filter my-3 p-2"
                 style={{ borderTop: '3px solid black', borderBottom: '3px solid black', background: 'white' }}
             >
