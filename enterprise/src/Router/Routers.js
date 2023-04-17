@@ -6,9 +6,9 @@ import CreateNewAccount from '../pages/ManageAccount/CreateNewAccount';
 import Home from '../pages/Home.jsx';
 import Profile from '../pages/Profile.js';
 import Login from '../pages/Login';
-import CreateNewAccount from '../pages/ManageAccount/CreateNewAccount';
+// import CreateNewAccount from '../pages/ManageAccount/CreateNewAccount';
 import EditAccount from '../pages/ManageAccount/EditUser';
-import ManageAccount from '../pages/ManageAccount/ListAccount';
+// import ManageAccount from '../pages/ManageAccount/ListAccount';
 import CreateCategory from '../pages/ManageCategory/CreateCategory';
 import EditCategory from '../pages/ManageCategory/EditCategory';
 import ManageCategory from '../pages/ManageCategory/ListCategory';
@@ -35,7 +35,7 @@ const Routers = () => {
             <Route path="/manageAccount" element={<ManageAccount />} />
             <Route path="/manageCategory" element={<ManageCategory />} />
             <Route path="/manageDepartment" element={<ManageDepartment />} />
-            <Route path="/manageTopic" element={<ManageTopic />} />
+            {/* <Route path="/manageTopic" element={<ManageTopic />} /> */}
             <Route path="/managePost" element={<ManagePost />} />
             <Route path="/myPost" element={<MyPost />} />
             <Route path="/posts/list/:id" element={<PostOfUser />} />
