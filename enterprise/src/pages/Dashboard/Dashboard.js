@@ -53,7 +53,7 @@ export default function Dashboard(){
 
 return (
     <div>
-        <h1>Dashboard</h1>
+        <h1 style={{textAlign: 'center', marginTop: '20px'}}>Dashboard</h1>
         {loading ? (
             <LoadingBox />
         ) : error ? (
@@ -61,9 +61,9 @@ return (
         ) : (
             <>
                 <Row>
-                    <Col md={4}>
+                    <Col md={4} className='dashboard-box'>
                         <Card>
-                            <Card.Body>
+                            <Card.Body style={{backgroundColor: '#FFFDB7', borderRadius: '5px'}}>
                                 <Card.Title>
                                     {summary.users && summary.users[0] ? summary.users[0].numUsers : 0}
                                 </Card.Title>
@@ -71,9 +71,9 @@ return (
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col md={4}>
+                    <Col md={4} className='dashboard-box'>
                         <Card>
-                            <Card.Body>
+                            <Card.Body style={{backgroundColor: '#AEF4A4', borderRadius: '5px'}}>
                                 <Card.Title>
                                     {summary.topics && summary.topics[0] ? summary.topics[0].numTopics : 0}
                                 </Card.Title>
@@ -81,9 +81,9 @@ return (
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col md={4}>
+                    <Col md={4} className='dashboard-box'>
                         <Card>
-                            <Card.Body>
+                            <Card.Body style={{backgroundColor: '#79B8D1', borderRadius: '5px'}}>
                                 <Card.Title>
                                     {summary.posts && summary.posts[0] ? summary.posts[0].numPosts : 0}
                                 </Card.Title>
@@ -93,26 +93,27 @@ return (
                     </Col>
                 </Row>
                 <div className="my-3">
-                    <h2>Posts</h2>
+                    <h4 style={{marginLeft: '20px'}}>Posts</h4>
                     {summary.dailyPost.length === 0 ? (
                         <MessageBox>No Post</MessageBox>
                     ) : (
                         <Chart
-                            width="100%"
+                            width="90%"
                             height="400px"
                             chartType="AreaChart"
                             loader={<div>Loading Chart...</div>}
                             data={[['Date', 'Posts'], ...summary.dailyPost.map((x) => [x._id, x.posts])]}
+                            className='dashboard-chart'
                         ></Chart>
                     )}
                 </div>
                 <div className="my-3">
-                    <h2>User in Department</h2>
+                    <h4 style={{marginLeft: '20px'}}>User in Department</h4>
                     {summary.departmentCounts.length === 0 ? (
                         <MessageBox>No User</MessageBox>
                     ) : (
                         <Chart
-                            width="100%"
+                            width="90%"
                             height="400px"
                             chartType="PieChart"
                             loader={<div>Loading Chart...</div>}
@@ -120,16 +121,17 @@ return (
                                 ['Department', 'Users'],
                                 ...summary.departmentCounts.map((x) => [x._id, x.count]),
                             ]}
+                            className='dashboard-chart'
                         ></Chart>
                     )}
                 </div>
                 <div className="my-3">
-                    <h2>Post in Topic</h2>
+                    <h4 style={{marginLeft: '20px'}}>Post in Topic</h4>
                     {summary.postInTopic.length === 0 ? (
                         <MessageBox>No Post</MessageBox>
                     ) : (
                         <Chart
-                            width="100%"
+                            width="90%"
                             height="400px"
                             chartType="PieChart"
                             loader={<div>Loading Chart...</div>}
@@ -137,16 +139,17 @@ return (
                                 ['Topic', 'Posts'],
                                 ...summary.postInTopic.map((x) => [x._id, x.count]),
                             ]}
+                            className='dashboard-chart'
                         ></Chart>
                     )}
                 </div>
                 <div className="my-3">
-                    <h2>Post is Annonymous</h2>
+                    <h4 style={{marginLeft: '20px'}}>Post is Annonymous</h4>
                     {summary.postIsAnonymous.length === 0 ? (
                         <MessageBox>No Post</MessageBox>
                     ) : (
                         <Chart
-                            width="100%"
+                            width="90%"
                             height="400px"
                             chartType="PieChart"
                             loader={<div>Loading Chart...</div>}
@@ -154,6 +157,7 @@ return (
                                 ['isAnnonymous', 'Posts'],
                                 ...summary.postIsAnonymous.map((x) => [x._id.toString(), x.count]),
                             ]}
+                            className='dashboard-chart'
                         ></Chart>
                     )}
                 </div>
