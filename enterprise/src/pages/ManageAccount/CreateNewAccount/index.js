@@ -24,16 +24,9 @@ export default function CreateNewAccount() {
 
     const roles = [
         { display: '-----Select a role------' },
-        { display: 'Staff', value: 'staff' },
+        { display: 'User', value: 'user' },
         { display: 'QA Manager', value: 'qam' },
         { display: 'QA Coordinator', value: 'qac' },
-    ];
-    const departments = [
-        { display: 'Select a dapartment' },
-        { display: 'Finance', value: 'Finance' },
-        { display: 'Marketing', value: 'Marketing' },
-        { display: 'Human Resource', value: 'Human Resource' },
-        { display: 'Information Technology', value: 'Information Technology' },
     ];
     const [departs, setDeparts] = useState([]);
 
@@ -42,7 +35,6 @@ export default function CreateNewAccount() {
             .get('/api/departments')
             .then((response) => {
                 setDeparts(response.data);
-                console.log(departs);
             })
             .catch((error) => {
                 console.log(error);
@@ -64,8 +56,6 @@ export default function CreateNewAccount() {
                 department,
                 avatar,
             });
-            // ctxDispatch({ type: 'USER_SIGNIN', payload: data });
-            // localStorage.setItem('userInfo', JSON.stringify(data));
             console.log(data);
             navigate(redirect || '/manageAccount');
         } catch (err) {
@@ -138,7 +128,7 @@ export default function CreateNewAccount() {
                                 >
                                     {departs.map((departs, index) => {
                                         return (
-                                            <option key={index} value={departs.name}>
+                                            <option key={index} value={departs._id}>
                                                 {departs.name}
                                             </option>
                                         );
