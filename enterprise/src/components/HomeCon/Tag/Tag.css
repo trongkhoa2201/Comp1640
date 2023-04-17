@@ -1,0 +1,8 @@
+.tag-category{
+    width: 260px;
+    position: fixed;
+    right: 25px;
+    max-height: 50%;
+    overflow-y: auto;
+    z-index: 9999;
+}

@@ -1,0 +1,8 @@
+.categoryContainer {
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 350px;
+    margin-top: 20px;
+}
