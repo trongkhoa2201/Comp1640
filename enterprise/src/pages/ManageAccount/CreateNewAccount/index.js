@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import './CreateNewAccount.css';
 import Axios from 'axios';
@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getError } from '../../../getError';
 import ListGroup from 'react-bootstrap/ListGroup';
+import axios from 'axios';
 
 export default function CreateNewAccount() {
     const navigate = useNavigate();
@@ -34,6 +35,19 @@ export default function CreateNewAccount() {
         { display: 'Human Resource', value: 'Human Resource' },
         { display: 'Information Technology', value: 'Information Technology' },
     ];
+    const [departs, setDeparts] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get('/api/departments')
+            .then((response) => {
+                setDeparts(response.data);
+                console.log(departs);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -96,7 +110,7 @@ export default function CreateNewAccount() {
                                 <Form.Control value={password} onChange={(e) => setPassword(e.target.value)} required />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="confirmPassword">
-                                <Form.Label>Password</Form.Label>
+                                <Form.Label>Confirm Password</Form.Label>
                                 <Form.Control
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -122,10 +136,10 @@ export default function CreateNewAccount() {
                                     required
                                     onChange={(e) => setDepartment(e.target.value)}
                                 >
-                                    {departments.map((option, index) => {
+                                    {departs.map((departs, index) => {
                                         return (
-                                            <option key={index} value={option.value}>
-                                                {option.display}
+                                            <option key={index} value={departs.name}>
+                                                {departs.name}
                                             </option>
                                         );
                                     })}
@@ -140,7 +154,7 @@ export default function CreateNewAccount() {
                             </div>
                         </Form>
                     </Col>
-                    <Col>
+                    <Col className="col-4">
                         <ListGroup.Item>
                             <Row className="avatar-display">
                                 <Col
@@ -149,6 +163,7 @@ export default function CreateNewAccount() {
                                         alignItems: 'center',
                                         borderRadius: '50%',
                                         justifyContent: 'center',
+                                        marginTop: '50%',
                                     }}
                                 >
                                     <div></div>

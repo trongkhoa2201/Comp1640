@@ -1,0 +1,11 @@
+.detailStatus{
+  margin: 40px 180px 40px 180px ;
+  padding: 20px;
+  border: 1px solid black ;
+  background: white;
+  border-radius:15px;
+}
+.avaInfo{
+  display: flex;
+  justify-content: space-between;
+}

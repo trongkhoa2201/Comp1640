@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Question from '../components/QandA/Add-Question/Question.js';
 import Main from '../components/QandA/Main/Main';
 import Home from '../pages/Home.jsx';
+import Profile from '../pages/Profile.js';
 import Login from '../pages/Login';
 import CreateNewAccount from '../pages/ManageAccount/CreateNewAccount';
 import EditAccount from '../pages/ManageAccount/EditUser';
@@ -43,10 +44,6 @@ const Routers = () => {
             <Route path="/topics/:id" element={<EditTopic />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/question" element={<Main />} />
-            <Route path="/add-question" element={<Question />} />
-
             {/* ======================= */}
             <Route path="/post" element={<Post />} />
             <Route path="/postCreate" element={<PostCreate />} />
