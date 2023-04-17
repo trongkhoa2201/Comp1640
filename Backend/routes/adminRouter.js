@@ -2,14 +2,31 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import expressAsyncHandler from "express-async-handler";
 import User from "../Model/userModel.js";
-import { generateToken, isAuth } from "../utils.js";
+import Department from "../Model/departmentModel.js";
+import Topic from "../Model/topicModel.js";
+import Post from "../Model/postModel.js";
+import { generateToken, isAdmin, isAuth, isQAC } from "../utils.js";
 
 const adminRouter = express.Router();
 
 adminRouter.get(
   "/",
   expressAsyncHandler(async (req, res) => {
-    const users = await User.find({});
+    const users = await User.find({}).populate({
+      path: "department",
+      model: Department,
+    });
+    res.send(users);
+  })
+);
+adminRouter.get(
+  "/department",
+  isAuth,
+  isQAC,
+  expressAsyncHandler(async (req, res) => {
+    const users = await User.find({ department: req.user.department }).populate(
+      { path: "department", model: Department }
+    );
     res.send(users);
   })
 );
@@ -31,10 +48,96 @@ adminRouter.post(
       name: user.name,
       email: user.email,
       role: user.role,
-      department: user.department,
+      department: user.department.name,
       avatar: user.avatar,
       token: generateToken(user),
     });
+  })
+);
+adminRouter.get(
+  "/summary",
+  expressAsyncHandler(async (req, res) => {
+    const users = await User.aggregate([
+      {
+        $group: {
+          _id: null,
+          numUsers: { $sum: 1 },
+        },
+      },
+    ]);
+    const topics = await Topic.aggregate([
+      {
+        $group: {
+          _id: null,
+          numTopics: { $sum: 1 },
+        },
+      },
+    ]);
+    const posts = await Post.aggregate([
+      {
+        $group: {
+          _id: null,
+          numPosts: { $sum: 1 },
+        },
+      },
+    ]);
+    const departmentCounts = await User.aggregate([
+    //   {
+    //     "$lookup": {
+    //       from: 'users',
+    //       //setting variable [searchId] where your string converted to ObjectId
+    //       let: {"searchId": {$toObjectId: "$department"}}, 
+    //       //search query with our [searchId] value
+    //       "pipeline":[
+    //         //searching [searchId] value equals your field [_id]
+    //         {"$match": {"$expr":[ {"name": "$$searchId"}]}},
+    //         //projecting only fields you reaaly need, otherwise you will store all - huge data loads
+    //         {"$project":{"name":1}}
+    //       ],
+    //       'as': 'productInfo'
+    //     }
+    // },
+      {
+        $group: {
+          _id: "$department",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+    const dailyPost = await Post.aggregate([
+      {
+        $group: {
+          _id: { $dateToString: { format: "%d-%m-%Y", date: "$createdAt" } },
+          posts: { $sum: 1 },
+        },
+      },
+      { $sort: { _id: 1 } },
+    ]);
+    const postInTopic = await Post.aggregate([
+      {
+        $group: {
+          _id: "$topic",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+    const postIsAnonymous = await Post.aggregate([
+      {
+        $group: {
+          _id: "$isAnonymous",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+    // const usersDepartments = await User.aggregate([
+    //   {
+    //     $group: {
+    //       _id: "$department",
+    //       count: { $sum: 1 },
+    //     },
+    //   },
+    // ]);
+    res.send({departmentCounts,users,topics,posts,postInTopic,dailyPost,postIsAnonymous});
   })
 );
 
@@ -88,7 +191,10 @@ adminRouter.put(
 adminRouter.post(
   "/login",
   expressAsyncHandler(async (req, res) => {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email }).populate({
+      path: "department",
+      model: Department,
+    });
     if (user) {
       if (bcrypt.compareSync(req.body.password, user.password)) {
         res.send({
@@ -96,6 +202,7 @@ adminRouter.post(
           name: user.name,
           email: user.email,
           role: user.role,
+          department: user.department.name,
           avatar: user.avatar,
           token: generateToken(user),
         });

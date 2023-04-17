@@ -44,6 +44,7 @@ function StatusDetails() {
     const [dislikes, setDisLikes] = useState(0);
     const [clicked, setClicked] = useState(false);
     const [onclicked, setOnClicked] = useState(false);
+    const [check, setCheck] = useState('');
     const params = useParams();
     const navigate = useNavigate();
     const { id: postId } = params;
@@ -68,6 +69,7 @@ function StatusDetails() {
         };
         fetchData();
     }, [postId]);
+
     const submitHandler = async (e) => {
         e.preventDefault();
         if (!content) {
@@ -119,11 +121,16 @@ function StatusDetails() {
             }
         }
     };
-
-    const handleDislike = () => {
+    const dislikeHandler = async (e) => {
+        e.preventDefault();
         if (!onclicked) {
-            setDisLikes(dislikes + 1);
+            setDisLikes(post.dislikes + 1);
             setOnClicked(true);
+            try {
+                const { data2 } = await axios.put(`/api/posts/${postId}/dislike`, { dislikes });
+            } catch (error) {
+                toast.error(getError(error));
+            }
         }
     };
 
@@ -140,13 +147,13 @@ function StatusDetails() {
                         {post.isAnonymous ? (
                             <img src={annonymous} alt="" style={{ height: 70, width: 70, borderRadius: '50%' }} />
                         ) : (
-                            <img src={userInfo.avatar} alt="" style={{ height: 70, width: 70, borderRadius: '50%' }} />
+                            <img src={post.user.avatar} alt="" style={{ height: 70, width: 70, borderRadius: '50%' }} />
                         )}
                         <div>
                             <h4>{post.postBy}</h4>
                             <p>
-                                <i className="ri-price-tag-3-line"> {post.category} </i>
-                                <i className="ri-price-tag-3-line"> {post.topic} </i>
+                                <i className="ri-price-tag-3-line"> {post.category.name} </i>
+                                <i className="ri-price-tag-3-line"> {post.topic.title} </i>
                             </p>
                         </div>
                     </div>
@@ -220,7 +227,7 @@ function StatusDetails() {
                             <Button
                                 variant="outline-danger"
                                 style={{ border: 'none', marginRight: '10px' }}
-                                onClick={handleDislike}
+                                onClick={dislikeHandler}
                             >
                                 {onclicked ? (
                                     <i className="ri-thumb-down-fill fs-3"></i>
@@ -228,13 +235,14 @@ function StatusDetails() {
                                     <i className="ri-thumb-down-line fs-3"></i>
                                 )}
                             </Button>
-                            <h5 style={{ paddingTop: '15px' }}>{dislikes} Dislikes</h5>
+                            <h5 style={{ paddingTop: '15px' }}>{post.dislikes} Dislikes</h5>
                         </div>
                     </div>
                 </section>
                 {/* ==================== Comment-Show ==================== */}
                 <section>
-                    <h5 style={{marginLeft: 10}}
+                    <h5
+                        style={{ borderTop: '3px solid #ccc', paddingTop: '10px', marginTop: '20px' }}
                         ref={commentsRef}
                     >
                         Comment
@@ -259,13 +267,13 @@ function StatusDetails() {
                                             <img
                                                 src={annonymous}
                                                 alt="fileUpload"
-                                                style={{ height: 30, width: 30, borderRadius: '50%', marginRight: '5px' }}
+                                                style={{ height: 60, width: 60, borderRadius: '50%' }}
                                             />
                                         ) : (
                                             <img
                                                 src={Ava}
                                                 alt="fileUpload"
-                                                style={{ height: 30, width: 30, borderRadius: '50%', marginRight: '5px' }}
+                                                style={{ height: 60, width: 60, borderRadius: '50%' }}
                                             />
                                         )}
                                         {comment.isAnonymous ? (
@@ -284,7 +292,27 @@ function StatusDetails() {
                 {/* ==================== Comment-Input ==================== */}
                 {userInfo ? (
                     <form onSubmit={submitHandler}>
-                        <div className="mt-3" style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
+                        <div className="mt-3  gap-3 " style={{ display: 'flex', alignItems: 'center' }}>
+                            <img
+                                src={userInfo.avatar}
+                                alt="fileUpload"
+                                style={{ height: 60, width: 60, borderRadius: '50%' }}
+                            />
+                            <Form.Control
+                                as="textarea"
+                                rows={1}
+                                placeholder="Enter your comment"
+                                value={content}
+                                onChange={(e) => setContent(e.target.value)}
+                            />
+                            <Button
+                                type="submit"
+                                style={{ marginLeft: '10px', background: 'black' }}
+                                disabled={loadingCreateComment}
+                            >
+                                Summit
+                            </Button>
+                            {loadingCreateComment && <LoadingBox></LoadingBox>}
                             <div>
                                 <Form.Check
                                     className="mb-3"
@@ -295,30 +323,6 @@ function StatusDetails() {
                                     onChange={(e) => setIsAnonymous(e.target.checked)}
                                 />
                             </div>
-                            <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'row' }}>
-                            <img
-                                src={userInfo.avatar}
-                                alt="fileUpload"
-                                style={{ height: 50, width: 50, borderRadius: '100%', marginRight: '10px' }}
-                            />
-                            <Form.Control
-                                as="textarea"
-                                rows={1}
-                                placeholder="Enter your comment"
-                                value={content}
-                                onChange={(e) => setContent(e.target.value)}
-                                style={{ height: 50, width: 650, marginRight: '10px' }}
-                            />
-                            <Button
-                                type="submit"
-                                style={{ marginLeft: '10px', marginTop: '10px', background: 'btn-btn-primary' }}
-                                disabled={loadingCreateComment}
-                            >
-                                Summit
-                            </Button>
-                            {loadingCreateComment && <LoadingBox></LoadingBox>}
-                            </div>                           
-                            
                         </div>
                     </form>
                 ) : (
