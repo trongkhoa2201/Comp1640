@@ -13,7 +13,8 @@ import { Store } from '../../Store';
 
 const Sidebar = () => {
     const ForAdmin = [
-        { to: '/home', label: 'Home', icon: 'home' },
+        // { to: '/home', label: 'Home', icon: 'home' },
+        { to: '/dashboard', label: 'Dashboard', icon: 'home' },
         { to: '/myPost', label: 'My Post', icon: 'file' },
         { to: '/manageAccount', label: 'Manage Account', icon: 'table' },
         { to: '/manageCategory', label: 'Manage Category', icon: 'list' },

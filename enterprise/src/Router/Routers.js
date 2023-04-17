@@ -22,6 +22,8 @@ import CreateNewPost from '../pages/ManagePost/CreateNewPost';
 import StatusDetails from '../pages/ManagePost/PostDetail';
 import MyPost from '../pages/ManagePost/MyPost';
 import PostOfUser from '../pages/ManagePost/PostOfUser';
+import Dashboard from '../pages/Dashboard/Dashboard';
+
 
 
 const Routers = () => {
@@ -50,6 +52,8 @@ const Routers = () => {
             <Route path="/newpost" element={<NewPost />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+
         </Routes>
     );
 };
