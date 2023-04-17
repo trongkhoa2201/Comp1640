@@ -267,23 +267,29 @@ function StatusDetails() {
                                             <img
                                                 src={annonymous}
                                                 alt="fileUpload"
-                                                style={{ height: 60, width: 60, borderRadius: '50%' }}
+                                                style={{ height: 50, width: 50, borderRadius: '50%' }}
                                             />
                                         ) : (
                                             <img
                                                 src={Ava}
                                                 alt="fileUpload"
-                                                style={{ height: 60, width: 60, borderRadius: '50%' }}
+                                                style={{ height: 50, width: 50, borderRadius: '50%' }}
                                             />
                                         )}
+                                        <div  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px', marginLeft: '10px'}}>
                                         {comment.isAnonymous ? (
                                             <strong>Unknow People</strong>
                                         ) : (
                                             <strong>{comment.commentBy}</strong>
                                         )}
+                                        <div style={{ marginRight: '50px'}}>
+                                        <p>{comment.content}</p>
+                                        </div>
+                                        </div>
                                     </div>
-                                    <p>{comment.content}</p>
+                                    <div style={{ position: 'absolute', top: '0px', right: '0'}}>
                                     <p>{comment.createdAt.substring(0, 10)}</p>
+                                    </div>
                                 </div>
                             </ListGroup.Item>
                         ))}
@@ -306,7 +312,7 @@ function StatusDetails() {
                             <img
                                 src={userInfo.avatar}
                                 alt="fileUpload"
-                                style={{ height: 60, width: 60, borderRadius: '50%' }}
+                                style={{ height: 50, width: 50, borderRadius: '50%' }}
                             />
                             <Form.Control
                                 as="textarea"
