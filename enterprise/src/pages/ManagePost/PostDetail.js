@@ -292,7 +292,17 @@ function StatusDetails() {
                 {/* ==================== Comment-Input ==================== */}
                 {userInfo ? (
                     <form onSubmit={submitHandler}>
-                        <div className="mt-3  gap-3 " style={{ display: 'flex', alignItems: 'center' }}>
+                            <div>
+                                <Form.Check
+                                    className="mt-3 ml-2"
+                                    type="checkbox"
+                                    id="isAnonymous"
+                                    label="isAnonymous"
+                                    checked={isAnonymous}
+                                    onChange={(e) => setIsAnonymous(e.target.checked)}
+                                />
+                            </div>
+                        <div className="mt-3  gap-3 " style={{ display: 'flex', alignItems: 'center', flexDirection: 'row' }}>   
                             <img
                                 src={userInfo.avatar}
                                 alt="fileUpload"
@@ -303,26 +313,19 @@ function StatusDetails() {
                                 rows={1}
                                 placeholder="Enter your comment"
                                 value={content}
+                                style={{width:'600px', height:'50px'}}
                                 onChange={(e) => setContent(e.target.value)}
                             />
                             <Button
                                 type="submit"
-                                style={{ marginLeft: '10px', background: 'black' }}
+                                style={{ marginLeft: '10px'}}
                                 disabled={loadingCreateComment}
+                                className='btn btn-primary'
                             >
                                 Summit
                             </Button>
                             {loadingCreateComment && <LoadingBox></LoadingBox>}
-                            <div>
-                                <Form.Check
-                                    className="mb-3"
-                                    type="checkbox"
-                                    id="isAnonymous"
-                                    label="isAnonymous"
-                                    checked={isAnonymous}
-                                    onChange={(e) => setIsAnonymous(e.target.checked)}
-                                />
-                            </div>
+                            
                         </div>
                     </form>
                 ) : (

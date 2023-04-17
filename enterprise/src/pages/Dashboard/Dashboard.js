@@ -61,7 +61,7 @@ return (
         ) : (
             <>
                 <Row>
-                    <Col md={4}>
+                    <Col md={4} className='dashboard-box'>
                         <Card>
                             <Card.Body>
                                 <Card.Title>
@@ -71,7 +71,7 @@ return (
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col md={4}>
+                    <Col md={4} className='dashboard-box'>
                         <Card>
                             <Card.Body>
                                 <Card.Title>
@@ -81,7 +81,7 @@ return (
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col md={4}>
+                    <Col md={4} className='dashboard-box'>
                         <Card>
                             <Card.Body>
                                 <Card.Title>
@@ -98,11 +98,12 @@ return (
                         <MessageBox>No Post</MessageBox>
                     ) : (
                         <Chart
-                            width="100%"
+                            width="90%"
                             height="400px"
                             chartType="AreaChart"
                             loader={<div>Loading Chart...</div>}
                             data={[['Date', 'Posts'], ...summary.dailyPost.map((x) => [x._id, x.posts])]}
+                            className='dashboard-chart'
                         ></Chart>
                     )}
                 </div>
@@ -112,7 +113,7 @@ return (
                         <MessageBox>No User</MessageBox>
                     ) : (
                         <Chart
-                            width="100%"
+                            width="90%"
                             height="400px"
                             chartType="PieChart"
                             loader={<div>Loading Chart...</div>}
@@ -120,6 +121,7 @@ return (
                                 ['Department', 'Users'],
                                 ...summary.departmentCounts.map((x) => [x._id, x.count]),
                             ]}
+                            className='dashboard-chart'
                         ></Chart>
                     )}
                 </div>
@@ -129,7 +131,7 @@ return (
                         <MessageBox>No Post</MessageBox>
                     ) : (
                         <Chart
-                            width="100%"
+                            width="90%"
                             height="400px"
                             chartType="PieChart"
                             loader={<div>Loading Chart...</div>}
@@ -137,6 +139,7 @@ return (
                                 ['Topic', 'Posts'],
                                 ...summary.postInTopic.map((x) => [x._id, x.count]),
                             ]}
+                            className='dashboard-chart'
                         ></Chart>
                     )}
                 </div>
@@ -146,7 +149,7 @@ return (
                         <MessageBox>No Post</MessageBox>
                     ) : (
                         <Chart
-                            width="100%"
+                            width="90%"
                             height="400px"
                             chartType="PieChart"
                             loader={<div>Loading Chart...</div>}
@@ -154,6 +157,7 @@ return (
                                 ['isAnnonymous', 'Posts'],
                                 ...summary.postIsAnonymous.map((x) => [x._id.toString(), x.count]),
                             ]}
+                            className='dashboard-chart'
                         ></Chart>
                     )}
                 </div>
