@@ -278,7 +278,7 @@ function StatusDetails() {
                                                 style={{ height: 50, width: 50, borderRadius: '50%' }}
                                             />
                                         )}
-                                        <div  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px', marginLeft: '10px'}}>
+                                        <div  style={{ marginTop: '10px', marginLeft: '10px'}}>
                                         {comment.isAnonymous ? (
                                             <strong>Unknown People</strong>
                                         ) : (
