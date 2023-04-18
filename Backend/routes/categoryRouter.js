@@ -52,8 +52,6 @@ categoryRouter.delete(
 
 categoryRouter.get(
   "/:id",
-  isAuth,
-  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const category = await Category.findById(req.params.id);
     if (category) {
@@ -66,8 +64,6 @@ categoryRouter.get(
 
 categoryRouter.put(
   "/:id",
-  isAuth,
-  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const category = await Category.findById(req.params.id);
     if (category) {
