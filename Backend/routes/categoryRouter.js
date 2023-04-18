@@ -16,8 +16,6 @@ categoryRouter.get(
 );
 categoryRouter.post(
   "/createCategory",
-  isAuth,
-  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const newCategory = new Category({
       name: req.body.name,
