@@ -10,7 +10,19 @@ import { generateToken, isAdmin, isAuth, isQAC } from "../utils.js";
 const adminRouter = express.Router();
 
 adminRouter.get(
-  "/",
+  '/',
+  expressAsyncHandler(async (req, res) => {
+    const users = await User.find({}).populate({
+      path: 'department',
+      model: Department,
+    });
+    res.send(users);
+  })
+);
+adminRouter.get(
+  '/department',
+  isAuth,
+  isQAC,
   expressAsyncHandler(async (req, res) => {
     const users = await User.find({}).populate({
       path: "department",
@@ -32,7 +44,7 @@ adminRouter.get(
 );
 
 adminRouter.post(
-  "/createAccount",
+  '/createAccount',
   expressAsyncHandler(async (req, res) => {
     const newUser = new User({
       name: req.body.name,
@@ -150,36 +162,36 @@ adminRouter.get(
 );
 
 adminRouter.delete(
-  "/:id",
+  '/:id',
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
-      if (user.email === "admin@example.com") {
-        res.status(400).send({ message: "Can Not Delete Admin User" });
+      if (user.email === 'admin@example.com') {
+        res.status(400).send({ message: 'Can Not Delete Admin User' });
         return;
       }
       await user.deleteOne();
-      res.send({ message: "User Deleted" });
+      res.send({ message: 'User Deleted' });
     } else {
-      res.status(404).send({ message: "User Not Found" });
+      res.status(404).send({ message: 'User Not Found' });
     }
   })
 );
 
 adminRouter.get(
-  "/:id",
+  '/:id',
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
       res.send(user);
     } else {
-      res.status(404).send({ message: "User Not Found" });
+      res.status(404).send({ message: 'User Not Found' });
     }
   })
 );
 
 adminRouter.put(
-  "/:id",
+  '/:id',
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
@@ -189,15 +201,15 @@ adminRouter.put(
       user.department = req.body.department || user.department;
       user.avatar = req.body.avatar || user.avatar;
       const updatedUser = await user.save();
-      res.send({ message: "User Updated", user: updatedUser });
+      res.send({ message: 'User Updated', user: updatedUser });
     } else {
-      res.status(404).send({ message: "User Not Found" });
+      res.status(404).send({ message: 'User Not Found' });
     }
   })
 );
 
 adminRouter.post(
-  "/login",
+  '/login',
   expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ email: req.body.email }).populate({
       path: "department",
@@ -217,11 +229,11 @@ adminRouter.post(
         return;
       }
     }
-    res.status(401).send({ message: "Invalid email or password" });
+    res.status(401).send({ message: 'Invalid email or password' });
   })
 );
 adminRouter.put(
-  "/profile",
+  '/profile',
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
@@ -229,6 +241,8 @@ adminRouter.put(
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
       user.avatar = req.body.avatar || user.avatar;
+      user.role = req.body.role || user.role;
+      user.department = req.body.department || user.department;
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 8);
       }
@@ -239,10 +253,12 @@ adminRouter.put(
         name: updatedUser.name,
         email: updatedUser.email,
         avatar: updatedUser.avatar,
+        role: updatedUser.role,
+        department: updatedUser.department,
         token: generateToken(updatedUser),
       });
     } else {
-      res.status(404).send({ message: "User not found" });
+      res.status(404).send({ message: 'User not found' });
     }
   })
 );

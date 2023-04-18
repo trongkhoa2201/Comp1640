@@ -105,8 +105,8 @@ export default function PostOfUser() {
                                         <tr key={post._id}>
                                             <td>{post.title}</td>
                                             <td>{post.postBy}</td>
-                                            <td>{post.category.name}</td>
-                                            <td>{post.topic.title}</td>
+                                            <td>{post.category}</td>
+                                            <td>{post.topic}</td>
                                             <td>{post.isAnonymous ? 'Yes' : 'No'}</td>
                                             <td>
                                                 <Moment format="YYYY/MM/DD">{post.createdAt}</Moment>
