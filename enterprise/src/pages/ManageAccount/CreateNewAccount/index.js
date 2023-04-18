@@ -126,6 +126,7 @@ export default function CreateNewAccount() {
                                     required
                                     onChange={(e) => setDepartment(e.target.value)}
                                 >
+                                <option value=''>-----Select a department------</option>
                                     {departs.map((departs, index) => {
                                         return (
                                             <option key={index} value={departs._id}>

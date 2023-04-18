@@ -35,7 +35,7 @@ const Trend = () => {
                             </Link>
                         </div>
                         <div style={{ color: 'white', overflow: 'hidden', height: '100px' }}>
-                            <p>{post.content}</p>
+                            <p>{post.topic.title}</p>
                         </div>
                     </div>
                 </div>

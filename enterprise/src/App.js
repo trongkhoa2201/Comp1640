@@ -9,10 +9,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
-      <div className="App">
-          <ToastContainer position="bottom-center" limit={1} />
-          <Layout />
-      </div>
+    <div className='App'>
+                <ToastContainer position="top-right" limit={1} />
+
+      <Layout />
+    </div>
   );
 }
 

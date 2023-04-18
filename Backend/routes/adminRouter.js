@@ -11,8 +11,11 @@ const adminRouter = express.Router();
 
 adminRouter.get(
   "/",
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const users = await User.find({}).populate({
+      path: "department",
       path: "department",
       model: Department,
     });
@@ -56,6 +59,8 @@ adminRouter.post(
 );
 adminRouter.get(
   "/summary",
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const users = await User.aggregate([
       {
@@ -106,7 +111,7 @@ adminRouter.get(
     const dailyPost = await Post.aggregate([
       {
         $group: {
-          _id: { $dateToString: { format: "%d-%m-%Y", date: "$createdAt" } },
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
           posts: { $sum: 1 },
         },
       },
@@ -114,6 +119,19 @@ adminRouter.get(
     ]);
     const postInTopic = await Post.aggregate([
      
+      {
+        // liên kết (join) hai bảng User và departments
+        $lookup: {
+          from: "topics",
+          localField: "topic",
+          foreignField: "_id",
+          as: "topic",
+        },
+      },
+      {
+        //mở rộng các giá trị = > bản ghi đơn lẻ
+        $unwind: "$topic",
+      },
       {
         // liên kết (join) hai bảng User và departments
         $lookup: {
@@ -142,14 +160,6 @@ adminRouter.get(
         },
       },
     ]);
-    // const usersDepartments = await User.aggregate([
-    //   {
-    //     $group: {
-    //       _id: "$department",
-    //       count: { $sum: 1 },
-    //     },
-    //   },
-    // ]);
     res.send({
       departmentCounts,
       users,
@@ -164,6 +174,8 @@ adminRouter.get(
 
 adminRouter.delete(
   "/:id",
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
@@ -269,6 +281,8 @@ adminRouter.put(
         name: updatedUser.name,
         email: updatedUser.email,
         avatar: updatedUser.avatar,
+        role: updatedUser.role,
+        department: updatedUser.department,
         token: generateToken(updatedUser),
       });
     } else {

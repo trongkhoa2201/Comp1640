@@ -23,13 +23,18 @@ export default function EditAccount() {
         { display: 'QA Manager', value: 'qam' },
         { display: 'QA Coordinator', value: 'qac' },
     ];
-    const departments = [
-        { display: 'Select a dapartment' },
-        { display: 'Finance', value: 'Finance' },
-        { display: 'Marketing', value: 'Marketing' },
-        { display: 'Human Resource', value: 'Human Resource' },
-        { display: 'Information Technology', value: 'Information Technology' },
-    ];
+    const [departs, setDeparts] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get('/api/departments')
+            .then((response) => {
+                setDeparts(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -49,8 +54,6 @@ export default function EditAccount() {
     const updateHandler = async (e) => {
         e.preventDefault();
         try {
-            console.log(setAvatar);
-            // console.log(avatar);
             await axios.put(`/api/users/${userId}`, { _id: userId, name, email, role, department, avatar });
             toast.success('User updated successfully');
             navigate('/manageAccount');
@@ -110,10 +113,11 @@ export default function EditAccount() {
                                     required
                                     onChange={(e) => setDepartment(e.target.value)}
                                 >
-                                    {departments.map((option, index) => {
+                                <option value=''>-----Select a department------</option>
+                                    {departs.map((departs, index) => {
                                         return (
-                                            <option key={index} value={option.value}>
-                                                {option.display}
+                                            <option key={index} value={departs._id}>
+                                                {departs.name}
                                             </option>
                                         );
                                     })}
@@ -163,3 +167,4 @@ export default function EditAccount() {
         </div>
     );
 }
+// cmt
