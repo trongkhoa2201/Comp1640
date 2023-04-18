@@ -11,10 +11,12 @@ const adminRouter = express.Router();
 
 adminRouter.get(
   "/",
+  "/",
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
     const users = await User.find({}).populate({
+      path: "department",
       path: "department",
       model: Department,
     });
