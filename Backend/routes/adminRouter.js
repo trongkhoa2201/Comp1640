@@ -35,8 +35,6 @@ adminRouter.get(
 
 adminRouter.post(
   "/createAccount",
-  isAuth,
-  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const newUser = new User({
       name: req.body.name,

@@ -75,7 +75,7 @@ topicRouter.put(
         topic.description = req.body.description || topic.description;
         topic.firstClosure = req.body.firstClosure || topic.firstClosure;
         topic.finalClosure = req.body.finalClosure || topic.finalClosure;
-      const updatedTopic = await Topic.save();
+      const updatedTopic = await topic.save();
       res.send({ message: "Topic Updated", topic: updatedTopic });
     } else {
       res.status(404).send({ message: "Topic Not Found" });
