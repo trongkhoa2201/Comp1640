@@ -120,6 +120,7 @@ export default function CreateNewPost() {
                             <Form.Group className="mb-3" controlId="topic">
                                 <Form.Label>Topic</Form.Label>
                                 <Form.Select value={topic} required onChange={(e) => setTopic(e.target.value)}>
+                                <option value=''>-----Select a topic------</option>
                                     {topics.map((topic, index) => {
                                         return (
                                             <option key={index} value={topic._id}>
@@ -132,6 +133,7 @@ export default function CreateNewPost() {
                             <Form.Group className="mb-3" controlId="category">
                                 <Form.Label>Category</Form.Label>
                                 <Form.Select value={category} required onChange={(e) => setCategory(e.target.value)}>
+                                <option value=''>-----Select a category------</option>
                                     {cate.map((cate, index) => {
                                         return (
                                             <option key={index} value={cate._id}>

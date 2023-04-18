@@ -1,16 +1,18 @@
-import express from 'express';
-import bcrypt from 'bcryptjs';
-import expressAsyncHandler from 'express-async-handler';
-import User from '../Model/userModel.js';
-import Department from '../Model/departmentModel.js';
-import Topic from '../Model/topicModel.js';
-import Post from '../Model/postModel.js';
-import { generateToken, isAdmin, isAuth, isQAC } from '../utils.js';
+import express from "express";
+import bcrypt from "bcryptjs";
+import expressAsyncHandler from "express-async-handler";
+import User from "../Model/userModel.js";
+import Department from "../Model/departmentModel.js";
+import Topic from "../Model/topicModel.js";
+import Post from "../Model/postModel.js";
+import { generateToken, isAdmin, isAuth, isQAC } from "../utils.js";
 
 const adminRouter = express.Router();
 
 adminRouter.get(
   '/',
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const users = await User.find({}).populate({
       path: 'department',
@@ -24,15 +26,18 @@ adminRouter.get(
   isAuth,
   isQAC,
   expressAsyncHandler(async (req, res) => {
-    const users = await User.find({ department: req.user.department }).populate(
-      { path: 'department', model: Department }
-    );
+    const users = await User.find({}).populate({
+      path: "department",
+      model: Department,
+    });
     res.send(users);
   })
 );
 
 adminRouter.post(
   '/createAccount',
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const newUser = new User({
       name: req.body.name,
@@ -55,7 +60,9 @@ adminRouter.post(
   })
 );
 adminRouter.get(
-  '/summary',
+  "/summary",
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const users = await User.aggregate([
       {
@@ -99,7 +106,7 @@ adminRouter.get(
       // },
       {
         $group: {
-          _id: '$department',
+          _id: "$department",
           count: { $sum: 1 },
         },
       },
@@ -107,7 +114,7 @@ adminRouter.get(
     const dailyPost = await Post.aggregate([
       {
         $group: {
-          _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
           posts: { $sum: 1 },
         },
       },
@@ -116,7 +123,7 @@ adminRouter.get(
     const postInTopic = await Post.aggregate([
       {
         $group: {
-          _id: '$topic',
+          _id: "$topic",
           count: { $sum: 1 },
         },
       },
@@ -124,19 +131,11 @@ adminRouter.get(
     const postIsAnonymous = await Post.aggregate([
       {
         $group: {
-          _id: '$isAnonymous',
+          _id: "$isAnonymous",
           count: { $sum: 1 },
         },
       },
     ]);
-    // const usersDepartments = await User.aggregate([
-    //   {
-    //     $group: {
-    //       _id: "$department",
-    //       count: { $sum: 1 },
-    //     },
-    //   },
-    // ]);
     res.send({
       departmentCounts,
       users,
@@ -151,6 +150,8 @@ adminRouter.get(
 
 adminRouter.delete(
   '/:id',
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
@@ -168,6 +169,8 @@ adminRouter.delete(
 
 adminRouter.get(
   '/:id',
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
@@ -180,6 +183,8 @@ adminRouter.get(
 
 adminRouter.put(
   '/:id',
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
@@ -200,7 +205,7 @@ adminRouter.post(
   '/login',
   expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ email: req.body.email }).populate({
-      path: 'department',
+      path: "department",
       model: Department,
     });
     if (user) {
