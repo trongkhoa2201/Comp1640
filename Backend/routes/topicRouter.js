@@ -2,6 +2,7 @@ import express from "express";
 import Topic from "../Model/topicModel.js";
 import Post from "../Model/postModel.js";
 import expressAsyncHandler from "express-async-handler";
+import { isAuth } from "../utils.js";
 
 const topicRouter = express.Router();
 

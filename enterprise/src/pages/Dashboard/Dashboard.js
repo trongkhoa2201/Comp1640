@@ -63,7 +63,7 @@ return (
                 <Row>
                     <Col md={4} className='dashboard-box'>
                         <Card>
-                            <Card.Body style={{backgroundColor: '#FFFDB7', borderRadius: '5px', display: 'flex'}}>
+                            <Card.Body style={{backgroundColor: '#FFFDB7', borderRadius: '5px'}}>
                                 <Card.Title>
                                     {summary.users && summary.users[0] ? summary.users[0].numUsers : 0}
                                 </Card.Title>
@@ -73,7 +73,7 @@ return (
                     </Col>
                     <Col md={4} className='dashboard-box'>
                         <Card>
-                            <Card.Body style={{backgroundColor: '#AEF4A4', borderRadius: '5px', display: 'flex'}}>
+                            <Card.Body style={{backgroundColor: '#AEF4A4', borderRadius: '5px'}}>
                                 <Card.Title>
                                     {summary.topics && summary.topics[0] ? summary.topics[0].numTopics : 0}
                                 </Card.Title>
@@ -83,7 +83,7 @@ return (
                     </Col>
                     <Col md={4} className='dashboard-box'>
                         <Card>
-                            <Card.Body style={{backgroundColor: '#79B8D1', borderRadius: '5px', display: 'flex'}}>
+                            <Card.Body style={{backgroundColor: '#79B8D1', borderRadius: '5px'}}>
                                 <Card.Title>
                                     {summary.posts && summary.posts[0] ? summary.posts[0].numPosts : 0}
                                 </Card.Title>

@@ -8,6 +8,7 @@ const categoryRouter = express.Router();
 
 categoryRouter.get(
   "/",
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const categories = await Category.find({});
     res.send(categories);
@@ -33,6 +34,7 @@ categoryRouter.post(
 
 categoryRouter.delete(
   "/:id",
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const posts = await Post.find({ category: req.params.id });
     if(posts.length === 0){
@@ -52,8 +54,6 @@ categoryRouter.delete(
 
 categoryRouter.get(
   "/:id",
-  isAuth,
-  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const category = await Category.findById(req.params.id);
     if (category) {
@@ -66,8 +66,6 @@ categoryRouter.get(
 
 categoryRouter.put(
   "/:id",
-  isAuth,
-  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const category = await Category.findById(req.params.id);
     if (category) {
