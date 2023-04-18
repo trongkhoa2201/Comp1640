@@ -6,6 +6,14 @@ import Department from "../Model/departmentModel.js";
 import Topic from "../Model/topicModel.js";
 import Post from "../Model/postModel.js";
 import { generateToken, isAdmin, isAuth, isQAC } from "../utils.js";
+import express from "express";
+import bcrypt from "bcryptjs";
+import expressAsyncHandler from "express-async-handler";
+import User from "../Model/userModel.js";
+import Department from "../Model/departmentModel.js";
+import Topic from "../Model/topicModel.js";
+import Post from "../Model/postModel.js";
+import { generateToken, isAdmin, isAuth, isQAC } from "../utils.js";
 
 const adminRouter = express.Router();
 
@@ -23,6 +31,7 @@ adminRouter.get(
 );
 adminRouter.get(
   "/department",
+  "/department",
   isAuth,
   isQAC,
   expressAsyncHandler(async (req, res) => {
@@ -32,6 +41,7 @@ adminRouter.get(
     res.send(users);
   })
 );
+
 
 adminRouter.post(
   "/createAccount",
