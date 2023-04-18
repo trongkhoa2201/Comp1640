@@ -22,17 +22,17 @@ adminRouter.get(
   })
 );
 adminRouter.get(
-  '/department',
+  "/department",
   isAuth,
   isQAC,
   expressAsyncHandler(async (req, res) => {
-    const users = await User.find({}).populate({
-      path: "department",
-      model: Department,
-    });
+    const users = await User.find({ department: req.user.department }).populate(
+      { path: "department", model: Department }
+    );
     res.send(users);
   })
 );
+
 
 adminRouter.post(
   '/createAccount',
