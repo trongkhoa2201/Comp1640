@@ -22,8 +22,6 @@ export default function EditTopic() {
                 const { data } = await axios.get(`/api/topics/${topicId}`);
                 setTitle(data.title);
                 setDescription(data.description);
-                setFirstClosure(data.firstClosure);
-                setFinalClosure(data.finalClosure);
             } catch (err) {
                 toast.error(getError(err));
             }

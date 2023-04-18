@@ -10,10 +10,13 @@ import { generateToken, isAdmin, isAuth, isQAC } from '../utils.js';
 const adminRouter = express.Router();
 
 adminRouter.get(
-  '/',
+  "/",
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const users = await User.find({}).populate({
-      path: 'department',
+      path: "department",
+      path: "department",
       model: Department,
     });
     res.send(users);
@@ -55,7 +58,9 @@ adminRouter.post(
   })
 );
 adminRouter.get(
-  '/summary',
+  "/summary",
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const users = await User.aggregate([
       {
@@ -82,24 +87,22 @@ adminRouter.get(
       },
     ]);
     const departmentCounts = await User.aggregate([
-      //   {
-      //     "$lookup": {
-      //       from: 'users',
-      //       //setting variable [searchId] where your string converted to ObjectId
-      //       let: {"searchId": {$toObjectId: "$department"}},
-      //       //search query with our [searchId] value
-      //       "pipeline":[
-      //         //searching [searchId] value equals your field [_id]
-      //         {"$match": {"$expr":[ {"name": "$$searchId"}]}},
-      //         //projecting only fields you reaaly need, otherwise you will store all - huge data loads
-      //         {"$project":{"name":1}}
-      //       ],
-      //       'as': 'productInfo'
-      //     }
-      // },
+      {
+        // liên kết (join) hai bảng User và departments
+        $lookup: {
+          from: "departments",
+          localField: "department",
+          foreignField: "_id",
+          as: "department",
+        },
+      },
+      {
+        //mở rộng các giá trị = > bản ghi đơn lẻ
+        $unwind: "$department",
+      },
       {
         $group: {
-          _id: '$department',
+          _id: "$department.name",
           count: { $sum: 1 },
         },
       },
@@ -107,7 +110,7 @@ adminRouter.get(
     const dailyPost = await Post.aggregate([
       {
         $group: {
-          _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
           posts: { $sum: 1 },
         },
       },
@@ -115,8 +118,21 @@ adminRouter.get(
     ]);
     const postInTopic = await Post.aggregate([
       {
+        // liên kết (join) hai bảng User và departments
+        $lookup: {
+          from: "topics",
+          localField: "topic",
+          foreignField: "_id",
+          as: "topic",
+        },
+      },
+      {
+        //mở rộng các giá trị = > bản ghi đơn lẻ
+        $unwind: "$topic",
+      },
+      {
         $group: {
-          _id: '$topic',
+          _id: "$topic.title",
           count: { $sum: 1 },
         },
       },
@@ -129,14 +145,6 @@ adminRouter.get(
         },
       },
     ]);
-    // const usersDepartments = await User.aggregate([
-    //   {
-    //     $group: {
-    //       _id: "$department",
-    //       count: { $sum: 1 },
-    //     },
-    //   },
-    // ]);
     res.send({
       departmentCounts,
       users,
@@ -150,7 +158,9 @@ adminRouter.get(
 );
 
 adminRouter.delete(
-  '/:id',
+  "/:id",
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
@@ -229,6 +239,8 @@ adminRouter.put(
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
       user.avatar = req.body.avatar || user.avatar;
+      user.role = req.body.role || user.role;
+      user.department = req.body.department || user.department;
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 8);
       }
@@ -239,6 +251,8 @@ adminRouter.put(
         name: updatedUser.name,
         email: updatedUser.email,
         avatar: updatedUser.avatar,
+        role: updatedUser.role,
+        department: updatedUser.department,
         token: generateToken(updatedUser),
       });
     } else {
