@@ -26,6 +26,30 @@
     margin-top: 20px;
   }
   .dashboard-chart{
+    width: 400px;
     margin-left: 120px;
-    border-radius: 100px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .dashboard-box{
+      width: 350px;
+      margin-left: 80px;
+      margin-top: 20px;
+    }
+    .dashboard-chart{
+      width: 350px;
+      margin-left: 50px;
+    }
+  }
+  @media only screen and (max-width: 576px) {
+    .dashboard-box{
+      width: 350px;
+      margin-left: 80px;
+      margin-top: 20px;
+    }
+    .dashboard-chart{
+      width: 350px;
+      height: 200px;
+      margin-left: 50px;
+    }
   }
