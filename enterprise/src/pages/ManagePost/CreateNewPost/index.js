@@ -12,7 +12,7 @@ export default function CreateNewPost() {
     const navigate = useNavigate();
     const { search } = useLocation();
     const redirectInUrl = new URLSearchParams(search).get('redirect');
-    const redirect = redirectInUrl ? redirectInUrl : '/managePost';
+    const redirect = redirectInUrl ? redirectInUrl : '/myPost';
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -71,7 +71,7 @@ export default function CreateNewPost() {
                     },
                 },
             );
-            navigate(redirect || '/managePost');
+            navigate(redirect || '/myPost');
         } catch (err) {
             toast.error(getError(err));
         }
@@ -120,7 +120,7 @@ export default function CreateNewPost() {
                             <Form.Group className="mb-3" controlId="topic">
                                 <Form.Label>Topic</Form.Label>
                                 <Form.Select value={topic} required onChange={(e) => setTopic(e.target.value)}>
-                                <option value=''>-----Select a topic------</option>
+                                    <option value="">-----Select a topic------</option>
                                     {topics.map((topic, index) => {
                                         return (
                                             <option key={index} value={topic._id}>
@@ -133,7 +133,7 @@ export default function CreateNewPost() {
                             <Form.Group className="mb-3" controlId="category">
                                 <Form.Label>Category</Form.Label>
                                 <Form.Select value={category} required onChange={(e) => setCategory(e.target.value)}>
-                                <option value=''>-----Select a category------</option>
+                                    <option value="">-----Select a category------</option>
                                     {cate.map((cate, index) => {
                                         return (
                                             <option key={index} value={cate._id}>
