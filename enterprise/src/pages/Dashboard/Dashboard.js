@@ -9,7 +9,6 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import LoadingBox from '../../components/LoadingBox/LoadingBox';
 import MessageBox from '../../components/MessageBox/MessageBox';
-
 const reducer = (state, action) => {
     switch (action.type) {
         case 'FETCH_REQUEST':
@@ -26,7 +25,6 @@ const reducer = (state, action) => {
             return state;
     }
 };
-
 export default function Dashboard(){
     const [{ loading, summary, error }, dispatch] = useReducer(reducer, {
         loading: true,
@@ -50,7 +48,6 @@ export default function Dashboard(){
         };
         fetchData();
     }, [userInfo]);
-
 return (
     <div>
         <h1 style={{textAlign: 'center', marginTop: '20px'}}>Dashboard</h1>
