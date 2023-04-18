@@ -17,7 +17,7 @@ postRouter.get(
     .populate({ path: 'category', model: Category }); ;
     posts.forEach((post) => {
       if (post.isAnonymous) {
-        post.postBy = "unknow people";
+        post.postBy = "Unknown people";
       }
     });
     res.send(posts);
@@ -45,7 +45,7 @@ postRouter.get(
     .populate({ path: 'category', model: Category });;;
     posts.forEach((post) => {
       if (post.isAnonymous) {
-        post.postBy = "unknow people";
+        post.postBy = "Unknown people";
       }
     });
     res.send(posts);
@@ -101,7 +101,7 @@ postRouter.get(
     .populate({ path: 'topic', model: Topic })
     .populate({ path: 'category', model: Category });
     if (post.isAnonymous) {
-      post.postBy = "Unknow People";
+      post.postBy = "Unknown People";
     }
     if (post) {
       res.send(post);
@@ -184,6 +184,7 @@ postRouter.post(
     if (post) {
       const comment = {
         commentBy: req.body.commentBy,
+        avtCmt: req.body.avtCmt,
         content: req.body.content,
         isAnonymous: Boolean(req.body.isAnonymous),
       };

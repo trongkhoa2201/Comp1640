@@ -37,6 +37,7 @@ function StatusDetails() {
     let commentsRef = useRef();
     const [content, setContent] = useState('');
     const [commentBy, setCommentBy] = useState('');
+    const [avtCmt, setAvtCmt] = useState('');
     const [isAnonymous, setIsAnonymous] = useState('');
     // const [isAnonymous, setIsAnonymous] = useState(false);
     const [showModal, setShowModal] = useState(false);
@@ -63,6 +64,7 @@ function StatusDetails() {
                 const result = await axios.get(`/api/posts/${postId}`);
                 dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
                 setCommentBy(userInfo.name);
+                setAvtCmt(userInfo.avatar);
             } catch (err) {
                 dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
             }
@@ -79,7 +81,7 @@ function StatusDetails() {
         try {
             const { data } = await axios.post(
                 `/api/posts/${postId}/comments`,
-                { content, commentBy, isAnonymous },
+                { content, commentBy, avtCmt, isAnonymous },
                 {
                     headers: { Authorization: `Bearer ${userInfo.token}` },
                 },
@@ -271,14 +273,14 @@ function StatusDetails() {
                                             />
                                         ) : (
                                             <img
-                                                src={Ava}
+                                                src={comment.avtCmt}
                                                 alt="fileUpload"
                                                 style={{ height: 50, width: 50, borderRadius: '50%' }}
                                             />
                                         )}
                                         <div  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px', marginLeft: '10px'}}>
                                         {comment.isAnonymous ? (
-                                            <strong>Unknow People</strong>
+                                            <strong>Unknown People</strong>
                                         ) : (
                                             <strong>{comment.commentBy}</strong>
                                         )}
@@ -328,7 +330,7 @@ function StatusDetails() {
                                 disabled={loadingCreateComment}
                                 className='btn btn-primary'
                             >
-                                Summit
+                                Submit
                             </Button>
                             {loadingCreateComment && <LoadingBox></LoadingBox>}
                             

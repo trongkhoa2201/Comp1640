@@ -1,5 +1,6 @@
 import express from "express";
 import Topic from "../Model/topicModel.js";
+import Post from "../Model/postModel.js";
 import expressAsyncHandler from "express-async-handler";
 
 const topicRouter = express.Router();
@@ -36,12 +37,18 @@ topicRouter.post(
 topicRouter.delete(
   "/:id",
   expressAsyncHandler(async (req, res) => {
-    const topic = await Topic.findById(req.params.id);
-    if (topic) {
-      await topic.deleteOne();
-      res.send({ message: "Topic Deleted" });
-    } else {
-      res.status(404).send({ message: "Topic Not Found" });
+    const posts = await Post.find({ topic: req.params.id });
+    if(posts.length === 0){
+      const topic = await Topic.findById(req.params.id);
+      if (topic) {
+        await topic.deleteOne();
+        res.send({ message: "Topic Deleted" });
+      } else {
+        res.status(404).send({ message: "Topic Not Found" });
+      }
+    }
+    else{
+      res.status(404).send({ message: "This topic can be deleted" });
     }
   })
 );

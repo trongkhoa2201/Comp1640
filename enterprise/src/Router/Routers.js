@@ -6,9 +6,7 @@ import CreateNewAccount from '../pages/ManageAccount/CreateNewAccount';
 import Home from '../pages/Home.jsx';
 import Profile from '../pages/Profile.js';
 import Login from '../pages/Login';
-import CreateNewAccount from '../pages/ManageAccount/CreateNewAccount';
 import EditAccount from '../pages/ManageAccount/EditUser';
-import ManageAccount from '../pages/ManageAccount/ListAccount';
 import CreateCategory from '../pages/ManageCategory/CreateCategory';
 import EditCategory from '../pages/ManageCategory/EditCategory';
 import ManageCategory from '../pages/ManageCategory/ListCategory';
@@ -17,7 +15,6 @@ import ManageDepartment from '../pages/ManageDepartment/ListDepartment';
 import EditDepartment from '../pages/ManageDepartment/UpdateDepartment';
 import CreateTopic from '../pages/ManageTopic/CreateTopic';
 import EditTopic from '../pages/ManageTopic/EditTopic';
-import NewPost from '../components/Post/NewPost';
 import ManagePost from '../pages/ManagePost/ListPost';
 import CreateNewPost from '../pages/ManagePost/CreateNewPost';
 import StatusDetails from '../pages/ManagePost/PostDetail';
@@ -32,6 +29,8 @@ const Routers = () => {
         <Routes>
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/home" element={<Home />} />
+
+
             <Route path="/manageAccount" element={<ManageAccount />} />
             <Route path="/manageCategory" element={<ManageCategory />} />
             <Route path="/manageDepartment" element={<ManageDepartment />} />
@@ -40,14 +39,22 @@ const Routers = () => {
             <Route path="/myPost" element={<MyPost />} />
             <Route path="/posts/list/:id" element={<PostOfUser />} />
             <Route path="/qac/myDepartment" element={<AccountInDepartment />} />
+
+
             <Route path="/createAccount" element={<CreateNewAccount />} />
             <Route path="/createCategory" element={<CreateCategory />} />
             <Route path="/createDepartment" element={<CreateDepartment />} />
             <Route path="/createTopic" element={<CreateTopic />} />
+            <Route path="/createPost" element={<CreateNewPost />} />
+
+
             <Route path="/user/:id" element={<EditAccount />} />
             <Route path="/categories/:id" element={<EditCategory />} />
             <Route path="/departments/:id" element={<EditDepartment />} />
             <Route path="/topics/:id" element={<EditTopic />} />
+
+
+            <Route path="/posts/:id" element={<StatusDetails />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />

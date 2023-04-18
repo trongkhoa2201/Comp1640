@@ -2,6 +2,7 @@ import express from "express";
 import Category from "../Model/categoryModel.js";
 import Post from "../Model/postModel.js";
 import expressAsyncHandler from "express-async-handler";
+import { isQAM, isAdmin,isAuth } from "../utils.js";
 
 const categoryRouter = express.Router();
 
@@ -14,6 +15,8 @@ categoryRouter.get(
 );
 categoryRouter.post(
   "/createCategory",
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const newCategory = new Category({
       name: req.body.name,
@@ -27,18 +30,7 @@ categoryRouter.post(
     });
   })
 );
-// categoryRouter.delete(
-//   "/:id",
-//   expressAsyncHandler(async (req, res) => {
-//     const category = await Category.findById(req.params.id);
-//     if (category) {
-//       await category.deleteOne();
-//       res.send({ message: "Category Deleted" });
-//     } else {
-//       res.status(404).send({ message: "Category Not Found" });
-//     }
-//   })
-// );
+
 categoryRouter.delete(
   "/:id",
   expressAsyncHandler(async (req, res) => {
@@ -60,6 +52,8 @@ categoryRouter.delete(
 
 categoryRouter.get(
   "/:id",
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const category = await Category.findById(req.params.id);
     if (category) {
@@ -72,6 +66,8 @@ categoryRouter.get(
 
 categoryRouter.put(
   "/:id",
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const category = await Category.findById(req.params.id);
     if (category) {

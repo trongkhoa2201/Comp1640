@@ -54,8 +54,6 @@ export default function EditAccount() {
     const updateHandler = async (e) => {
         e.preventDefault();
         try {
-            console.log(setAvatar);
-            // console.log(avatar);
             await axios.put(`/api/users/${userId}`, { _id: userId, name, email, role, department, avatar });
             toast.success('User updated successfully');
             navigate('/manageAccount');
@@ -115,6 +113,7 @@ export default function EditAccount() {
                                     required
                                     onChange={(e) => setDepartment(e.target.value)}
                                 >
+                                <option value=''>-----Select a department------</option>
                                     {departs.map((departs, index) => {
                                         return (
                                             <option key={index} value={departs._id}>

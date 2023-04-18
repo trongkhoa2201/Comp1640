@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 const commentSchema = new mongoose.Schema(
   {
     commentBy: { type: String },
+    avtCmt: { type: String,default: null, },
     content: { type: String },
     isAnonymous: {
       type: Boolean,

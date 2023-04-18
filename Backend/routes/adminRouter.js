@@ -11,6 +11,8 @@ const adminRouter = express.Router();
 
 adminRouter.get(
   '/',
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const users = await User.find({}).populate({
       path: 'department',
@@ -31,20 +33,11 @@ adminRouter.get(
     res.send(users);
   })
 );
-adminRouter.get(
-  "/department",
-  isAuth,
-  isQAC,
-  expressAsyncHandler(async (req, res) => {
-    const users = await User.find({ department: req.user.department }).populate(
-      { path: "department", model: Department }
-    );
-    res.send(users);
-  })
-);
 
 adminRouter.post(
   '/createAccount',
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const newUser = new User({
       name: req.body.name,
@@ -68,6 +61,8 @@ adminRouter.post(
 );
 adminRouter.get(
   "/summary",
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const users = await User.aggregate([
       {
@@ -141,14 +136,6 @@ adminRouter.get(
         },
       },
     ]);
-    // const usersDepartments = await User.aggregate([
-    //   {
-    //     $group: {
-    //       _id: "$department",
-    //       count: { $sum: 1 },
-    //     },
-    //   },
-    // ]);
     res.send({
       departmentCounts,
       users,
@@ -163,6 +150,8 @@ adminRouter.get(
 
 adminRouter.delete(
   '/:id',
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
@@ -180,6 +169,8 @@ adminRouter.delete(
 
 adminRouter.get(
   '/:id',
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
@@ -192,6 +183,8 @@ adminRouter.get(
 
 adminRouter.put(
   '/:id',
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
