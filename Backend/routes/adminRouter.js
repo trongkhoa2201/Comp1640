@@ -11,7 +11,6 @@ const adminRouter = express.Router();
 
 adminRouter.get(
   "/",
-  "/",
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
@@ -88,24 +87,22 @@ adminRouter.get(
       },
     ]);
     const departmentCounts = await User.aggregate([
-      //   {
-      //     "$lookup": {
-      //       from: 'users',
-      //       //setting variable [searchId] where your string converted to ObjectId
-      //       let: {"searchId": {$toObjectId: "$department"}},
-      //       //search query with our [searchId] value
-      //       "pipeline":[
-      //         //searching [searchId] value equals your field [_id]
-      //         {"$match": {"$expr":[ {"name": "$$searchId"}]}},
-      //         //projecting only fields you reaaly need, otherwise you will store all - huge data loads
-      //         {"$project":{"name":1}}
-      //       ],
-      //       'as': 'productInfo'
-      //     }
-      // },
+      {
+        // liên kết (join) hai bảng User và departments
+        $lookup: {
+          from: "departments",
+          localField: "department",
+          foreignField: "_id",
+          as: "department",
+        },
+      },
+      {
+        //mở rộng các giá trị = > bản ghi đơn lẻ
+        $unwind: "$department",
+      },
       {
         $group: {
-          _id: "$department",
+          _id: "$department.name",
           count: { $sum: 1 },
         },
       },
@@ -121,8 +118,21 @@ adminRouter.get(
     ]);
     const postInTopic = await Post.aggregate([
       {
+        // liên kết (join) hai bảng User và departments
+        $lookup: {
+          from: "topics",
+          localField: "topic",
+          foreignField: "_id",
+          as: "topic",
+        },
+      },
+      {
+        //mở rộng các giá trị = > bản ghi đơn lẻ
+        $unwind: "$topic",
+      },
+      {
         $group: {
-          _id: "$topic",
+          _id: "$topic.title",
           count: { $sum: 1 },
         },
       },

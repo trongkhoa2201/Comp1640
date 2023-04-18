@@ -8,8 +8,6 @@ const departmentRouter = express.Router();
 
 departmentRouter.get(
   "/",
-  isAuth, 
-  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const departments = await Department.find({});
     res.send(departments);
@@ -18,8 +16,6 @@ departmentRouter.get(
 
 departmentRouter.post(
   "/createDepartment",
-  isAuth, 
-  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const newDepartment = new Department({
       name: req.body.name,
@@ -31,19 +27,6 @@ departmentRouter.post(
     });
   })
 );
-
-// departmentRouter.delete(
-//   "/:id",
-//   expressAsyncHandler(async (req, res) => {
-//     const department = await Department.findById(req.params.id);
-//     if (department) {
-//       await department.deleteOne();
-//       res.send({ message: "Department Deleted" });
-//     } else {
-//       res.status(404).send({ message: "Department Not Found" });
-//     }
-//   })
-// );
 departmentRouter.delete(
   "/:id",
   isAuth,
