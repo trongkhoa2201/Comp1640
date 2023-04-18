@@ -1,11 +1,14 @@
 import express from "express";
 import Department from "../Model/departmentModel.js";
 import expressAsyncHandler from "express-async-handler";
+import { isAdmin, isAuth } from "../utils.js";
 
 const departmentRouter = express.Router();
 
 departmentRouter.get(
   "/",
+  isAuth, 
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const departments = await Department.find({});
     res.send(departments);
@@ -14,6 +17,8 @@ departmentRouter.get(
 
 departmentRouter.post(
   "/createDepartment",
+  isAuth, 
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const newDepartment = new Department({
       name: req.body.name,

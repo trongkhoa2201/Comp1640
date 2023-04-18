@@ -8,6 +8,7 @@ const categoryRouter = express.Router();
 
 categoryRouter.get(
   "/",
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const categories = await Category.find({});
     res.send(categories);
@@ -33,6 +34,7 @@ categoryRouter.post(
 
 categoryRouter.delete(
   "/:id",
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const posts = await Post.find({ category: req.params.id });
     if(posts.length === 0){
