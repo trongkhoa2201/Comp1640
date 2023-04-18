@@ -63,31 +63,31 @@ return (
                 <Row>
                     <Col md={4} className='dashboard-box'>
                         <Card>
-                            <Card.Body style={{backgroundColor: '#FFFDB7', borderRadius: '5px'}}>
+                            <Card.Body style={{backgroundColor: '#FFFDB7', borderRadius: '5px', display: 'flex'}}>
                                 <Card.Title>
                                     {summary.users && summary.users[0] ? summary.users[0].numUsers : 0}
                                 </Card.Title>
-                                <Card.Text> Users</Card.Text>
+                                <Card.Text style={{marginLeft: '10px', fontWeight: 'bold'}}> Users</Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col md={4} className='dashboard-box'>
                         <Card>
-                            <Card.Body style={{backgroundColor: '#AEF4A4', borderRadius: '5px'}}>
+                            <Card.Body style={{backgroundColor: '#AEF4A4', borderRadius: '5px', display: 'flex'}}>
                                 <Card.Title>
                                     {summary.topics && summary.topics[0] ? summary.topics[0].numTopics : 0}
                                 </Card.Title>
-                                <Card.Text> Topics</Card.Text>
+                                <Card.Text style={{marginLeft: '10px', fontWeight: 'bold'}}> Topics</Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col md={4} className='dashboard-box'>
                         <Card>
-                            <Card.Body style={{backgroundColor: '#79B8D1', borderRadius: '5px'}}>
+                            <Card.Body style={{backgroundColor: '#79B8D1', borderRadius: '5px', display: 'flex'}}>
                                 <Card.Title>
                                     {summary.posts && summary.posts[0] ? summary.posts[0].numPosts : 0}
                                 </Card.Title>
-                                <Card.Text> Posts</Card.Text>
+                                <Card.Text style={{marginLeft: '10px', fontWeight: 'bold'}}> Posts</Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
