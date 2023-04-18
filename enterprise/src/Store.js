@@ -4,6 +4,7 @@ export const Store = createContext();
 
 const initialState = {
     userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null,
+    listTopics: localStorage.getItem('listTopics') ? JSON.parse(localStorage.getItem('listTopics')) : {},
 };
 function reducer(state, action) {
     switch (action.type) {

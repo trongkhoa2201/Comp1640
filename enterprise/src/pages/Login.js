@@ -29,16 +29,12 @@ const Login = () => {
             ctxDispatch({ type: 'USER_SIGNIN', payload: data });
             localStorage.setItem('userInfo', JSON.stringify(data));
             // navigate('/home');
-            data.role === 'admin' ? navigate('/manageAccount') : navigate(redirect || '/');
+            data.role === 'admin' ? navigate('/dashboard') : navigate(redirect || '/');
         } catch (err) {
             toast.error(getError(err));
         }
     };
-    // useEffect(() => {
-    //     if (userInfo) {
-    //         navigate(redirect);
-    //     }
-    // }, [navigate, redirect, userInfo]);
+
 
     return (
         <div>
@@ -58,10 +54,10 @@ const Login = () => {
                     />
                 </FormGroup>{' '}
                 <br />
-                <div className='login'>
-                <motion.button type="submit" whileTap={{ scale: 1.2 }} className="login-btn">
-                    Login
-                </motion.button>
+                <div className="login">
+                    <motion.button type="submit" whileTap={{ scale: 1.2 }} className="login-btn">
+                        Login
+                    </motion.button>
                 </div>
             </Form>
         </div>

@@ -19,7 +19,7 @@ export default function EditAccount() {
 
     const roles = [
         { display: '-----Select a role------' },
-        { display: 'Staff', value: 'staff' },
+        { display: 'User', value: 'user' },
         { display: 'QA Manager', value: 'qam' },
         { display: 'QA Coordinator', value: 'qac' },
     ];

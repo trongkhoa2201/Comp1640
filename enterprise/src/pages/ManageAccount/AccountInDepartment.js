@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useContext, useEffect, useReducer, useState } from 'react';
+import { useContext, useEffect, useReducer } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -38,7 +38,7 @@ const reducer = (state, action) => {
     }
 };
 
-function ManageAccount() {
+function AccountInDepartment() {
     const [{ loading, error, users, loadingDelete, successDelete }, dispatch] = useReducer(logger(reducer), {
         loading: true,
         error: '',
@@ -46,15 +46,12 @@ function ManageAccount() {
     const { state } = useContext(Store);
     const { userInfo } = state;
     const navigate = useNavigate();
-    const navigateToCreate = () => {
-        navigate('/createAccount');
-    };
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 dispatch({ type: 'FETCH_REQUEST' });
-                const { data } = await axios.get(`/api/users`, {
+                const { data } = await axios.get(`/api/users/department`, {
                     headers: { Authorization: `Bearer ${userInfo.token}` },
                 });
                 dispatch({ type: 'FETCH_SUCCESS', payload: data });
@@ -72,26 +69,8 @@ function ManageAccount() {
         }
     }, [userInfo, successDelete]);
 
-    const deleteHandler = async (user) => {
-        if (window.confirm('Are you sure to delete?')) {
-            try {
-                dispatch({ type: 'DELETE_REQUEST' });
-                await axios.delete(`/api/users/${user._id}`,{
-                    headers: { Authorization: `Bearer ${userInfo.token}` },});
-                toast.success('user deleted successfully');
-                dispatch({ type: 'DELETE_SUCCESS' });
-            } catch (error) {
-                toast.error(getError(error));
-                dispatch({
-                    type: 'DELETE_FAIL',
-                });
-            }
-        }
-    };
-
     return (
         <div className="container ">
-        {loadingDelete && <LoadingBox></LoadingBox>}
             {loading ? (
                 <LoadingBox></LoadingBox>
             ) : error ? (
@@ -99,15 +78,10 @@ function ManageAccount() {
             ) : (
                 <div className="crud shadow-lg p-3 mb-5 mt-5 bg-body rounded">
                     <div className="row ">
-                        <div className="col-sm-3 offset-sm-2 mt-5 mb-4 ">
+                        <div className="offset-sm-2 mt-5 mb-4 ">
                             <h2>
-                                <b>List Account</b>
+                                <b>Account In {userInfo.department} Department</b>
                             </h2>
-                        </div>
-                        <div className="col-sm-3 offset-sm-1  mt-5 mb-4 ">
-                            <Button variant="primary" onClick={navigateToCreate}>
-                                Create new Account
-                            </Button>
                         </div>
                     </div>
                     <div className="row">
@@ -120,7 +94,7 @@ function ManageAccount() {
                                         <th>Avatar</th>
                                         <th>Role</th>
                                         <th>Department</th>
-                                        <th>Action</th>
+                                        <th>Post of User</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -138,13 +112,8 @@ function ManageAccount() {
                                             <td>{user.role}</td>
                                             <td>{user.department.name}</td>
                                             <td>
-                                                <Button variant="success" onClick={() => navigate(`/user/${user._id}`)}>
-                                                    Edit
-                                                </Button>
-                                                &nbsp;
-                                                <Button variant="danger" onClick={() => deleteHandler(user)}>
-                                                    {' '}
-                                                    Delete
+                                                <Button variant="success" onClick={() => navigate(`/posts/list/${user._id}`)}>
+                                                    View
                                                 </Button>
                                             </td>
                                         </tr>
@@ -159,4 +128,4 @@ function ManageAccount() {
     );
 }
 
-export default ManageAccount;
+export default AccountInDepartment;
