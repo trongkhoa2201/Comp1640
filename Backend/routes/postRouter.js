@@ -39,7 +39,10 @@ postRouter.get(
   "/list/:id",
   isAuth,
   expressAsyncHandler(async (req, res) => {
-    const posts = await Post.find({user: req.params.id});
+    const posts = await Post.find({user: req.params.id})
+    .populate({ path: 'user', model: User })
+    .populate({ path: 'topic', model: Topic })
+    .populate({ path: 'category', model: Category });;;
     posts.forEach((post) => {
       if (post.isAnonymous) {
         post.postBy = "unknow people";

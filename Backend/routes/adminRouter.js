@@ -82,21 +82,21 @@ adminRouter.get(
       },
     ]);
     const departmentCounts = await User.aggregate([
-    //   {
-    //     "$lookup": {
-    //       from: 'users',
-    //       //setting variable [searchId] where your string converted to ObjectId
-    //       let: {"searchId": {$toObjectId: "$department"}}, 
-    //       //search query with our [searchId] value
-    //       "pipeline":[
-    //         //searching [searchId] value equals your field [_id]
-    //         {"$match": {"$expr":[ {"name": "$$searchId"}]}},
-    //         //projecting only fields you reaaly need, otherwise you will store all - huge data loads
-    //         {"$project":{"name":1}}
-    //       ],
-    //       'as': 'productInfo'
-    //     }
-    // },
+      //   {
+      //     "$lookup": {
+      //       from: 'users',
+      //       //setting variable [searchId] where your string converted to ObjectId
+      //       let: {"searchId": {$toObjectId: "$department"}},
+      //       //search query with our [searchId] value
+      //       "pipeline":[
+      //         //searching [searchId] value equals your field [_id]
+      //         {"$match": {"$expr":[ {"name": "$$searchId"}]}},
+      //         //projecting only fields you reaaly need, otherwise you will store all - huge data loads
+      //         {"$project":{"name":1}}
+      //       ],
+      //       'as': 'productInfo'
+      //     }
+      // },
       {
         $group: {
           _id: "$department",
@@ -107,7 +107,7 @@ adminRouter.get(
     const dailyPost = await Post.aggregate([
       {
         $group: {
-          _id: { $dateToString: { format: "%d-%m-%Y", date: "$createdAt" } },
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
           posts: { $sum: 1 },
         },
       },
@@ -137,7 +137,15 @@ adminRouter.get(
     //     },
     //   },
     // ]);
-    res.send({departmentCounts,users,topics,posts,postInTopic,dailyPost,postIsAnonymous});
+    res.send({
+      departmentCounts,
+      users,
+      topics,
+      posts,
+      postInTopic,
+      dailyPost,
+      postIsAnonymous,
+    });
   })
 );
 
