@@ -174,7 +174,7 @@ postRouter.post(
       const updatedPost = await post.save();
       res.status(201).send({
         message: "Review Created",
-        // comment: updatedPost.comments[updatedPost.comment.length - 1],
+        comment: updatedPost.comments[updatedPost.comments.length - 1],
         views: post.views,
       });
     } else {

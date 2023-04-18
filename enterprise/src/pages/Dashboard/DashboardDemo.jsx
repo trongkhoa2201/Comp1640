@@ -7,7 +7,7 @@ import { Container } from 'react-bootstrap';
 import Chart from 'chart.js/auto';
 
 
-const Dashboard = () => {
+const DashboardDemo = () => {
 
 
     const [posts, setPosts] = useState([]);
@@ -127,4 +127,4 @@ useEffect(() => {
     );
 };
 
-export default Dashboard
+export default DashboardDemo

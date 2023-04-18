@@ -32,6 +32,8 @@ export default function Dashboard(){
         loading: true,
         error: '',
     });
+                    console.log('summ', summary);
+
     const { state } = useContext(Store);
     const { userInfo } = state;
     useEffect(() => {
@@ -50,6 +52,8 @@ export default function Dashboard(){
         };
         fetchData();
     }, [userInfo]);
+
+    
 
 return (
     <div>
@@ -116,10 +120,7 @@ return (
                             height="400px"
                             chartType="PieChart"
                             loader={<div>Loading Chart...</div>}
-                            data={[
-                                ['Department', 'Users'],
-                                ...summary.departmentCounts.map((x) => [x._id, x.count]),
-                            ]}
+                            data={[['Department', 'Users'], ...summary.departmentCounts.map((x) => [x._id, x.count])]}
                         ></Chart>
                     )}
                 </div>
@@ -133,10 +134,7 @@ return (
                             height="400px"
                             chartType="PieChart"
                             loader={<div>Loading Chart...</div>}
-                            data={[
-                                ['Topic', 'Posts'],
-                                ...summary.postInTopic.map((x) => [x._id, x.count]),
-                            ]}
+                            data={[['Topic', 'Posts'], ...summary.postInTopic.map((x) => [x._id, x.count])]}
                         ></Chart>
                     )}
                 </div>

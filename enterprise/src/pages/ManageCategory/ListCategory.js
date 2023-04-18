@@ -15,6 +15,7 @@ export default function ManageCategory() {
         const fetchData = async () => {
             const result = await axios.get('/api/categories');
             setCategories(result.data);
+            // console.log("cate",result.data);
         };
         fetchData();
     }, []);
@@ -24,6 +25,7 @@ export default function ManageCategory() {
                 await axios.delete(`/api/categories/${category._id}`);
                 toast.success('Category deleted successfully');
                 window.location.reload(true);
+                console.log('cate', category._id);
             } catch (error) {
                 toast.error(getError(error));
             }

@@ -17,7 +17,7 @@ const Layout = () => {
       </div>
       {/* ===================content=================== */}
       <div className="center">
-        <Navbar />
+        {/* <Navbar /> */}
         <div className="">
          
         </div>

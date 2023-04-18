@@ -20,7 +20,9 @@ export default function ManagePost() {
             const result = await axios.get('/api/posts');
             setPosts(result.data);
         };
+        
         fetchData();
+        
     }, []);
     const deleteHandler = async (post) => {
         if (window.confirm('Are you sure to delete?')) {
