@@ -1,11 +1,14 @@
 import express from "express";
 import Category from "../Model/categoryModel.js";
+import Post from "../Model/postModel.js";
 import expressAsyncHandler from "express-async-handler";
+import { isQAM, isAdmin,isAuth } from "../utils.js";
 
 const categoryRouter = express.Router();
 
 categoryRouter.get(
   "/",
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const categories = await Category.find({});
     res.send(categories);
@@ -26,15 +29,23 @@ categoryRouter.post(
     });
   })
 );
+
 categoryRouter.delete(
   "/:id",
+  isAuth,
   expressAsyncHandler(async (req, res) => {
-    const category = await Category.findById(req.params.id);
-    if (category) {
-      await category.deleteOne();
-      res.send({ message: "Category Deleted" });
-    } else {
-      res.status(404).send({ message: "Category Not Found" });
+    const posts = await Post.find({ category: req.params.id });
+    if(posts.length === 0){
+      const category = await Category.findById(req.params.id);
+      if (category) {
+        await category.deleteOne();
+        res.send({ message: "Category Deleted" });
+      } else {
+        res.status(404).send({ message: "Category Not Found" });
+      }
+    }
+    else{
+      res.status(404).send({ message: "This category can be deleted" });
     }
   })
 );

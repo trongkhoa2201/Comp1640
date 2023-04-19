@@ -1,38 +1,41 @@
-import express from 'express';
-import bcrypt from 'bcryptjs';
-import expressAsyncHandler from 'express-async-handler';
-import User from '../Model/userModel.js';
-import Department from '../Model/departmentModel.js';
-import Topic from '../Model/topicModel.js';
-import Post from '../Model/postModel.js';
-import { generateToken, isAdmin, isAuth, isQAC } from '../utils.js';
+import express from "express";
+import bcrypt from "bcryptjs";
+import expressAsyncHandler from "express-async-handler";
+import User from "../Model/userModel.js";
+import Department from "../Model/departmentModel.js";
+import Topic from "../Model/topicModel.js";
+import Post from "../Model/postModel.js";
+import { generateToken, isAdmin, isAuth, isQAC } from "../utils.js";
 
 const adminRouter = express.Router();
 
 adminRouter.get(
-  '/',
+  "/",
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const users = await User.find({}).populate({
-      path: 'department',
+      path: "department",
+      path: "department",
       model: Department,
     });
     res.send(users);
   })
 );
 adminRouter.get(
-  '/department',
+  "/department",
   isAuth,
   isQAC,
   expressAsyncHandler(async (req, res) => {
     const users = await User.find({ department: req.user.department }).populate(
-      { path: 'department', model: Department }
+      { path: "department", model: Department }
     );
     res.send(users);
   })
 );
 
 adminRouter.post(
-  '/createAccount',
+  "/createAccount",
   expressAsyncHandler(async (req, res) => {
     const newUser = new User({
       name: req.body.name,
@@ -55,7 +58,9 @@ adminRouter.post(
   })
 );
 adminRouter.get(
-  '/summary',
+  "/summary",
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const users = await User.aggregate([
       {
@@ -82,24 +87,22 @@ adminRouter.get(
       },
     ]);
     const departmentCounts = await User.aggregate([
-      //   {
-      //     "$lookup": {
-      //       from: 'users',
-      //       //setting variable [searchId] where your string converted to ObjectId
-      //       let: {"searchId": {$toObjectId: "$department"}},
-      //       //search query with our [searchId] value
-      //       "pipeline":[
-      //         //searching [searchId] value equals your field [_id]
-      //         {"$match": {"$expr":[ {"name": "$$searchId"}]}},
-      //         //projecting only fields you reaaly need, otherwise you will store all - huge data loads
-      //         {"$project":{"name":1}}
-      //       ],
-      //       'as': 'productInfo'
-      //     }
-      // },
+      {
+        // liên kết (join) hai bảng User và departments
+        $lookup: {
+          from: "departments",
+          localField: "department",
+          foreignField: "_id",
+          as: "department",
+        },
+      },
+      {
+        //mở rộng các giá trị = > bản ghi đơn lẻ
+        $unwind: "$department",
+      },
       {
         $group: {
-          _id: '$department',
+          _id: "$department.name",
           count: { $sum: 1 },
         },
       },
@@ -107,7 +110,7 @@ adminRouter.get(
     const dailyPost = await Post.aggregate([
       {
         $group: {
-          _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
           posts: { $sum: 1 },
         },
       },
@@ -115,8 +118,21 @@ adminRouter.get(
     ]);
     const postInTopic = await Post.aggregate([
       {
+        // liên kết (join) hai bảng User và departments
+        $lookup: {
+          from: "topics",
+          localField: "topic",
+          foreignField: "_id",
+          as: "topic",
+        },
+      },
+      {
+        //mở rộng các giá trị = > bản ghi đơn lẻ
+        $unwind: "$topic",
+      },
+      {
         $group: {
-          _id: '$topic',
+          _id: "$topic.title",
           count: { $sum: 1 },
         },
       },
@@ -124,19 +140,11 @@ adminRouter.get(
     const postIsAnonymous = await Post.aggregate([
       {
         $group: {
-          _id: '$isAnonymous',
+          _id: "$isAnonymous",
           count: { $sum: 1 },
         },
       },
     ]);
-    // const usersDepartments = await User.aggregate([
-    //   {
-    //     $group: {
-    //       _id: "$department",
-    //       count: { $sum: 1 },
-    //     },
-    //   },
-    // ]);
     res.send({
       departmentCounts,
       users,
@@ -150,36 +158,38 @@ adminRouter.get(
 );
 
 adminRouter.delete(
-  '/:id',
+  "/:id",
+  isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
-      if (user.email === 'admin@example.com') {
-        res.status(400).send({ message: 'Can Not Delete Admin User' });
+      if (user.email === "admin@example.com") {
+        res.status(400).send({ message: "Can Not Delete Admin User" });
         return;
       }
       await user.deleteOne();
-      res.send({ message: 'User Deleted' });
+      res.send({ message: "User Deleted" });
     } else {
-      res.status(404).send({ message: 'User Not Found' });
+      res.status(404).send({ message: "User Not Found" });
     }
   })
 );
 
 adminRouter.get(
-  '/:id',
+  "/:id",
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
       res.send(user);
     } else {
-      res.status(404).send({ message: 'User Not Found' });
+      res.status(404).send({ message: "User Not Found" });
     }
   })
 );
 
 adminRouter.put(
-  '/:id',
+  "/:id",
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
@@ -189,18 +199,18 @@ adminRouter.put(
       user.department = req.body.department || user.department;
       user.avatar = req.body.avatar || user.avatar;
       const updatedUser = await user.save();
-      res.send({ message: 'User Updated', user: updatedUser });
+      res.send({ message: "User Updated", user: updatedUser });
     } else {
-      res.status(404).send({ message: 'User Not Found' });
+      res.status(404).send({ message: "User Not Found" });
     }
   })
 );
 
 adminRouter.post(
-  '/login',
+  "/login",
   expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ email: req.body.email }).populate({
-      path: 'department',
+      path: "department",
       model: Department,
     });
     if (user) {
@@ -217,11 +227,11 @@ adminRouter.post(
         return;
       }
     }
-    res.status(401).send({ message: 'Invalid email or password' });
+    res.status(401).send({ message: "Invalid email or password" });
   })
 );
 adminRouter.put(
-  '/profile',
+  "/profile",
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
@@ -229,6 +239,8 @@ adminRouter.put(
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
       user.avatar = req.body.avatar || user.avatar;
+      user.role = req.body.role || user.role;
+      user.department = req.body.department || user.department;
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 8);
       }
@@ -239,10 +251,12 @@ adminRouter.put(
         name: updatedUser.name,
         email: updatedUser.email,
         avatar: updatedUser.avatar,
+        role: updatedUser.role,
+        department: updatedUser.department,
         token: generateToken(updatedUser),
       });
     } else {
-      res.status(404).send({ message: 'User not found' });
+      res.status(404).send({ message: "User not found" });
     }
   })
 );

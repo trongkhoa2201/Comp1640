@@ -20,3 +20,12 @@
     border-radius: 10px;
     padding:45px 30px ;
   }
+  .dashboard-box{
+    width: 350px;
+    margin-left: 60px;
+    margin-top: 20px;
+  }
+  .dashboard-chart{
+    margin-left: 120px;
+    border-radius: 100px;
+  }
