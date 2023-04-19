@@ -5,7 +5,7 @@ import Department from "../Model/departmentModel.js";
 import Post from "../Model/postModel.js";
 import Topic from "../Model/topicModel.js";
 import User from "../Model/userModel.js";
-import { generateToken, isAuth, isQAC } from "../utils.js";
+import { generateToken, isAuth, isQAC, isAdmin } from "../utils.js";
 
 const adminRouter = express.Router();
 
