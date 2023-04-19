@@ -1,12 +1,14 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import ManageAccount from '../pages/ManageAccount/ListAccount';
+
 import AccountInDepartment from '../pages/ManageAccount/AccountInDepartment';
-import CreateNewAccount from '../pages/ManageAccount/CreateNewAccount';
+
 import Home from '../pages/Home.jsx';
 import Profile from '../pages/Profile.js';
 import Login from '../pages/Login';
+import CreateNewAccount from '../pages/ManageAccount/CreateNewAccount';
 import EditAccount from '../pages/ManageAccount/EditUser';
+import ManageAccount from '../pages/ManageAccount/ListAccount';
 import CreateCategory from '../pages/ManageCategory/CreateCategory';
 import EditCategory from '../pages/ManageCategory/EditCategory';
 import ManageCategory from '../pages/ManageCategory/ListCategory';
@@ -23,13 +25,11 @@ import PostOfUser from '../pages/ManagePost/PostOfUser';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import ManageTopic from '../pages/ManageTopic/ListTopic';
 
-
 const Routers = () => {
     return (
         <Routes>
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/home" element={<Home />} />
-
 
             <Route path="/manageAccount" element={<ManageAccount />} />
             <Route path="/manageCategory" element={<ManageCategory />} />
@@ -40,25 +40,17 @@ const Routers = () => {
             <Route path="/posts/list/:id" element={<PostOfUser />} />
             <Route path="/qac/myDepartment" element={<AccountInDepartment />} />
 
-
             <Route path="/createAccount" element={<CreateNewAccount />} />
             <Route path="/createCategory" element={<CreateCategory />} />
             <Route path="/createDepartment" element={<CreateDepartment />} />
             <Route path="/createTopic" element={<CreateTopic />} />
-            <Route path="/createPost" element={<CreateNewPost />} />
-
-
             <Route path="/user/:id" element={<EditAccount />} />
             <Route path="/categories/:id" element={<EditCategory />} />
             <Route path="/departments/:id" element={<EditDepartment />} />
             <Route path="/topics/:id" element={<EditTopic />} />
-
-
-            <Route path="/posts/:id" element={<StatusDetails />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
-
         </Routes>
     );
 };
