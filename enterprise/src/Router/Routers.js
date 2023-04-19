@@ -17,7 +17,6 @@ import ManageDepartment from '../pages/ManageDepartment/ListDepartment';
 import EditDepartment from '../pages/ManageDepartment/UpdateDepartment';
 import CreateTopic from '../pages/ManageTopic/CreateTopic';
 import EditTopic from '../pages/ManageTopic/EditTopic';
-import NewPost from '../components/Post/NewPost';
 import ManagePost from '../pages/ManagePost/ListPost';
 import CreateNewPost from '../pages/ManagePost/CreateNewPost';
 import StatusDetails from '../pages/ManagePost/PostDetail';
@@ -26,12 +25,12 @@ import PostOfUser from '../pages/ManagePost/PostOfUser';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import ManageTopic from '../pages/ManageTopic/ListTopic';
 
-
 const Routers = () => {
     return (
         <Routes>
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/home" element={<Home />} />
+
             <Route path="/manageAccount" element={<ManageAccount />} />
             <Route path="/manageCategory" element={<ManageCategory />} />
             <Route path="/manageDepartment" element={<ManageDepartment />} />
@@ -40,6 +39,7 @@ const Routers = () => {
             <Route path="/myPost" element={<MyPost />} />
             <Route path="/posts/list/:id" element={<PostOfUser />} />
             <Route path="/qac/myDepartment" element={<AccountInDepartment />} />
+
             <Route path="/createAccount" element={<CreateNewAccount />} />
             <Route path="/createCategory" element={<CreateCategory />} />
             <Route path="/createDepartment" element={<CreateDepartment />} />
@@ -51,7 +51,6 @@ const Routers = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
-
         </Routes>
     );
 };

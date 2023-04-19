@@ -37,6 +37,7 @@ function StatusDetails() {
     let commentsRef = useRef();
     const [content, setContent] = useState('');
     const [commentBy, setCommentBy] = useState('');
+    const [avtCmt, setAvtCmt] = useState('');
     const [isAnonymous, setIsAnonymous] = useState('');
     // const [isAnonymous, setIsAnonymous] = useState(false);
     const [showModal, setShowModal] = useState(false);
@@ -63,6 +64,7 @@ function StatusDetails() {
                 const result = await axios.get(`/api/posts/${postId}`);
                 dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
                 setCommentBy(userInfo.name);
+                setAvtCmt(userInfo.avatar);
             } catch (err) {
                 dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
             }
@@ -79,7 +81,7 @@ function StatusDetails() {
         try {
             const { data } = await axios.post(
                 `/api/posts/${postId}/comments`,
-                { content, commentBy, isAnonymous },
+                { content, commentBy, avtCmt, isAnonymous },
                 {
                     headers: { Authorization: `Bearer ${userInfo.token}` },
                 },
@@ -267,23 +269,29 @@ function StatusDetails() {
                                             <img
                                                 src={annonymous}
                                                 alt="fileUpload"
-                                                style={{ height: 60, width: 60, borderRadius: '50%' }}
+                                                style={{ height: 50, width: 50, borderRadius: '50%' }}
                                             />
                                         ) : (
                                             <img
-                                                src={Ava}
+                                                src={comment.avtCmt}
                                                 alt="fileUpload"
-                                                style={{ height: 60, width: 60, borderRadius: '50%' }}
+                                                style={{ height: 50, width: 50, borderRadius: '50%' }}
                                             />
                                         )}
+                                        <div  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px', marginLeft: '10px'}}>
                                         {comment.isAnonymous ? (
-                                            <strong>Unknow People</strong>
+                                            <strong>Unknown People</strong>
                                         ) : (
                                             <strong>{comment.commentBy}</strong>
                                         )}
+                                        <div style={{ marginRight: '50px'}}>
+                                        <p>{comment.content}</p>
+                                        </div>
+                                        </div>
                                     </div>
-                                    <p>{comment.content}</p>
+                                    <div style={{ position: 'absolute', top: '0px', right: '0'}}>
                                     <p>{comment.createdAt.substring(0, 10)}</p>
+                                    </div>
                                 </div>
                             </ListGroup.Item>
                         ))}
@@ -292,30 +300,9 @@ function StatusDetails() {
                 {/* ==================== Comment-Input ==================== */}
                 {userInfo ? (
                     <form onSubmit={submitHandler}>
-                        <div className="mt-3  gap-3 " style={{ display: 'flex', alignItems: 'center' }}>
-                            <img
-                                src={userInfo.avatar}
-                                alt="fileUpload"
-                                style={{ height: 60, width: 60, borderRadius: '50%' }}
-                            />
-                            <Form.Control
-                                as="textarea"
-                                rows={1}
-                                placeholder="Enter your comment"
-                                value={content}
-                                onChange={(e) => setContent(e.target.value)}
-                            />
-                            <Button
-                                type="submit"
-                                style={{ marginLeft: '10px', background: 'black' }}
-                                disabled={loadingCreateComment}
-                            >
-                                Summit
-                            </Button>
-                            {loadingCreateComment && <LoadingBox></LoadingBox>}
                             <div>
                                 <Form.Check
-                                    className="mb-3"
+                                    className="mt-3 ml-2"
                                     type="checkbox"
                                     id="isAnonymous"
                                     label="isAnonymous"
@@ -323,6 +310,30 @@ function StatusDetails() {
                                     onChange={(e) => setIsAnonymous(e.target.checked)}
                                 />
                             </div>
+                        <div className="mt-3  gap-3 " style={{ display: 'flex', alignItems: 'center', flexDirection: 'row' }}>   
+                            <img
+                                src={userInfo.avatar}
+                                alt="fileUpload"
+                                style={{ height: 50, width: 50, borderRadius: '50%' }}
+                            />
+                            <Form.Control
+                                as="textarea"
+                                rows={1}
+                                placeholder="Enter your comment"
+                                value={content}
+                                style={{width:'600px', height:'50px'}}
+                                onChange={(e) => setContent(e.target.value)}
+                            />
+                            <Button
+                                type="submit"
+                                style={{ marginLeft: '10px'}}
+                                disabled={loadingCreateComment}
+                                className='btn btn-primary'
+                            >
+                                Submit
+                            </Button>
+                            {loadingCreateComment && <LoadingBox></LoadingBox>}
+                            
                         </div>
                     </form>
                 ) : (

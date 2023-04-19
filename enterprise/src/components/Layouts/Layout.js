@@ -1,8 +1,9 @@
 import React from "react";
 import Routers from "../../Router/Routers";
-import Navbar from "../Navbar/Navbar.jsx";
+
 import Sidebar from "../Sidebar/Sidebar";
 import"../Layouts/Layout.css"
+import { Container } from "react-bootstrap";
 
 
 const Layout = () => {
@@ -17,10 +18,6 @@ const Layout = () => {
       </div>
       {/* ===================content=================== */}
       <div className="center">
-        <Navbar />
-        <div className="">
-         
-        </div>
         <Routers />
       </div>
     </div>

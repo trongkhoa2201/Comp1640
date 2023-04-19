@@ -115,6 +115,19 @@ adminRouter.get(
     ]);
     const postInTopic = await Post.aggregate([
       {
+        // liên kết (join) hai bảng User và departments
+        $lookup: {
+          from: 'topics',
+          localField: 'topic',
+          foreignField: '_id',
+          as: 'topic',
+        },
+      },
+      {
+        //mở rộng các giá trị = > bản ghi đơn lẻ
+        $unwind: '$topic',
+      },
+      {
         $group: {
           _id: '$topic',
           count: { $sum: 1 },
@@ -229,6 +242,8 @@ adminRouter.put(
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
       user.avatar = req.body.avatar || user.avatar;
+      user.role = req.body.role || user.role;
+      user.department = req.body.department || user.department;
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 8);
       }
@@ -239,6 +254,8 @@ adminRouter.put(
         name: updatedUser.name,
         email: updatedUser.email,
         avatar: updatedUser.avatar,
+        role: updatedUser.role,
+        department: updatedUser.department,
         token: generateToken(updatedUser),
       });
     } else {

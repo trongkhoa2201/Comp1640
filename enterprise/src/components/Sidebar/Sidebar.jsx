@@ -1,15 +1,15 @@
 import {
-  CDBSidebar,
-  CDBSidebarContent,
-  CDBSidebarFooter,
-  CDBSidebarHeader,
-  CDBSidebarMenu,
-  CDBSidebarMenuItem,
-} from "cdbreact";
-import React, { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
-import SidebarData from "./SidebarData";
-import { Store } from "../../Store";
+    CDBSidebar,
+    CDBSidebarContent,
+    CDBSidebarFooter,
+    CDBSidebarHeader,
+    CDBSidebarMenu,
+    CDBSidebarMenuItem,
+} from 'cdbreact';
+import React, { useContext } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import SidebarData from './SidebarData';
+import { Store } from '../../Store';
 
 const Sidebar = () => {
     const ForAdmin = [

@@ -5,6 +5,7 @@ import axios from 'axios';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { getError } from '../getError';
 import { Store } from '../Store';
+import '../Styles/profile.css'
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -25,7 +26,8 @@ export default function Profile() {
     const { userInfo } = state;
     const [name, setName] = useState(userInfo.name);
     const [email, setEmail] = useState(userInfo.email);
-    const [password, setPassword] = useState('');
+    const [role, setRole] = useState(userInfo.role);
+    const [department, setDepartment] = useState(userInfo.department);
     const [avatar, setAvatar] = useState(userInfo.avatar);
 
     const [{ loadingUpdate }, dispatch] = useReducer(reducer, {
@@ -37,7 +39,7 @@ export default function Profile() {
         try {
             const { data } = await axios.put(
                 '/api/users/profile',
-                { name, email, password, avatar },
+                { name, email, role, avatar },
                 {
                     headers: { Authorization: `Bearer ${userInfo.token}` },
                 },
@@ -77,56 +79,44 @@ export default function Profile() {
         <div className="accountContainer">
             <Container className="small-container">
                 <Row className="accountContainer">
-                    <Col className="col-8">
-                        <h1 className="text-center">Edit account</h1>
+                    <Col className="col-6">
+                        <h1 className="text-center">My Profile</h1>
                         <Form onSubmit={updateHandler}>
                             <Form.Group className="mb-3" controlId="name">
                                 <Form.Label>Name</Form.Label>
-                                <Form.Control value={name} onChange={(e) => setName(e.target.value)} required />
+                                <Form.Control value={name} onChange={(e) => setName(e.target.value)} disabled />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="email">
                                 <Form.Label>Email</Form.Label>
-                                <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} required />
+                                <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} disabled />
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="password">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control value={password} onChange={(e) => setPassword(e.target.value)} required />
+                            <Form.Group className="mb-3" controlId="role">
+                                <Form.Label>Role</Form.Label>
+                                <Form.Control value={role} onChange={(e) => setRole(e.target.value)} disabled />
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="avatar">
-                                <Form.Label>Avatar</Form.Label>
-                                <Form.Control
-                                    value={avatar}
-                                    onChange={(e) => setAvatar(e.target.value)}
-                                    required
-                                    disabled
-                                />
+                            <Form.Group className="mb-3" controlId="department">
+                                <Form.Label>Departments</Form.Label>
+                                <Form.Control value={department} onChange={(e) => setDepartment(e.target.value)} disabled />
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="imageFile">
-                                <Form.Label>Upload new Avatar</Form.Label>
-                                <Form.Control type="file" onChange={uploadFileHandler} />
-                            </Form.Group>
-                            <div className="text-center">
-                                <Button type="submit">Update</Button>
-                            </div>
                         </Form>
                     </Col>
-                    <Col>
+                    <Col className="col-6">
                         <ListGroup.Item>
                             <Row className="avatar-display">
                                 <Col
                                     style={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        borderRadius: '50%',
                                         justifyContent: 'center',
+                                        flexDirection: 'column',
                                     }}
                                 >
-                                    <div></div>
-                                    <img
-                                        src={avatar}
-                                        alt={avatar}
-                                        className="img-fluid rounded mx-auto d-block img-thumbnails"
-                                    ></img>
+                                    <div className="avatar-thumbnails">
+                                        <img
+                                            src={avatar}
+                                            alt={avatar}
+                                        ></img>
+                                    </div>
                                 </Col>
                             </Row>
                         </ListGroup.Item>
